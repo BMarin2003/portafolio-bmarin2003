@@ -18,6 +18,7 @@ export function applyNowPlaying(speaker: HTMLElement, data: NowPlaying): void {
 
 export function startNowPlaying(speakers: HTMLElement[], intervalMs = 30000): void {
   const tick = async () => {
+    if (document.hidden) return;
     let data: NowPlaying = { playing: false };
     try {
       const res = await fetch('/api/now-playing');

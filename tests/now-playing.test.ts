@@ -50,3 +50,21 @@ describe('startNowPlaying', () => {
     expect(b.querySelector('[data-rotate]')!.hasAttribute('data-paused')).toBe(false);
   });
 });
+
+describe('startNowPlaying con la pestaña oculta', () => {
+  afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals(); vi.restoreAllMocks(); });
+  it('no hace fetch mientras document.hidden', async () => {
+    const a = speaker();
+    const f = vi.fn().mockResolvedValue(Response.json({ playing: false }));
+    vi.stubGlobal('fetch', f);
+    let hidden = true;
+    vi.spyOn(document, 'hidden', 'get').mockImplementation(() => hidden);
+    vi.useFakeTimers();
+    startNowPlaying([a], 30000);
+    await vi.advanceTimersByTimeAsync(60000);
+    expect(f).not.toHaveBeenCalled();
+    hidden = false;
+    await vi.advanceTimersByTimeAsync(30000);
+    expect(f).toHaveBeenCalledTimes(1);
+  });
+});
