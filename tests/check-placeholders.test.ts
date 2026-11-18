@@ -8,6 +8,9 @@ describe('findPlaceholders', () => {
   it('no marca HTML normal', () => {
     expect(findPlaceholders('<a href="x">Andor</a>')).toEqual([]);
   });
+  it('ve corchetes en valores de atributos', () => {
+    expect(findPlaceholders('<a href="[linkedin]">linkedin</a>')).toEqual(['[linkedin]']);
+  });
   it('ignora script y style', () => {
     expect(findPlaceholders('<script>a[0]</script>')).toEqual([]);
     expect(findPlaceholders('<style>a[href]{}</style>')).toEqual([]);

@@ -2,11 +2,12 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-/** Corchetes pendientes ([Qué hice], [nombres]) en el texto visible de un HTML. */
+/**
+ * Corchetes pendientes ([Qué hice], [linkedin]) en un HTML: texto y valores de
+ * atributos (un href="[linkedin]" también cuenta). Solo se descartan script y style.
+ */
 export function findPlaceholders(html) {
-  const text = html
-    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
-    .replace(/<[^>]*>/g, '');
+  const text = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
   return text.match(/\[[^\[\]\n]{1,60}\]/g) ?? [];
 }
 
