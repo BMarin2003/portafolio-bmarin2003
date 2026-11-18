@@ -10,12 +10,15 @@ export type SpriteDef = {
 
 export function validateSprite(def: SpriteDef): string[] {
   const errors: string[] = [];
+  if (![def.width, def.height].every((n) => Number.isInteger(n) && n > 0)) errors.push(`${def.name}: tamaño inválido`);
+  if (Object.keys(def.animations).length === 0) errors.push(`${def.name}: sin animaciones`);
   if (def.palette['.'] !== null) errors.push(`${def.name}: '.' debe ser null en la paleta`);
   for (const [ch, color] of Object.entries(def.palette)) {
     if (ch.length !== 1) errors.push(`${def.name}: clave de paleta '${ch}' debe ser un carácter`);
     if (color !== null && !/^#[0-9a-fA-F]{6}$/.test(color)) errors.push(`${def.name}: color '${color}' no es #RRGGBB`);
   }
   for (const [anim, frames] of Object.entries(def.animations)) {
+    if (frames.length === 0) errors.push(`${def.name}/${anim}: sin cuadros`);
     frames.forEach((rows, f) => {
       const at = `${def.name}/${anim}/${f}`;
       if (rows.length !== def.height) errors.push(`${at}: ${rows.length} filas, se esperaban ${def.height}`);

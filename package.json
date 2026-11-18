@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm run sprites && astro dev",
     "sprites": "node scripts/build-sprites.ts",
     "sprites:preview": "node scripts/build-sprites.ts --preview",
     "build:draft": "npm run sprites && astro build",

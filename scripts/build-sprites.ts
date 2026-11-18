@@ -1,5 +1,5 @@
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { encodePng } from '../art/lib/png.ts';
 import { buildSheet } from '../art/lib/sheet.ts';
@@ -20,6 +20,7 @@ export async function buildAll({ srcDir, outDir, previewDir }: Opts) {
       errors.push(`${file}: sin export default`);
       continue;
     }
+    if (def.name !== basename(file, '.ts')) errors.push(`${file}: name '${def.name}' no coincide con el archivo`);
     errors.push(...validateSprite(def));
     defs.push(def);
   }

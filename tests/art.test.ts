@@ -25,6 +25,16 @@ describe('validateSprite', () => {
   it('informa un número de filas incorrecto', () => {
     expect(validateSprite(def({ idle: [['r.', '.r', '..']] }))).toContain('t/idle/0: 3 filas, se esperaban 2');
   });
+  it('rechaza un sprite sin animaciones', () => {
+    expect(validateSprite(def({}))).toContain('t: sin animaciones');
+  });
+  it('rechaza una animación sin cuadros', () => {
+    expect(validateSprite(def({ idle: [] }))).toContain('t/idle: sin cuadros');
+  });
+  it('rechaza un tamaño que no es entero positivo', () => {
+    expect(validateSprite({ ...def({ idle: [['r.', '.r']] }), width: 0 })).toContain('t: tamaño inválido');
+    expect(validateSprite({ ...def({ idle: [['r.', '.r']] }), height: 1.5 })).toContain('t: tamaño inválido');
+  });
 });
 
 describe('encodePng', () => {

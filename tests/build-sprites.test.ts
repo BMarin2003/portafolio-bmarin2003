@@ -46,6 +46,13 @@ describe('buildAll', () => {
     expect(await readdir(out)).toEqual([]);
   });
 
+  it('rechaza un name distinto del archivo y no escribe nada', async () => {
+    await writeFile(join(src, 'a.ts'), sprite('b', 'r.'));
+    const res = await buildAll({ srcDir: src, outDir: out });
+    expect(res.errors).toContain("a.ts: name 'b' no coincide con el archivo");
+    expect(await readdir(out)).toEqual([]);
+  });
+
   it('escribe la vista previa a escala x10', async () => {
     await writeFile(join(src, 't.ts'), sprite('t', 'r.'));
     await buildAll({ srcDir: src, outDir: out, previewDir: preview });
