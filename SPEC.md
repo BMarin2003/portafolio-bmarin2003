@@ -35,6 +35,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
 - **Portada:** la casa en corte. En el taller, la cuadrilla trabaja en sus mesas. En el cuarto hay una PC, una TV, un parlante y una mesa de rol con dados.
 - **El taller:**
   - Proyectos de CorAll en los que Bryan formó parte: Totem Multimedia, CCAE, MaqinPro, Comphill, Corall-ERP e ITN.
+    Cada uno cuenta qué hizo Bryan y, cuando él lo da, "el reto": un obstáculo concreto y cómo se resolvió.
   - La cuadrilla: hallmark (diseño), ponytail (criterio), superpowers (método), cc-safety-net (seguridad) y Obsidian (memoria).
 - **El cuarto:**
   - Rol: D&D primero, después Cyberpunk RED.

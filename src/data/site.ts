@@ -2,7 +2,7 @@ import type { ImageMetadata } from 'astro';
 
 export type Person = { name: string; url?: string };
 export type People = { companeros: Person[]; supervisores: Person[]; gerentes: Person[] };
-export type CorallProject = { name: string; did: string; people: People };
+export type CorallProject = { name: string; did: string; challenge?: string; people: People };
 export type CrewMember = { name: string; title: string; color: string; role: string; variant?: 'sleepy' | 'helmet' };
 export type Credit = { title: string; cover?: ImageMetadata; source: string; sourceUrl: string };
 
@@ -26,6 +26,7 @@ export const corall: CorallProject[] = [
   {
     name: 'MaqinPro',
     did: 'Plataforma de gestión para Maqinpro, empresa de maquinaria industrial y profesional: un panel interno para su taller y un portal desde el que sus clientes siguen sus equipos, aprueban cotizaciones y consultan sus documentos. Fue el proyecto con más personas involucradas y, a mitad de camino, quedó bajo mi responsabilidad. Desde entonces lo llevo adelante, con el apoyo de Luis Hume en el portal del cliente.',
+    challenge: 'entender a fondo cómo trabaja el taller y encontrar el equilibrio entre lo que les resulta cómodo y lo que es más eficiente. En el portal, por ejemplo, el cliente entra desde el celular escaneando el QR de su ticket, muchas veces de pie y con una mano. En vez de mostrarle cada etapa interna del taller, que solo lo confundía, las agrupamos en «En proceso en el taller» y siempre le decimos qué sigue.',
     people: {
       companeros: [p('Luis Hume'), p('Adrian Cisneros', 'https://acisneros-portfolio.vercel.app/es'), p('Alfredo Guzman'), p('Angelmauricio Oncoy')],
       supervisores: [p('Luis Mostacero')],

@@ -35,6 +35,15 @@ describe('Taller', () => {
     expect(names).toEqual(crew.map((c) => c.name));
     expect(names.length).toBe(5);
   });
+  it('muestra "El reto" solo en los proyectos que lo tienen', () => {
+    const articles = [...taller.querySelectorAll('[data-project]')];
+    corall.forEach((p, i) => {
+      const reto = articles[i].querySelector('[data-challenge]');
+      if (p.challenge) expect(reto?.textContent?.replace(/\s+/g, ' ').trim()).toBe(`El reto: ${p.challenge}`);
+      else expect(reto).toBeNull();
+    });
+    expect(corall.find((p) => p.name === 'MaqinPro')?.challenge).toContain('En proceso en el taller');
+  });
 });
 
 describe('People', () => {

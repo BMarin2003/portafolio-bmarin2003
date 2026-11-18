@@ -17,6 +17,7 @@ import { peopleGroups } from '../lib/text';
         <span class="mono n">{String(i + 1).padStart(2, '0')}</span>
         <h4>{p.name}</h4>
         <p>{p.did}{peopleGroups(p.people).length > 0 && ' · '}<People people={p.people} /></p>
+        {p.challenge && <p class="challenge" data-challenge><strong>El reto:</strong> {p.challenge}</p>}
       </article>
     ))}
   </div>
