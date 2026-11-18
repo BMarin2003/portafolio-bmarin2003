@@ -1,3 +1,4 @@
+import { blink, low, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
 // cc-safety-net (seguridad): bot terracota con casco ámbar.
@@ -32,16 +33,6 @@ const rise = arm(['', '', '', '', 'lc', 'cc', 'dc', 'dc', 'dd', 'oo']);
 const palm = ['', '', 'c.c', 'ccc', 'ccc', 'dc', 'dc', 'dc', 'dd', 'oo'];
 const halt = arm(palm);
 const shout = arm(palm, true);
-
-const FEET = '....oo....oo....';
-const stand = (b: string[]) => [...b, FEET, FEET];
-const step = (b: string[], up: 'left' | 'right') => [
-  ...b,
-  FEET,
-  up === 'left' ? '..........oo....' : '....oo..........',
-];
-const low = (b: string[]) => ['................', ...b, FEET];
-const blink = (b: string[]) => b.map((r, y) => (y === 5 || y === 6 ? r.replace(/[ew]/g, 'c') : r));
 
 const def: SpriteDef = {
   name: 'safety-net',

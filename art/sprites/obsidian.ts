@@ -1,3 +1,4 @@
+import { blink, low, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
 // Obsidian (memoria): bot violeta que lee un libro abierto, más ancho que él.
@@ -35,16 +36,6 @@ const shut = book([
   '...obbbbbbbbo...',
   '....pppppppp....',
 ]);
-
-const FEET = '....oo....oo....';
-const stand = (b: string[]) => [...b, FEET, FEET];
-const step = (b: string[], up: 'left' | 'right') => [
-  ...b,
-  FEET,
-  up === 'left' ? '..........oo....' : '....oo..........',
-];
-const low = (b: string[]) => ['................', ...b, FEET];
-const blink = (b: string[]) => b.map((r, y) => (y === 5 || y === 6 ? r.replace(/[ew]/g, 'c') : r));
 
 const def: SpriteDef = {
   name: 'obsidian',

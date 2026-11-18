@@ -1,3 +1,4 @@
+import { blink, low, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
 // superpowers (método): bot azul con un portapapeles en la mano izquierda.
@@ -24,16 +25,6 @@ const sheet = (paper: string[]) => body.map((r, y) => (y >= 10 && y <= 12 ? r[0]
 const blank = sheet(['pppp', 'pppp', 'pppp']);
 const tick1 = sheet(['pppp', 'gppp', 'pgpp']);
 const tick2 = sheet(['pppg', 'gpgp', 'pgpp']);
-
-const FEET = '....oo....oo....';
-const stand = (b: string[]) => [...b, FEET, FEET];
-const step = (b: string[], up: 'left' | 'right') => [
-  ...b,
-  FEET,
-  up === 'left' ? '..........oo....' : '....oo..........',
-];
-const low = (b: string[]) => ['................', ...b, FEET];
-const blink = (b: string[]) => b.map((r, y) => (y === 5 || y === 6 ? r.replace(/[ew]/g, 'c') : r));
 
 const def: SpriteDef = {
   name: 'superpowers',

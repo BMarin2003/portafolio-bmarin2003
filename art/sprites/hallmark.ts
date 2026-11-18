@@ -1,3 +1,4 @@
+import { blink, low, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
 // hallmark (diseño): bot rosado con un lápiz en alto en el puño derecho.
@@ -24,16 +25,6 @@ const trace = (marks: string[]) => [...marks, ...body.slice(2)];
 const draw1 = trace(['............wwo.', '..............tt']);
 const draw2 = trace(['.........w..wwo.', '..........ww..tt']);
 const draw3 = trace(['......w..w..wwo.', '.......ww.ww..tt']);
-
-const FEET = '....oo....oo....';
-const stand = (b: string[]) => [...b, FEET, FEET];
-const step = (b: string[], up: 'left' | 'right') => [
-  ...b,
-  FEET,
-  up === 'left' ? '..........oo....' : '....oo..........',
-];
-const low = (b: string[]) => ['................', ...b, FEET];
-const blink = (b: string[]) => b.map((r, y) => (y === 5 || y === 6 ? r.replace(/[ew]/g, 'c') : r));
 
 const def: SpriteDef = {
   name: 'hallmark',

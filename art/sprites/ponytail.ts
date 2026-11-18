@@ -1,3 +1,4 @@
+import { low, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
 // ponytail (criterio): bot ámbar con coleta y párpados caídos, el senior flojo.
@@ -35,15 +36,6 @@ const yawn2 = yawn([
   '..occceeeeccco..',
   '..odccemmeccdo..',
 ]);
-
-const FEET = '....oo....oo....';
-const stand = (b: string[]) => [...b, FEET, FEET];
-const step = (b: string[], up: 'left' | 'right') => [
-  ...b,
-  FEET,
-  up === 'left' ? '..........oo....' : '....oo..........',
-];
-const low = (b: string[]) => ['................', ...b, FEET];
 
 const def: SpriteDef = {
   name: 'ponytail',
