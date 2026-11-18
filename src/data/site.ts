@@ -26,40 +26,40 @@ export const crew: CrewMember[] = [
   { name: 'obsidian', title: 'Memoria', color: '#958AC0', role: 'Todo lo aprendido termina en el vault.' },
 ];
 
-const steam = (title: string): Credit => ({
+const steam = (title: string, id: number): Credit => ({
   title,
   source: 'Steam',
-  sourceUrl: `https://store.steampowered.com/search/?term=${encodeURIComponent(title)}`,
+  sourceUrl: `https://store.steampowered.com/app/${id}/`,
 });
 
 export const games: Credit[] = [
-  'RimWorld',
-  'Mount & Blade: Warband',
-  'Crusader Kings II',
-  'Crusader Kings III',
-  'Project Zomboid',
-  'Fallout 4',
-  'Fallout: New Vegas',
-].map(steam);
+  steam('RimWorld', 294100),
+  steam('Mount & Blade: Warband', 48700),
+  steam('Crusader Kings II', 203770),
+  steam('Crusader Kings III', 1158310),
+  steam('Project Zomboid', 108600),
+  steam('Fallout 4', 377160),
+  steam('Fallout: New Vegas', 22380),
+];
 
-const imdb = (title: string): Credit => ({
-  title,
-  source: 'IMDb',
-  sourceUrl: `https://www.imdb.com/find/?q=${encodeURIComponent(title)}&s=tt`,
-});
+const imdb = (title: string, url: string): Credit => ({ title, source: 'IMDb', sourceUrl: url });
+// IMDb bloquea las consultas automáticas (403): sin IDs verificados, cada título
+// apunta a la búsqueda. Reemplazar por https://www.imdb.com/title/tt<id>/ al verificar.
+const imdbSearch = (title: string, query = title) =>
+  imdb(title, `https://www.imdb.com/find/?q=${encodeURIComponent(query)}&s=tt`);
 
 export const screens: Credit[] = [
-  'Django sin cadenas',
-  'The Batman',
-  'Superman (2025)',
-  'El Señor de los Anillos',
-  'Andor',
-  'Vinland Saga',
-  'Power Rangers SPD',
-  'The Walking Dead',
-  'Game of Thrones',
-  'Brooklyn Nine-Nine',
-].map(imdb);
+  imdbSearch('Django sin cadenas', 'Django Unchained'),
+  imdbSearch('The Batman', 'The Batman 2022'),
+  imdbSearch('Superman (2025)'),
+  imdbSearch('El Señor de los Anillos'),
+  imdbSearch('Andor'),
+  imdbSearch('Vinland Saga'),
+  imdbSearch('Power Rangers SPD', 'Power Rangers S.P.D.'),
+  imdbSearch('The Walking Dead'),
+  imdbSearch('Game of Thrones'),
+  imdbSearch('Brooklyn Nine-Nine'),
+];
 
 export const bands: string[] = ['Enjambre', 'Los Bunkers', 'Rio', 'Enanitos Verdes', 'Jamiroquai'];
 
