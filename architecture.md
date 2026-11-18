@@ -25,6 +25,7 @@ parent: portfolio
 - **Español primero, con rutas de idioma listas.** El sistema de idiomas de Astro se configura desde el inicio, así sumar el inglés solo agrega textos y no obliga a reestructurar.
 - **Portadas y pósters como archivos propios del sitio, optimizados al compilar.** Cargar las imágenes desde la CDN de Steam u otros sitios deja la página a merced de terceros. Decisión mía: Bryan puede cambiarla.
 - **En celular, la casa se apila.** Los pisos van uno debajo del otro a todo el ancho y las anotaciones de plano se ocultan. Decisión mía.
+- **Pixel art como código.** Los personajes son módulos TypeScript con la rejilla de píxeles y la paleta; un script los convierte en hojas PNG durante el build. Así el arte es original, versionado, revisable en un diff y sin licencias. Se descartaron los packs de terceros (licencias y estilo ajeno) y los generadores de IA de pago (costo y poco control).
 
 ## Invariantes
 
@@ -33,3 +34,4 @@ parent: portfolio
 - **Se respeta `prefers-reduced-motion`.** Si el visitante lo pide, se detienen las animaciones y la rotación.
 - **Ningún texto entre corchetes (`[nombres]`, `[Qué hice]`) llega a producción.** El build falla si encuentra uno. Decisión mía.
 - **Contraste mínimo de 4.5:1** en todo el texto, también en las anotaciones chicas.
+- **Los PNG de sprites se generan en el build; nunca se editan ni se versionan a mano.**

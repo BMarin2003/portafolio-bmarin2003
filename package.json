@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build:draft": "astro build",
-    "build": "astro build && node scripts/check-placeholders.mjs dist",
+    "sprites": "node scripts/build-sprites.ts",
+    "sprites:preview": "node scripts/build-sprites.ts --preview",
+    "build:draft": "npm run sprites && astro build",
+    "build": "npm run sprites && astro build && node scripts/check-placeholders.mjs dist",
     "preview": "astro preview",
     "test": "vitest run"
   },
