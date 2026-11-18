@@ -4,11 +4,12 @@ import type { SpriteDef } from '../art/lib/sprite.ts';
 
 const OUTLINE = '#39414E';
 const CREW: Record<string, string> = {
-  hallmark: '#C48A96',
-  ponytail: '#D9A55B',
-  superpowers: '#7C93B8',
-  'safety-net': '#C27A5C',
-  obsidian: '#958AC0',
+  capataz: '#D9A55B',
+  maestro: '#C27A5C',
+  decorador: '#C48A96',
+  electricista: '#7C93B8',
+  doble: '#8FA86B',
+  archivista: '#958AC0',
 };
 
 // El color más frecuente en todos los cuadros, sin contar transparente ni contorno.

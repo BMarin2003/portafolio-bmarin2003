@@ -1,4 +1,4 @@
-import { blink, low, stand, step } from '../lib/frames.ts';
+import { blink, low, over, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
 // Bryan: el humano de la cuadrilla. Pelo oscuro y polera ámbar, los ojos de la familia.
@@ -30,13 +30,6 @@ const body = [
 const SHOES = '...ozzo..ozzo...';
 
 // tirada: sube el dado en la mano, lo suelta y cae junto a los pies.
-// `over` pinta un parche sobre el cuadro; el espacio deja lo que había.
-const over = (frame: string[], x: number, y: number, patch: string[]) =>
-  frame.map((r, i) =>
-    patch[i - y] === undefined
-      ? r
-      : [...r].map((ch, j) => (patch[i - y][j - x] ?? ' ') === ' ' ? ch : patch[i - y][j - x]).join(''),
-  );
 const DIE = ['www', 'wew', 'www'];
 const TUMBLE = [' ww', 'wew', 'ww '];
 const up = over(stand(body, SHOES), 12, 10, [

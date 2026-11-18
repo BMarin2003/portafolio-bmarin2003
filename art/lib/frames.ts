@@ -16,3 +16,11 @@ export const low = (body: string[], feet = FEET) => ['.'.repeat(feet.length), ..
 // Ojos cerrados (filas 5 y 6): queda la línea de abajo del ojo. `lid` es el color del párpado.
 export const blink = (body: string[], lid = 'c') =>
   body.map((r, y) => (y === 5 || y === 6 ? r.replace(/[ew]/g, lid) : r));
+
+// `over` pinta un parche sobre el cuadro desde (x, y); el espacio deja lo que había.
+export const over = (frame: string[], x: number, y: number, patch: string[]) =>
+  frame.map((r, i) =>
+    patch[i - y] === undefined
+      ? r
+      : [...r].map((ch, j) => ((patch[i - y][j - x] ?? ' ') === ' ' ? ch : patch[i - y][j - x])).join(''),
+  );

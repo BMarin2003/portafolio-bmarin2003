@@ -23,7 +23,7 @@ Define el formato de sprite, lo valida y lo convierte en hojas PNG con su metada
 - **Hoja:** una fila por animación, en el orden de las claves; los cuadros van de izquierda a derecha, sin relleno entre ellos. `SheetMeta` da `frameWidth`, `frameHeight` y, por animación, `row` y `frames`. Los consumidores usan `row`, no índices fijos.
 - **URLs:** `name` es igual al nombre del archivo (sin `.ts`); el build lo exige, así que dos sprites no se pisan.
 - **Animaciones garantizadas:**
-  - Cuadrilla: `idle` (2), `walk` (4), `action` (2 a 4).
+  - Cuadrilla (`capataz`, `maestro`, `decorador`, `electricista`, `doble`, `archivista`): `idle` (2), `walk` (4), `action` (2 a 4).
   - `bryan`: `idle` (2), `walk` (4), `sit` (1), `roll` (2 a 4).
 - **Sin tiempos ni bucle:** la hoja no dice cuánto dura cada cuadro ni qué animaciones se repiten. Lo decide cada consumidor.
 
@@ -31,6 +31,7 @@ Define el formato de sprite, lo valida y lo convierte en hojas PNG con su metada
 
 - **Arte como código, no PNG a mano.** El diff muestra el dibujo y no hay binarios que revisar. Ver `architecture`.
 - **Los PNG se generan en el build.** `build`, `build:draft` y `dev` corren `npm run sprites` primero.
+- **La cuadrilla son oficios de obra, nunca herramientas.** Ni publicidad ni un stack fijo en los nombres ni en las URLs. Comparten la silueta de bloque y los ojos; cada oficio se reconoce por su color, su indumentaria y su acción.
 - **El build es todo o nada.** Si un sprite es inválido no se escribe ninguna hoja y el comando sale con error.
 
 ## Invariantes
