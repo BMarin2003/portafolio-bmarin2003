@@ -66,6 +66,6 @@ export const bands: string[] = ['Enjambre', 'Los Bunkers', 'Rio', 'Enanitos Verd
 export const rol: string[] = ['D&D', 'Cyberpunk RED'];
 
 export const links = {
-  github: 'https://github.com/BMARIN2003',
+  github: 'https://github.com/BMarin2003',
   linkedin: '[linkedin]',
 };
