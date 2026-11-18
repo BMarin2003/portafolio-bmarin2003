@@ -39,7 +39,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
 - **El cuarto:**
   - Rol: D&D primero, después Cyberpunk RED.
   - La PC rota portadas de RimWorld, Mount & Blade: Warband, Crusader Kings II y III, Project Zomboid, Fallout 4 y Fallout: New Vegas.
-  - La TV rota entre Django sin cadenas, The Batman, Superman (2025), El Señor de los Anillos, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine.
+  - La TV rota entre Django sin cadenas, The Batman, Superman (2025), la trilogía de El Señor de los Anillos, la trilogía de Las Crónicas de Narnia, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine.
   - El parlante muestra lo que Bryan escucha en Spotify en ese momento. Si no suena nada, rota entre Enjambre, Los Bunkers, Rio, Enanitos Verdes y Jamiroquai.
 - **Enlaces** a GitHub y LinkedIn.
 - **En español.** El inglés se suma antes de que Bryan empiece a postular.
