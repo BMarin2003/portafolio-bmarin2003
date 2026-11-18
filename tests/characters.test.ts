@@ -50,3 +50,23 @@ describe.each(Object.entries(CREW))('%s', (name, color) => {
     expect(dominant(await load())).toBe(color);
   });
 });
+
+describe('bryan', () => {
+  const load = async (): Promise<SpriteDef> => (await import('../art/sprites/bryan.ts')).default;
+
+  it('es un sprite válido de 16×24 con su nombre', async () => {
+    const def = await load();
+    expect(validateSprite(def)).toEqual([]);
+    expect(def.name).toBe('bryan');
+    expect([def.width, def.height]).toEqual([16, 24]);
+  });
+
+  it('tiene idle de 2 cuadros, walk de 4, sit de 1 y roll de 2 a 4', async () => {
+    const def = await load();
+    expect(def.animations.idle).toHaveLength(2);
+    expect(def.animations.walk).toHaveLength(4);
+    expect(def.animations.sit).toHaveLength(1);
+    expect(def.animations.roll.length).toBeGreaterThanOrEqual(2);
+    expect(def.animations.roll.length).toBeLessThanOrEqual(4);
+  });
+});
