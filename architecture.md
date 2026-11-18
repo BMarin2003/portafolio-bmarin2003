@@ -14,6 +14,7 @@ parent: portfolio
 - **Scripts de cliente chicos:**
   - La rotación de la PC, la TV y el parlante.
   - La consulta periódica de "qué suena ahora".
+- **Paso de build de sprites:** un script de Node convierte los módulos de `art/sprites/` en hojas PNG y su JSON en `public/sprites/`, antes de compilar y antes de `dev`. Contrato en `module-art`.
 - **Función `/api/now-playing`** (Cloudflare Pages Functions). Consulta la Web API de Spotify con el token de Bryan y devuelve canción y artista, o nada si no suena nada.
 
 ## Decisiones
