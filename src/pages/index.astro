@@ -35,3 +35,11 @@ import { links } from '../data/site';
     </main>
   </div>
 </Base>
+
+<script>
+  import { startRotation } from '../scripts/rotate';
+  startRotation(document, {
+    intervalMs: 3200,
+    reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+  });
+</script>
