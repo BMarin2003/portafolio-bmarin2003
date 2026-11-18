@@ -1,61 +1,68 @@
 import { blink, low, over, stand, step } from '../lib/frames.ts';
 import type { SpriteDef } from '../lib/sprite.ts';
 
-// Bryan: el humano de la cuadrilla. Pelo oscuro y polera ámbar, los ojos de la familia.
+// Bryan: el humano de la cuadrilla. Piel trigueña, pelo negro ondulado con flequillo, cara redonda
+// y polo granate con cuello; los ojos de la familia.
 // Cuerpo de las filas 0-21; los zapatos van aparte para el rebote de la caminata.
-const body = [
-  '....oooooooo....',
-  '...ohHHhhhhho...',
-  '..ohHhhhhhhhho..',
-  '..ohhhhhhhhhho..',
-  '..ohssshssssho..',
-  '..ohseesseesho..',
-  '..ohsewssewsho..',
-  '..osseesseesso..',
+const head = [
+  '....ooo.oooo....',
+  '...ohhhohhHhoo..',
+  '..ohhHhhhhhHhhho',
+  '.ohhhhhHhhhhhhho',
+  '.ohhhHhhhhhHhhho',
+  '.ohhseesseeshho.',
+  '.ohssewssewssho.',
+  '.ohsseesseessho.',
   '..osssssssssso..',
-  '..ossssSSsssso..',
-  '...oSssssssSo...',
-  '....ooSSSSoo....',
-  '..oolllSSllloo..',
-  '.olccccddcccclo.',
-  '.occdccccccdcco.',
+  '..osssssssssso..',
+  '...osssmmssso...',
+  '....oSSSSSSo....',
+  '..oocclllccoo...',
+];
+const legs = [
+  '..oppppppppppo..',
+  '..oppppppppppo..',
+  '..oppppooppppo..',
+  '..opppo..opppo..',
+  '..oPPPo..oPPPo..',
+];
+// brazos a los lados (caminata, tirada) y cruzados sobre la panza (reposo)
+const body = [
+  ...head,
+  '.occcclSSlcccco.',
+  '.occdcccdccdcco.',
   '.occdccccccdcco.',
   '.ossoddddddosso.',
-  '..ooppppppppoo..',
-  '...oppppppppo...',
-  '...opppoopppo...',
-  '...oppo..oppo...',
-  '...oPPo..oPPo...',
+  ...legs,
 ];
-const SHOES = '...ozzo..ozzo...';
+const crossed = [
+  ...head,
+  '.occcclSSlcccco.',
+  '.oclsssssssssco.',
+  '.ocSSSSSSSSSlco.',
+  '.ocddddddddddco.',
+  ...legs,
+];
+const SHOES = '..ozzzo..ozzzo..';
 
 // tirada: sube el dado en la mano, lo suelta y cae junto a los pies.
 const DIE = ['www', 'wew', 'www'];
 const TUMBLE = [' ww', 'wew', 'ww '];
-const up = over(stand(body, SHOES), 12, 10, [
-  ' www',
-  ' wew',
-  ' www',
-  'osso',
-  'csso',
-  'cllo',
-  'do..',
-  'o...',
-]);
+const up = over(stand(body, SHOES), 12, 9, [' www', ' wew', ' www', 'osso', 'ccso', 'cco.', 'ddo.']);
 const toss = over(stand(body, SHOES), 13, 18, TUMBLE);
 const land = over(stand(body, SHOES), 13, 21, DIE);
 
 // sentado de perfil frente a la PC, en un piso
 const sit = [
-  '....oooooo......',
-  '...ohhhhhhoo....',
-  '..ohhhhhhhhho...',
-  '..ohhhhhhhhho...',
-  '..ohhhhhsssso...',
+  '...ooo.oooo.....',
+  '..ohhhohhHhoo...',
+  '..ohhHhhhhhhho..',
+  '.ohhhhhhhHhhhho.',
+  '.ohhhHhhhhhshho.',
   '..ohhhhsseeso...',
   '..ohhhSssewso...',
   '..ohhhSsseesso..',
-  '..ohhhssssssso..',
+  '..ohhhsssssmso..',
   '...ohsssssSSo.oo',
   '....osssssso..bo',
   '.....ooSSoo...bo',
@@ -80,23 +87,24 @@ const def: SpriteDef = {
   palette: {
     '.': null,
     o: '#39414E',
-    h: '#3A2C26',
-    H: '#5C463A',
-    s: '#E8BFA0',
-    S: '#C4977A',
+    h: '#26222B',
+    H: '#4A4252',
+    s: '#B97A57',
+    S: '#94593D',
+    m: '#6E3B2A',
     e: '#1C2129',
     w: '#F4EFE6',
-    c: '#D9A55B',
-    l: '#F0CB86',
-    d: '#A97B3A',
-    p: '#55627E',
-    P: '#434E66',
+    c: '#8E2232',
+    l: '#A8384A',
+    d: '#6A1824',
+    p: '#4B5468',
+    P: '#3C4456',
     k: '#8C6A4E',
     b: '#8FB8DE',
     z: '#C9CED6',
   },
   animations: {
-    idle: [stand(body, SHOES), stand(blink(body, 's'), SHOES)],
+    idle: [stand(crossed, SHOES), stand(blink(crossed, 's'), SHOES)],
     walk: [step(body, 'left', SHOES), low(body, SHOES), step(body, 'right', SHOES), low(body, SHOES)],
     sit: [sit],
     roll: [up, toss, land],

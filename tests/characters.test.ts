@@ -12,13 +12,14 @@ const CREW: Record<string, string> = {
   archivista: '#958AC0',
 };
 
-// El color más frecuente en todos los cuadros, sin contar transparente ni contorno.
-function dominant(def: SpriteDef): string {
+// Los colores por frecuencia en todos los cuadros, sin contar transparente ni contorno.
+function byFrequency(def: SpriteDef, only?: (ch: string) => boolean): string[] {
   const counts = new Map<string, number>();
   for (const frames of Object.values(def.animations)) {
     for (const rows of frames) {
       for (const row of rows) {
         for (const ch of row) {
+          if (only && !only(ch)) continue;
           const color = def.palette[ch]?.toUpperCase();
           if (!color || color === OUTLINE) continue;
           counts.set(color, (counts.get(color) ?? 0) + 1);
@@ -26,7 +27,17 @@ function dominant(def: SpriteDef): string {
       }
     }
   }
-  return [...counts].sort((a, b) => b[1] - a[1])[0][0];
+  return [...counts].sort((a, b) => b[1] - a[1]).map(([color]) => color);
+}
+const dominant = (def: SpriteDef) => byFrequency(def)[0];
+
+// Luminancia relativa (WCAG) de un #RRGGBB.
+function luminance(hex: string): number {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const v = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
 describe.each(Object.entries(CREW))('%s', (name, color) => {
@@ -69,5 +80,13 @@ describe('bryan', () => {
     expect(def.animations.sit).toHaveLength(1);
     expect(def.animations.roll.length).toBeGreaterThanOrEqual(2);
     expect(def.animations.roll.length).toBeLessThanOrEqual(4);
+  });
+
+  it('tiene la piel trigueña: su tono más frecuente no es #F0C8A0 ni más claro', async () => {
+    const def = await load();
+    // En la paleta de bryan la piel son las claves 's' (base) y 'S' (sombra).
+    const skin = byFrequency(def, (ch) => ch === 's' || ch === 'S')[0];
+    expect(skin).not.toBe('#F0C8A0');
+    expect(luminance(skin)).toBeLessThan(0.55);
   });
 });
