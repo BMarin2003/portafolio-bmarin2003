@@ -33,11 +33,12 @@ const lists: { id: 'pc' | 'tv'; label: string; items: Credit[]; accent?: boolean
           </div>
         </div>
       ))}
-      <div class="card" data-card="speaker">
+      <div class="card" data-card="speaker" data-speaker>
         <span class="mono kind">EL PARLANTE</span>
         <div data-rotate>
           {bands.map((b, i) => <span class="big" hidden={i > 0}>{b}</span>)}
         </div>
+        <span class="big" data-live hidden></span>
       </div>
     </div>
     <footer class="mono site-footer">

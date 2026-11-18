@@ -42,4 +42,7 @@ import { links } from '../data/site';
     intervalMs: 3200,
     reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
   });
+
+  import { startNowPlaying } from '../scripts/now-playing';
+  startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
 </script>
