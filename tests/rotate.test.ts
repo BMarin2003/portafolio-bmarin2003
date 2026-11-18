@@ -12,7 +12,10 @@ function setup() {
 
 describe('startRotation', () => {
   beforeEach(() => vi.useFakeTimers());
-  afterEach(() => vi.useRealTimers());
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
 
   it('rota y vuelve al primero', () => {
     const l = setup();
@@ -47,5 +50,23 @@ describe('startRotation', () => {
     stop();
     vi.advanceTimersByTime(10000);
     expect(visible(l)).toBe(0);
+  });
+
+  it('pausa solo la lista con foco; la hermana sigue rotando', () => {
+    document.body.innerHTML = `
+      <div data-rotate id="a"><a href="#x">uno</a><i hidden></i></div>
+      <div data-rotate id="b"><i></i><i hidden></i></div>`;
+    const a = document.getElementById('a')!;
+    const b = document.getElementById('b')!;
+    // happy-dom no implementa :focus-within; se simula con contains(activeElement).
+    const orig = Element.prototype.matches;
+    vi.spyOn(Element.prototype, 'matches').mockImplementation(function (this: Element, sel: string) {
+      return sel.includes(':focus-within') ? this.contains(document.activeElement) : orig.call(this, sel);
+    });
+    startRotation(document, { intervalMs: 3200, reducedMotion: false });
+    (a.firstElementChild as HTMLElement).focus();
+    vi.advanceTimersByTime(3200);
+    expect(visible(a)).toBe(0);
+    expect(visible(b)).toBe(1);
   });
 });
