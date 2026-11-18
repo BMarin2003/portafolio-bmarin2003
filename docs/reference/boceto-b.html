@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Boceto B · La casa en corte</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#11151B}
+a{color:#D9A55B}a:hover{color:#EBC387}
+.mono{font-family:'DM Mono',monospace;letter-spacing:.04em}
+.bot{position:relative;width:34px;height:40px;border-radius:17px 17px 7px 7px}
+.eyes{position:absolute;top:13px;left:0;right:0;display:flex;justify-content:center;gap:7px}
+.eye{width:4px;height:7px;border-radius:2px;background:#1A1E25;animation:blink 5.5s infinite}
+.breathe{animation:breathe 3.4s ease-in-out infinite}
+.breathe2{animation:breathe 3.4s ease-in-out 1.1s infinite}
+.breathe3{animation:breathe 3.4s ease-in-out 2.2s infinite}
+.type{animation:type .5s ease-in-out infinite alternate}
+.glow{animation:glow 4s ease-in-out infinite}
+.floor{display:block;text-decoration:none;color:inherit;position:relative}
+.floor:hover .tag{color:#D9A55B}
+.floor:focus-visible{outline:2px solid #D9A55B;outline-offset:4px}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes type{from{transform:translateY(0)}to{transform:translateY(1.5px)}}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes glow{0%,100%{opacity:.55}50%{opacity:.8}}
+@media (prefers-reduced-motion: reduce){.breathe,.breathe2,.breathe3,.type,.glow,.eye{animation:none}}
+</style>
+</helmet>
+<div id="top" style="min-height: 100vh; background: #11151B; color: #E6E3DD; font-family: 'Schibsted Grotesk', sans-serif">
+
+<header style="max-width: 1180px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between; border-bottom: 1px solid #262C36">
+  <a href="#top" style="text-decoration: none; color: #E6E3DD; font-weight: 700; font-size: 19px">Bryan Marin <span class="mono" style="font-weight: 400; font-size: 13px; color: #8F97A3">ingeniero de sistemas · Trujillo</span></a>
+  <nav class="mono" style="display: flex; flex-wrap: wrap; gap: 28px; font-size: 13px">
+    <a href="#taller">N+2 taller</a>
+    <a href="#cuarto">N+1 cuarto</a>
+    <a href="https://github.com/BMarin2003">github</a>
+    <a href="#">linkedin</a>
+  </nav>
+</header>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 72px 32px 0; display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-end">
+  <div style="flex: 1 1 520px; min-width: 0">
+    <p class="mono" style="margin: 0 0 20px; font-size: 12px; color: #8F97A3">CORTE A–A · ESC. 1:50 · REV. 2026</p>
+    <h1 style="margin: 0; font-size: 60px; line-height: 1.04; font-weight: 500; letter-spacing: -1.6px; max-width: 15ch">De día construyo sistemas. De noche, otra cosa.</h1>
+  </div>
+  <p style="flex: 1 1 300px; min-width: 0; margin: 0; font-size: 17px; line-height: 1.6; color: #B3B9C2">Ingeniero de sistemas junior en CorAll D&amp;R. Trabajo junto a Claude y un puñado de skills; fuera de horario, rol, juegos y música. Entra por el piso que te interese.</p>
+</section>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 64px 32px 0" aria-label="La casa en corte">
+  <div style="display: flex; gap: 0; align-items: stretch">
+    <div style="flex: 1 1 auto; min-width: 0">
+      <div style="height: 96px; background: #39414E; clip-path: polygon(50% 0, 100% 100%, 0 100%); position: relative">
+        <div style="position: absolute; inset: 2px 3px 0; background: #11151B; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></div>
+      </div>
+      <div style="border: 2px solid #39414E; border-top-width: 2px; display: flex; flex-direction: column">
+
+        <a href="#taller" class="floor" style="height: 210px; background: #E4DFD4; color: #1A1E25; overflow: hidden">
+          <span class="mono tag" style="position: absolute; left: 20px; top: 16px; font-size: 12px; color: #5B6270">N+2 · TALLER · 09–18 H</span>
+          <span aria-hidden="true" style="position: absolute; right: 28px; top: 18px; width: 64px; height: 92px; border: 2px solid #9FA6B0; background: #CFDCE6"></span>
+          <span aria-hidden="true" class="glow" style="position: absolute; right: 44px; top: 34px; width: 22px; height: 22px; border-radius: 50%; background: #E3B567"></span>
+          <div style="position: absolute; left: 24px; right: 120px; bottom: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; align-items: end">
+            <div style="display: flex; flex-direction: column; align-items: center"><div class="breathe"><div class="bot" style="background: #C48A96"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div></div><div style="width: 100%; height: 22px; background: #B9AE9B; border-top: 3px solid #1A1E25"></div></div>
+            <div style="display: flex; flex-direction: column; align-items: center"><div class="breathe2"><div class="bot" style="background: #D9A55B"><div class="eyes"><span class="eye" style="height: 3px"></span><span class="eye" style="height: 3px"></span></div></div></div><div style="width: 100%; height: 22px; background: #B9AE9B; border-top: 3px solid #1A1E25"></div></div>
+            <div style="display: flex; flex-direction: column; align-items: center"><div class="type"><div class="bot" style="background: #7C93B8"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div></div><div style="width: 100%; height: 22px; background: #B9AE9B; border-top: 3px solid #1A1E25"></div></div>
+            <div style="display: flex; flex-direction: column; align-items: center"><div class="breathe3"><div class="bot" style="background: #C27A5C; border-top: 7px solid #D9A55B"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div></div><div style="width: 100%; height: 22px; background: #B9AE9B; border-top: 3px solid #1A1E25"></div></div>
+            <div style="display: flex; flex-direction: column; align-items: center"><div class="breathe"><div class="bot" style="background: #958AC0"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div></div><div style="width: 100%; height: 22px; background: #B9AE9B; border-top: 3px solid #1A1E25"></div></div>
+          </div>
+        </a>
+
+        <div aria-hidden="true" style="height: 10px; background: #39414E"></div>
+
+        <a href="#cuarto" class="floor" style="height: 210px; background: #181D27; color: #E6E3DD; overflow: hidden">
+          <span class="mono tag" style="position: absolute; left: 20px; top: 16px; font-size: 12px; color: #8F97A3">N+1 · CUARTO · 18 H →</span>
+          <span aria-hidden="true" style="position: absolute; right: 28px; top: 18px; width: 64px; height: 92px; border: 2px solid #39414E; background: #0D1016"></span>
+          <span aria-hidden="true" style="position: absolute; right: 50px; top: 32px; width: 16px; height: 16px; border-radius: 50%; box-shadow: -5px 3px 0 0 #C9CFD9"></span>
+          <div style="position: absolute; left: 24px; right: 120px; bottom: 0; display: flex; gap: 22px; align-items: flex-end">
+            <div style="display: flex; flex-direction: column; align-items: center; flex: 0 0 auto">
+              <div style="width: 150px; height: 88px; background: #0B0E13; border: 4px solid #39414E; padding: 10px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end">
+                <span class="mono" style="font-size: 10px; color: #8F97A3">PC</span>
+                <span style="font-size: 14px; font-weight: 700; color: #D9A55B">{{game}}</span>
+              </div>
+              <div style="width: 160px; height: 22px; background: #39414E"></div>
+            </div>
+            <div class="breathe2" style="flex: 0 0 auto"><div class="bot" style="background: #D9A55B"><div class="eyes"><span class="eye"></span><span class="eye"></span></div></div></div>
+            <div style="flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0">
+              <div style="display: flex; gap: 6px; align-items: flex-end; margin-bottom: 2px" aria-hidden="true">
+                <span style="width: 16px; height: 16px; background: #B0564B; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)"></span>
+                <span style="width: 11px; height: 11px; background: #7C93B8; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%)"></span>
+              </div>
+              <div style="width: 84px; height: 10px; background: #5A4A3A"></div>
+              <div style="width: 70px; height: 24px; border-left: 4px solid #5A4A3A; border-right: 4px solid #5A4A3A; box-sizing: border-box"></div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; margin-left: auto; flex: 0 0 auto">
+              <div style="width: 160px; height: 98px; background: #0B0E13; border: 4px solid #39414E; padding: 10px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end">
+                <span class="mono" style="font-size: 10px; color: #8F97A3">TV</span>
+                <span style="font-size: 14px; font-weight: 700">{{screen}}</span>
+              </div>
+              <div style="width: 50px; height: 22px; background: #39414E"></div>
+            </div>
+            <div aria-hidden="true" style="flex: 0 0 auto; width: 56px; height: 84px; background: #262C36; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px">
+              <span style="width: 28px; height: 28px; border-radius: 50%; border: 3px solid #0B0E13; box-sizing: border-box"></span>
+              <span style="width: 14px; height: 14px; border-radius: 50%; border: 3px solid #0B0E13; box-sizing: border-box"></span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div aria-hidden="true" style="height: 3px; background: #39414E; margin: 0 -24px"></div>
+      <div aria-hidden="true" style="height: 18px; margin: 0 -24px; background: repeating-linear-gradient(135deg, #262C36 0 2px, transparent 2px 9px)"></div>
+    </div>
+    <div class="mono" style="flex: 0 0 170px; display: flex; flex-direction: column; font-size: 12px; color: #8F97A3; padding-left: 16px">
+      <div style="height: 96px"></div>
+      <div style="height: 210px; display: flex; flex-direction: column; justify-content: center; gap: 6px; border-left: 1px solid #39414E; padding-left: 14px">
+        <span style="color: #E6E3DD">+6.00</span><span>Taller</span><span>CorAll, la cuadrilla</span>
+      </div>
+      <div style="height: 10px"></div>
+      <div style="height: 210px; display: flex; flex-direction: column; justify-content: center; gap: 6px; border-left: 1px solid #39414E; padding-left: 14px">
+        <span style="color: #E6E3DD">+3.00</span><span>Cuarto</span><span>rol, juegos, pantalla, música</span>
+      </div>
+    </div>
+  </div>
+  <p class="mono" style="margin: 20px 0 0; font-size: 12px; color: #8F97A3">EN EL PARLANTE · <span style="color: #E6E3DD">{{band}}</span> · lo que suena ahora, o rotando si no hay nada</p>
+</section>
+
+<section id="taller" style="max-width: 1180px; margin: 0 auto; padding: 120px 32px 64px">
+  <div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; border-bottom: 1px solid #262C36; padding-bottom: 20px; margin-bottom: 40px">
+    <span class="mono" style="font-size: 12px; color: #D9A55B">N+2</span>
+    <h2 style="margin: 0; font-size: 40px; font-weight: 500; letter-spacing: -1px">El taller</h2>
+    <span style="color: #8F97A3">De 9 a 6, en CorAll D&amp;R.</span>
+  </div>
+
+  <h3 class="mono" style="margin: 0 0 18px; font-size: 12px; font-weight: 400; color: #8F97A3">PROYECTOS EN LOS QUE FORMÉ PARTE</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); border-top: 1px solid #262C36; border-left: 1px solid #262C36; margin-bottom: 72px">
+    <sc-for list="{{corall}}" as="p" hint-placeholder-count="6">
+      <article style="padding: 24px; border-right: 1px solid #262C36; border-bottom: 1px solid #262C36; display: flex; flex-direction: column; gap: 10px">
+        <span class="mono" style="font-size: 11px; color: #8F97A3">{{p.n}}</span>
+        <h4 style="margin: 0; font-size: 22px; font-weight: 500">{{p.name}}</h4>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #B3B9C2">[Qué hice] · Con mis estimados compañeros [nombres], supervisores [nombres] y gerentes [nombres].</p>
+      </article>
+    </sc-for>
+  </div>
+
+  <h3 class="mono" style="margin: 0 0 8px; font-size: 12px; font-weight: 400; color: #8F97A3">LA CUADRILLA</h3>
+  <p style="margin: 0 0 24px; color: #B3B9C2; max-width: 62ch; line-height: 1.6">Trabajo junto a Claude. Estas son las skills que lo acompañan, cada una con su manía.</p>
+  <div style="display: flex; flex-direction: column; border-top: 1px solid #262C36">
+    <sc-for list="{{crew}}" as="c" hint-placeholder-count="5">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; padding: 18px 0; border-bottom: 1px solid #262C36">
+        <span aria-hidden="true" style="width: 22px; height: 26px; border-radius: 11px 11px 5px 5px; background: {{c.color}}; flex: 0 0 auto"></span>
+        <span class="mono" style="flex: 0 0 140px; font-size: 15px">{{c.name}}</span>
+        <span style="flex: 0 0 140px; color: #8F97A3; font-size: 15px">{{c.title}}</span>
+        <span style="flex: 1 1 300px; color: #B3B9C2; font-size: 15px">{{c.role}}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="cuarto" style="background: #0C0F14; border-top: 1px solid #262C36; padding: 120px 32px">
+  <div style="max-width: 1116px; margin: 0 auto">
+    <div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; border-bottom: 1px solid #262C36; padding-bottom: 20px; margin-bottom: 40px">
+      <span class="mono" style="font-size: 12px; color: #D9A55B">N+1</span>
+      <h2 style="margin: 0; font-size: 40px; font-weight: 500; letter-spacing: -1px">El cuarto</h2>
+      <span style="color: #8F97A3">Después de las 6.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); border-top: 1px solid #262C36; border-left: 1px solid #262C36">
+      <div style="padding: 28px 24px; border-right: 1px solid #262C36; border-bottom: 1px solid #262C36; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between"><span class="mono" style="font-size: 11px; color: #8F97A3">LA MESA</span><span style="font-size: 24px; font-weight: 500">D&amp;D, luego Cyberpunk RED</span></div>
+      <div style="padding: 28px 24px; border-right: 1px solid #262C36; border-bottom: 1px solid #262C36; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between"><span class="mono" style="font-size: 11px; color: #8F97A3">LA PC · [PORTADA]</span><span style="font-size: 24px; font-weight: 500; color: #D9A55B">{{game}}</span></div>
+      <div style="padding: 28px 24px; border-right: 1px solid #262C36; border-bottom: 1px solid #262C36; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between"><span class="mono" style="font-size: 11px; color: #8F97A3">LA TELE · [PÓSTER]</span><span style="font-size: 24px; font-weight: 500">{{screen}}</span></div>
+      <div style="padding: 28px 24px; border-right: 1px solid #262C36; border-bottom: 1px solid #262C36; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between"><span class="mono" style="font-size: 11px; color: #8F97A3">EL PARLANTE</span><span style="font-size: 24px; font-weight: 500">{{band}}</span></div>
+    </div>
+    <footer class="mono" style="margin-top: 96px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 12px; color: #8F97A3">
+      <span>Bryan Marin Yupanqui · Trujillo, Perú</span>
+      <span>Construido junto a Claude (Anthropic)</span>
+    </footer>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+var GAMES = ['RimWorld', 'Mount & Blade: Warband', 'Crusader Kings II', 'Crusader Kings III', 'Project Zomboid', 'Fallout 4', 'Fallout: New Vegas'];
+var SCREENS = ['Django sin cadenas', 'The Batman', 'Superman (2025)', 'El Señor de los Anillos', 'Andor', 'Vinland Saga', 'Power Rangers SPD', 'The Walking Dead', 'Game of Thrones', 'Brooklyn Nine-Nine'];
+var BANDS = ['Enjambre', 'Los Bunkers', 'Rio', 'Enanitos Verdes', 'Jamiroquai'];
+var CORALL = ['Totem Multimedia', 'CCAE', 'MaqinPro', 'Comphill', 'Corall-ERP', 'ITN'];
+var CREW = [
+  { name: 'hallmark', title: 'Diseño', color: '#C48A96', role: 'Hace páginas que parecen diseñadas, no generadas.' },
+  { name: 'ponytail', title: 'Criterio', color: '#D9A55B', role: 'El senior flojo: antes de escribir código pregunta si hace falta.' },
+  { name: 'superpowers', title: 'Método', color: '#7C93B8', role: 'Planifica, depura con método y verifica antes de decir listo.' },
+  { name: 'safety-net', title: 'Seguridad', color: '#C27A5C', role: 'Bloquea los comandos que rompen cosas.' },
+  { name: 'obsidian', title: 'Memoria', color: '#958AC0', role: 'Todo lo aprendido termina en el vault.' }
+];
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tick: 0 }; }
+  componentDidMount() { this.timer = setInterval(() => this.setState({ tick: this.state.tick + 1 }), 3200); }
+  componentWillUnmount() { clearInterval(this.timer); }
+  renderVals() {
+    var t = this.state.tick;
+    return {
+      game: GAMES[t % GAMES.length],
+      screen: SCREENS[t % SCREENS.length],
+      band: BANDS[t % BANDS.length],
+      crew: CREW,
+      corall: CORALL.map(function (name, i) { return { name: name, n: '0' + (i + 1) }; })
+    };
+  }
+}
+</script>
+</body>
+</html>
