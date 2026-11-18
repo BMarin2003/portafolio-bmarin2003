@@ -6,8 +6,6 @@ export type CorallProject = { name: string; did: string; challenge?: string; peo
 export type CrewMember = { name: string; title: string; color: string; role: string; variant?: 'sleepy' | 'helmet' };
 export type Credit = { title: string; cover?: ImageMetadata; source: string; sourceUrl: string };
 
-const noPeople = (): People => ({ companeros: [], supervisores: [], gerentes: [] });
-const pending = (name: string): CorallProject => ({ name, did: '[Qué hice]', people: noPeople() });
 
 const p = (name: string, url?: string): Person => (url ? { name, url } : { name });
 const gerentes = [p('Diego Cieza'), p('Alonso Gil')];
@@ -16,13 +14,18 @@ export const corall: CorallProject[] = [
   {
     name: 'Totem Multimedia',
     did: 'Mi primer proyecto en CorAll, recién llegado al equipo. Mi labor fue la de desarrollador: construir las funcionalidades que se me asignaban y presentar cada avance al cliente, explicándole con claridad qué cambiaba y por qué. Fue la etapa en que aprendí el oficio dentro de un producto real, con revisión constante y entregas que otras personas iban a usar.',
+    challenge: 'adaptarme, recién llegado, a una forma de trabajar muy distinta a la de la universidad: nuevos frameworks y tecnologías, herramientas como Tailscale e Infisical, y aprender a usar bien la IA como herramienta de trabajo. Pasar de un flujo más manual y clásico a este fue mi primer gran aprendizaje en CorAll.',
     people: {
       companeros: [p('Hugo Marquez'), p('Luis Mostacero')],
       supervisores: [p('Kevin Lora'), p('Cristian Ventura')],
       gerentes,
     },
   },
-  pending('CCAE'),
+  {
+    name: 'CCAE',
+    did: 'Sistema de gestión de arbitrajes para una cámara de comercio: solicitudes, partes involucradas, pagos, documentos y el seguimiento de cada trámite. Mi aporte fue acotado y puntual: el diseño de un par de interfaces de su extranet.',
+    people: { companeros: [], supervisores: [p('Cristian Ventura')], gerentes },
+  },
   {
     name: 'MaqinPro',
     did: 'Plataforma de gestión para Maqinpro, empresa de maquinaria industrial y profesional: un panel interno para su taller y un portal desde el que sus clientes siguen sus equipos, aprueban cotizaciones y consultan sus documentos. Fue el proyecto con más personas involucradas y, a mitad de camino, quedó bajo mi responsabilidad. Desde entonces lo llevo adelante, con el apoyo de Luis Hume en el portal del cliente.',
@@ -33,20 +36,21 @@ export const corall: CorallProject[] = [
       gerentes,
     },
   },
-  pending('Comphill'),
+  {
+    name: 'Comphill',
+    did: 'Sistema integrado de operaciones para el Mercado Mayorista Pesquero COMPHILL: transporte y pesaje, puestos, almacenes, cobros y calidad sanitaria en una sola plataforma. El grueso lo construyó Cristian Ventura; a Luis Mostacero y a mí se nos encargó darle cierre, completando los módulos pendientes: el panel operativo con datos reales, la separación de la información financiera según el rol de cada usuario, el control de acceso en garita con lectores de DNI y QR, y la adaptación del sistema a celulares y tabletas.',
+    challenge: 'cerrar un sistema construido en su mayor parte por otra persona: entender cómo venía trabajando, adaptarnos a sus convenciones y completar lo pendiente sin romper lo que ya funcionaba.',
+    people: { companeros: [p('Luis Mostacero')], supervisores: [], gerentes },
+  },
   {
     name: 'Corall-ERP',
     did: 'El sistema con el que CorAll automatiza y optimiza su propio trabajo, de marketing y finanzas a proyectos e inventario, reunido en una sola plataforma. Aquí el trabajo fue más allá del código: conversé con las personas de cada área para entender sus procesos antes de convertirlos en módulos. Empecé bajo la supervisión de Cristian Ventura y continué con Luis Mostacero tras su ascenso; con la llegada del nuevo equipo de practicantes, el desarrollo ganó un ritmo notable.',
+    challenge: 'el área contable, donde había poca experiencia: las detracciones, el marco legal que aplica y qué pagos y gastos corresponden a una PYME. Antes de convertirlo en módulos hubo que aprender esas reglas y comprender a fondo lo que cada área necesitaba, para plasmarlo correctamente en el sistema. Lo resolvimos investigando en equipo y consultando con nuestro supervisor, Cristian Ventura, y con quien entonces llevaba la contabilidad de CorAll.',
     people: {
       companeros: [p('Hugo Marquez'), p('Luis Hume'), p('Adrian Cisneros', 'https://acisneros-portfolio.vercel.app/es'), p('Alfredo Guzman'), p('Angelmauricio Oncoy')],
       supervisores: [p('Cristian Ventura'), p('Luis Mostacero')],
       gerentes,
     },
-  },
-  {
-    name: 'ITN',
-    did: 'El proyecto más reciente, todavía en etapa de propuesta: el sitio público y la intranet de ITN, que hoy estamos presentando al cliente.',
-    people: { companeros: [], supervisores: [p('Luis Mostacero')], gerentes },
   },
 ];
 
