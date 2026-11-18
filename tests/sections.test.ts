@@ -76,6 +76,7 @@ describe('Cuarto', () => {
       const link = [...cuarto.querySelectorAll('a')].find((a) => a.getAttribute('href') === item.sourceUrl);
       expect(link, item.title).toBeTruthy();
       expect(link!.textContent).toContain(item.source);
+      expect(link!.getAttribute('aria-label')).toBe(`${item.title} en ${item.source}`);
     }
   });
 });
@@ -85,5 +86,6 @@ describe('Pie', () => {
     const doc = parse(await container.renderToString(Index, { request: new Request('https://example.com/') }));
     expect(doc.querySelector('footer')?.textContent).toContain('Construido junto a Claude (Anthropic)');
     expect(doc.querySelector('main')).not.toBeNull();
+    expect(doc.querySelector('main footer')).toBeNull();
   });
 });

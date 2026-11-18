@@ -69,4 +69,18 @@ describe('startRotation', () => {
     expect(visible(a)).toBe(0);
     expect(visible(b)).toBe(1);
   });
+  it('pausa las listas dentro de un .floor con foco; una lista fuera sigue rotando', () => {
+    document.body.innerHTML = `
+      <a href="#t" class="floor" id="f"><span data-rotate id="a"><i></i><i hidden></i></span></a>
+      <div class="card"><div data-rotate id="c"><i></i><i hidden></i></div></div>`;
+    const orig = Element.prototype.matches;
+    vi.spyOn(Element.prototype, 'matches').mockImplementation(function (this: Element, sel: string) {
+      return sel.includes(':focus-within') ? this.contains(document.activeElement) : orig.call(this, sel);
+    });
+    startRotation(document, { intervalMs: 3200, reducedMotion: false });
+    (document.getElementById('f') as HTMLElement).focus();
+    vi.advanceTimersByTime(3200);
+    expect(visible(document.getElementById('a')!)).toBe(0);
+    expect(visible(document.getElementById('c')!)).toBe(1);
+  });
 });

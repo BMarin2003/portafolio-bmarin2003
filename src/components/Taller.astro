@@ -1,6 +1,7 @@
 ---
 import { corall, crew } from '../data/site';
 import People from './People.astro';
+import { peopleGroups } from '../lib/text';
 ---
 <section id="taller" class="wrap section-taller" aria-labelledby="taller-h">
   <div class="section-head">
@@ -15,7 +16,7 @@ import People from './People.astro';
       <article class="project" data-project>
         <span class="mono n">{String(i + 1).padStart(2, '0')}</span>
         <h4>{p.name}</h4>
-        <p>{p.did} · <People people={p.people} /></p>
+        <p>{p.did}{peopleGroups(p.people).length > 0 && ' · '}<People people={p.people} /></p>
       </article>
     ))}
   </div>

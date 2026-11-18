@@ -1,5 +1,7 @@
 // Uso (lo corre Bryan, con sus credenciales en el entorno):
 //   SPOTIFY_CLIENT_ID=... SPOTIFY_CLIENT_SECRET=... node scripts/spotify-token.mjs
+// PowerShell:
+//   $env:SPOTIFY_CLIENT_ID='...'; $env:SPOTIFY_CLIENT_SECRET='...'; node scripts/spotify-token.mjs
 // Imprime el refresh token en consola; no escribe nada a disco.
 import http from 'node:http';
 

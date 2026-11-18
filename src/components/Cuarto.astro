@@ -27,7 +27,7 @@ const lists: { id: 'pc' | 'tv'; label: string; items: Credit[]; accent?: boolean
             {l.items.map((it, i) => (
               <div hidden={i > 0}>
                 <span class:list={['big', { accent: l.accent }]}>{it.cover ? <Image src={it.cover} alt={it.title} width={160} /> : it.title}</span>
-                <a class="credit mono" href={it.sourceUrl}>vía {it.source}</a>
+                <a class="credit mono" href={it.sourceUrl} aria-label={`${it.title} en ${it.source}`}>vía {it.source}</a>
               </div>
             ))}
           </div>
@@ -41,9 +41,5 @@ const lists: { id: 'pc' | 'tv'; label: string; items: Credit[]; accent?: boolean
         <span class="big" data-live hidden></span>
       </div>
     </div>
-    <footer class="mono site-footer">
-      <span>Bryan Marin Yupanqui · Trujillo, Perú</span>
-      <span>Construido junto a Claude (Anthropic)</span>
-    </footer>
   </div>
 </section>
