@@ -42,7 +42,7 @@
 
 ---
 
-### Tarea 1: Proyecto, datos y guardia de corchetes
+### Task 1: Proyecto, datos y guardia de corchetes
 
 **Archivos:**
 - Crear: `package.json`, `astro.config.mjs`, `tsconfig.json`, `vitest.config.ts`, `.gitignore`, `CLAUDE.md`
@@ -95,7 +95,7 @@
 - [ ] **Paso 7:** verificar. `npm test` debe pasar y `npm run build:draft` debe terminar sin errores.
 - [ ] **Paso 8:** hacer commit: `git add -A && git commit -m "chore: proyecto astro, datos y guardia de corchetes"`.
 
-### Tarea 2: Layout, muñequito y la casa en corte
+### Task 2: Layout, muñequito y la casa en corte
 
 **Archivos:**
 - Crear: `src/layouts/Base.astro`, `src/components/Bot.astro`, `src/components/House.astro`, `src/styles/global.css`, `src/pages/index.astro`
@@ -127,7 +127,7 @@
   - Comparar contra la referencia visual.
 - [ ] **Paso 7:** commit `feat: casa en corte con la cuadrilla`.
 
-### Tarea 3: Secciones del taller y del cuarto
+### Task 3: Secciones del taller y del cuarto
 
 **Archivos:**
 - Crear: `src/components/Taller.astro`, `src/components/Cuarto.astro`, `src/components/People.astro`
@@ -154,7 +154,7 @@
 - [ ] **Paso 5:** verificar con JS desactivado. En el panel del navegador, abrir la página sin scripts: deben verse el primer título, la primera portada y una banda, y los enlaces de piso deben bajar a su sección.
 - [ ] **Paso 6:** commit `feat: secciones del taller y del cuarto`.
 
-### Tarea 4: Rotación
+### Task 4: Rotación
 
 **Archivos:**
 - Crear: `src/scripts/rotate.ts`
@@ -178,7 +178,7 @@
 - [ ] **Paso 4:** correr `npm test` y se espera PASS. Después, en el navegador, ver que la PC, la TV y el parlante rotan.
 - [ ] **Paso 5:** commit `feat: rotación de pantallas y parlante`.
 
-### Tarea 5: El parlante con Spotify
+### Task 5: El parlante con Spotify
 
 **Archivos:**
 - Crear: `functions/_lib/spotify.ts`, `functions/api/now-playing.ts`, `src/scripts/now-playing.ts`, `scripts/spotify-token.mjs`
@@ -221,7 +221,7 @@
   - Sin `.dev.vars`, la página carga, rota y `/api/now-playing` responde `{"playing":false}`.
 - [ ] **Paso 9:** commit `feat: parlante con lo que suena en spotify`.
 
-### Tarea 6: Pulido y publicación
+### Task 6: Pulido y publicación
 
 **Archivos:**
 - Crear: `public/og.png`, `public/favicon.svg` (un muñequito)
