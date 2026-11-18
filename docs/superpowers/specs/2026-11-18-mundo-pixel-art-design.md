@@ -52,7 +52,15 @@ Todo lo de `SPEC.md` y `architecture.md`: material real, CorAll sin código, cr�
 - **Grilla base de 16 px**, siempre escalada por enteros (×3 o ×4), con `image-rendering: pixelated`.
 - **Paleta limitada** que sale de la actual (fondo `#11151B`, ámbar `#D9A55B`, los 5 colores de la cuadrilla) más los tonos de piel, madera y luz que haga falta. Todo color nuevo pasa el contraste cuando hay texto encima.
 - **Lección de la prueba:** sobre fondo oscuro, el contorno no puede ser casi negro, porque se pierde. Los personajes llevan un borde de luz (*rim*) o un contorno de color.
-- **Personajes:** Bryan y los 5 de la cuadrilla, cada uno con su manía visible: coleta (ponytail), casco (cc-safety-net), lápiz (hallmark), portapapeles (superpowers), libro (Obsidian). Animaciones mínimas por personaje: reposo con parpadeo, caminar (4 cuadros) y su acción propia (2 a 4 cuadros).
+- **Personajes (revisado con Bryan el 2026-11-18):** Bryan y una cuadrilla de **oficios de obra**, cada uno un área de desarrollo. Nunca llevan el nombre de una herramienta: ni publicidad ni un stack fijo. La lista crece con la experiencia de Bryan.
+  - Capataz: planificación y método.
+  - Maestro de obra: backend y datos.
+  - Decorador: frontend y diseño.
+  - Electricista: infraestructura y despliegue.
+  - Doble de riesgo: calidad y seguridad.
+  - Archivista: documentación y conocimiento.
+
+  La silueta es de bloque: cuerpo cuadrado, salientes laterales y patitas. Es propia, no una copia de la mascota de Claude Code. Cada oficio tiene su color, su indumentaria y su acción. Animaciones mínimas: reposo con parpadeo, caminar (4 cuadros) y la acción propia (2 a 4 cuadros). Las tecnologías de cada oficio (etiquetas en la página profesional) las confirma Bryan en la fase 2.
 
 ### Flujo de los assets
 
