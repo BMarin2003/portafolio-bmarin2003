@@ -38,6 +38,14 @@ describe('buildAll', () => {
     expect(await readdir(out)).toEqual([]);
   });
 
+  it('informa un módulo sin export default y no escribe nada', async () => {
+    await writeFile(join(src, 't.ts'), sprite('t', 'r.'));
+    await writeFile(join(src, 'malo.ts'), 'export const x = 1;');
+    const res = await buildAll({ srcDir: src, outDir: out });
+    expect(res.errors).toContain('malo.ts: sin export default');
+    expect(await readdir(out)).toEqual([]);
+  });
+
   it('escribe la vista previa a escala x10', async () => {
     await writeFile(join(src, 't.ts'), sprite('t', 'r.'));
     await buildAll({ srcDir: src, outDir: out, previewDir: preview });

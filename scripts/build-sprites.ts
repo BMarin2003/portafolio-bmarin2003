@@ -16,6 +16,10 @@ export async function buildAll({ srcDir, outDir, previewDir }: Opts) {
   for (const file of files) {
     const mod = await import(pathToFileURL(join(srcDir, file)).href);
     const def: SpriteDef = mod.default;
+    if (typeof def !== 'object' || def === null) {
+      errors.push(`${file}: sin export default`);
+      continue;
+    }
     errors.push(...validateSprite(def));
     defs.push(def);
   }
