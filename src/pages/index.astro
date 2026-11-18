@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import House from '../components/House.astro';
+import Taller from '../components/Taller.astro';
+import Cuarto from '../components/Cuarto.astro';
 import { links } from '../data/site';
 ---
 <Base
@@ -18,6 +20,7 @@ import { links } from '../data/site';
       </nav>
     </header>
 
+    <main>
     <section class="wrap intro">
       <div class="intro-head">
         <p class="mono meta">CORTE A–A · ESC. 1:50 · REV. 2026</p>
@@ -27,5 +30,8 @@ import { links } from '../data/site';
     </section>
 
     <House />
+    <Taller />
+    <Cuarto />
+    </main>
   </div>
 </Base>

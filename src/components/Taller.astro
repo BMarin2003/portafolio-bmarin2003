@@ -1,0 +1,35 @@
+---
+import { corall, crew } from '../data/site';
+import People from './People.astro';
+---
+<section id="taller" class="wrap section-taller" aria-labelledby="taller-h">
+  <div class="section-head">
+    <span class="mono level">N+2</span>
+    <h2 id="taller-h">El taller</h2>
+    <span class="muted">De 9 a 6, en CorAll D&amp;R.</span>
+  </div>
+
+  <h3 class="mono kicker">PROYECTOS EN LOS QUE FORMÉ PARTE</h3>
+  <div class="projects">
+    {corall.map((p, i) => (
+      <article class="project" data-project>
+        <span class="mono n">{String(i + 1).padStart(2, '0')}</span>
+        <h4>{p.name}</h4>
+        <p>{p.did} · <People people={p.people} /></p>
+      </article>
+    ))}
+  </div>
+
+  <h3 class="mono kicker">LA CUADRILLA</h3>
+  <p class="crew-intro">Trabajo junto a Claude. Estas son las skills que lo acompañan, cada una con su manía.</p>
+  <div class="crew-list">
+    {crew.map((c) => (
+      <div class="crew-item">
+        <span class="crew-dot" aria-hidden="true" style={`background:${c.color}`}></span>
+        <span class="mono crew-name" data-crew-name>{c.name}</span>
+        <span class="crew-title">{c.title}</span>
+        <span class="crew-role">{c.role}</span>
+      </div>
+    ))}
+  </div>
+</section>

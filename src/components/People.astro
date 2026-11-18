@@ -1,0 +1,10 @@
+---
+import type { People } from '../data/site';
+import { peopleGroups, separator } from '../lib/text';
+
+interface Props { people: People }
+const groups = peopleGroups(Astro.props.people);
+---
+{groups.length > 0 && (
+  <span class="people">Con mis estimados {groups.map((g, gi) => (<Fragment>{g.label}{' '}{g.people.map((p, i) => (<Fragment>{p.url ? <a href={p.url}>{p.name}</a> : p.name}{separator(i, g.people.length)}</Fragment>))}{separator(gi, groups.length)}</Fragment>))}.</span>
+)}
