@@ -5,7 +5,7 @@ export function startRotation(
   if (opts.reducedMotion) return () => {};
   const id = setInterval(() => {
     root.querySelectorAll('[data-rotate]').forEach((list) => {
-      if (list.hasAttribute('data-paused')) return;
+      if (list.hasAttribute('data-paused') || list.closest(':hover, :focus-within')) return;
       const items = [...list.children];
       if (items.length < 2) return;
       const i = items.findIndex((c) => !c.hasAttribute('hidden'));
