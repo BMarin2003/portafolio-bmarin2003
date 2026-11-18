@@ -1,9 +1,31 @@
 ---
+import Base from '../layouts/Base.astro';
+import House from '../components/House.astro';
+import { links } from '../data/site';
 ---
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <title>Bryan Marin</title>
-  </head>
-  <body></body>
-</html>
+<Base
+  title="Bryan Marin · ingeniero de sistemas en Trujillo"
+  description="Ingeniero de sistemas junior en CorAll D&R. De día construyo sistemas con Claude y su cuadrilla de skills; de noche, rol, juegos y música."
+>
+  <div id="top" class="page">
+    <header class="wrap site-header">
+      <a href="#top" class="brand">Bryan Marin <span class="mono sub">ingeniero de sistemas · Trujillo</span></a>
+      <nav class="mono" aria-label="Principal">
+        <a href="#taller">N+2 taller</a>
+        <a href="#cuarto">N+1 cuarto</a>
+        <a href={links.github}>github</a>
+        <a href={links.linkedin}>linkedin</a>
+      </nav>
+    </header>
+
+    <section class="wrap intro">
+      <div class="intro-head">
+        <p class="mono meta">CORTE A–A · ESC. 1:50 · REV. 2026</p>
+        <h1>De día construyo sistemas. De noche, otra cosa.</h1>
+      </div>
+      <p class="lede">Ingeniero de sistemas junior en CorAll D&amp;R. Trabajo junto a Claude y un puñado de skills; fuera de horario, rol, juegos y música. Entra por el piso que te interese.</p>
+    </section>
+
+    <House />
+  </div>
+</Base>
