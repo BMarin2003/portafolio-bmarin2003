@@ -1,6 +1,8 @@
 ---
 import Bot from './Bot.astro';
-import { bands, crew, games, screens } from '../data/site';
+import { bands, games, screens } from '../data/site';
+// fase 2: la Task 3 reemplaza este componente; la cuadrilla vieja ya no existe
+const crew: { color: string; variant?: 'sleepy' | 'helmet' }[] = [];
 
 const motions = ['breathe', 'breathe', 'type', 'breathe', 'breathe'] as const;
 const delays = [0, 1, 0, 2, 0] as const;

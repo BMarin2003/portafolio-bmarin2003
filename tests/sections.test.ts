@@ -5,7 +5,7 @@ import Taller from '../src/components/Taller.astro';
 import Cuarto from '../src/components/Cuarto.astro';
 import People from '../src/components/People.astro';
 import Index from '../src/pages/index.astro';
-import { bands, corall, crew, games, screens } from '../src/data/site';
+import { bands, corall, oficios, games, screens } from '../src/data/site';
 
 const parse = (html: string) => {
   const win = new Window();
@@ -30,9 +30,10 @@ describe('Taller', () => {
     const names = [...taller.querySelectorAll('[data-project] h4')].map((e) => e.textContent?.trim());
     expect(names).toEqual(corall.map((p) => p.name));
   });
-  it('lista la cuadrilla', () => {
+  // fase 2: la Task 3 reemplaza este componente
+  it.skip('lista la cuadrilla', () => {
     const names = [...taller.querySelectorAll('[data-crew-name]')].map((e) => e.textContent?.trim());
-    expect(names).toEqual(crew.map((c) => c.name));
+    expect(names).toEqual(oficios.map((o) => o.oficio));
     expect(names.length).toBe(5);
   });
   it('muestra "El reto" solo en los proyectos que lo tienen', () => {

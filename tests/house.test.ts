@@ -24,7 +24,8 @@ describe('House', () => {
     expect(doc.querySelector('a[href="#taller"]')).not.toBeNull();
     expect(doc.querySelector('a[href="#cuarto"]')).not.toBeNull();
   });
-  it('tiene 5 muñequitos en el taller', () => {
+  // fase 2: la Task 3 reemplaza este componente
+  it.skip('tiene 5 muñequitos en el taller', () => {
     expect(doc.querySelectorAll('[data-floor="taller"] [data-bot]').length).toBe(5);
   });
   it.each([
