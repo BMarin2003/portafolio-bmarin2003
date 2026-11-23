@@ -46,9 +46,12 @@ import { bands } from '../data/site';
   import { startRotation } from '../scripts/rotate';
   import { startNowPlaying } from '../scripts/now-playing';
   import { initCasaUI } from '../scripts/casa/ui';
+  import { bootCasa } from '../scripts/casa/boot';
 
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   startRotation(document, { intervalMs: 3200, reducedMotion });
   startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
-  initCasaUI(document.querySelector<HTMLElement>('[data-casa]')!);
+  const root = document.querySelector<HTMLElement>('[data-casa]')!;
+  const ui = initCasaUI(root);
+  void bootCasa(root, { reducedMotion, ui, loadScene: () => import('../scripts/casa/scene') });
 </script>
