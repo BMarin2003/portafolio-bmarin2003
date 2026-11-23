@@ -58,6 +58,20 @@ describe('escena', () => {
   });
 });
 
+describe('pisos', () => {
+  it('cada ruta se queda en un piso y los pies pisan una línea de suelo', () => {
+    for (const f of fases) {
+      for (const a of actoresPorFase(f)) {
+        expect(new Set(a.route.map((p) => p.y)).size).toBe(1);
+        const pies = a.route[0].y + spriteMeta(a.sprite, a.anim).height;
+        // Excepción explícita: el doble actúa parado sobre la mesa de rol (pies en y=138, no en el suelo).
+        if (a.sprite === 'doble') expect(pies).toBe(138);
+        else expect([97, 170]).toContain(pies);
+      }
+    }
+  });
+});
+
 describe('positionAt', () => {
   const r = [{ x: 0, y: 0 }, { x: 100, y: 0 }];
   it('ida y vuelta', () => {

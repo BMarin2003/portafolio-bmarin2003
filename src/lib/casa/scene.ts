@@ -40,7 +40,7 @@ export function actoresPorFase(f: Fase): Actor[] {
     case 'dia':
       return [{ sprite: 'bryan', anim: 'walk', speed: 14, route: [{ x: 92, y: 73 }, { x: 136, y: 73 }] }];
     case 'amanecer':
-      return [{ sprite: 'bryan', anim: 'walk', speed: 14, route: [{ x: 40, y: 146 }, { x: 130, y: 73 }] }];
+      return [{ sprite: 'bryan', anim: 'walk', speed: 14, route: [{ x: 70, y: 146 }, { x: 120, y: 146 }] }];
     default:
       return [bryanSentado, ...partida];
   }
