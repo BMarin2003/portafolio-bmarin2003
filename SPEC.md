@@ -2,12 +2,12 @@
 id: portfolio
 type: goal-and-requirements
 status: active
-title: Portafolio de Bryan Marin — la casa en corte
+title: Portafolio de Bryan Marin — la obra y la casa
 ---
 
 ## Objetivo
 
-Una página que presente a Bryan Marin en lo profesional y en lo personal, para que quien llegue sepa qué construye, cómo trabaja y quién es fuera de horario.
+Un sitio que presente a Bryan Marin en lo profesional y en lo personal, para que quien llegue sepa qué construye, cómo trabaja y quién es fuera de horario.
 
 ## Problema
 
@@ -22,22 +22,24 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
 
 ## Principios
 
-- **Una casa, dos pisos.** Lo profesional y lo personal están separados, pero no del todo: la portada es una casa vista en corte (boceto B, versión sobria). Arriba (N+2) está el taller, de día; abajo (N+1) está el cuarto, de noche. Cada piso lleva a su sección.
-- **Tono sobrio.** Dibujo de corte arquitectónico sobre fondo oscuro, con líneas finas, anotaciones de plano, colores apagados y un solo acento ámbar. Los muñequitos se mueven poco: respiran y parpadean, no rebotan.
+- **Dos páginas.** `/` es la profesional y lo primero que se ve: manda el contenido y los muñequitos acompañan. `/casa` es la personal, de noche, con lo que Bryan hace después de las 6. Cada una lleva a la otra.
+- **Un mundo pixel art original.** Todo el arte está dibujado con código; nada de packs, assets de terceros ni generadores de imagen. Es el mismo muñequito en las dos páginas. Sobrio: se mueve poco y respeta `prefers-reduced-motion`.
+- **La cuadrilla son oficios de obra, nunca herramientas.** Cada oficio es un área de desarrollo de Bryan; ninguno lleva el nombre de una herramienta, de una marca ni de un stack fijo.
 - **Material real, siempre.** Nada inventado: ni cifras, ni descripciones, ni personas. Lo que Bryan no ha dado no se publica.
 - **Bryan decide qué proyectos aparecen.** No se lista ninguno sin su confirmación. Quedan fuera Agrotrack (inconcluso y dependía de hardware ajeno), los proyectos de Calradia (primero tienen que existir como paper) y KenshiCoop (no es suyo).
 - **Lo de CorAll se cuenta, no se expone.** Ni código, ni repos, ni capturas internas. De cada proyecto va qué hizo Bryan y con quién. Las personas se nombran solo como "mis estimados compañeros …, supervisores … y gerentes …", con enlace a su portafolio si tienen uno.
-- **Claude con crédito.** Bryan trabaja junto a Claude; las skills que usan forman "la cuadrilla" y el sitio lo dice abiertamente.
+- **Claude, dicho abiertamente.** Bryan trabaja junto a Claude y el sitio lo dice, junto a cómo aprende usándolo. Claude no es un integrante de la cuadrilla.
 - **El arte ajeno lleva crédito.** Las portadas de juegos y los pósters de series y películas son de terceros: cada uno lleva su crédito y enlaza a su página oficial.
 
 ## Capacidades
 
-- **Portada:** la casa en corte. En el taller, la cuadrilla trabaja en sus mesas. En el cuarto hay una PC, una TV, un parlante y una mesa de rol con dados.
-- **El taller:**
-  - Proyectos de CorAll en los que Bryan formó parte: Totem Multimedia, CCAE, MaqinPro, Comphill y Corall-ERP.
-    Cada uno cuenta qué hizo Bryan y, cuando él lo da, "el reto": un obstáculo concreto y cómo se resolvió.
-  - La cuadrilla: hallmark (diseño), ponytail (criterio), superpowers (método), cc-safety-net (seguridad) y Obsidian (memoria).
-- **El cuarto:**
+- **`/` (profesional):**
+  - Presentación con una escena de la cuadrilla trabajando.
+  - Proyectos de CorAll en los que Bryan formó parte: Totem Multimedia, CCAE, MaqinPro, Comphill y Corall-ERP. Cada uno lleva su oficio, cuenta qué hizo Bryan y, cuando él lo da, "el reto": un obstáculo concreto y cómo se resolvió.
+  - Los seis oficios con sus etiquetas de tecnologías: Capataz (planificación y método), Maestro de obra (backend y datos), Decorador (frontend y diseño), Electricista (infraestructura y despliegue), Doble de riesgo (calidad y seguridad) y Archivista (documentación y conocimiento). La lista crece con la experiencia de Bryan.
+  - "Con IA, sin dejar de aprender": cómo trabaja con Claude, dónde la IA no alcanza y cómo aprende usándola.
+  - La puerta a la casa.
+- **`/casa` (personal):** el cuarto con la PC, la TV, el parlante y la mesa de rol con dados. Es una versión provisoria: una escena animada de la casa, con día y noche, la reemplazará con el mismo contenido.
   - Rol: D&D primero, después Cyberpunk RED.
   - La PC rota portadas de RimWorld, Mount & Blade: Warband, Crusader Kings II y III, Project Zomboid, Fallout 4 y Fallout: New Vegas.
   - La TV rota entre Django sin cadenas, The Batman, Superman (2025), la trilogía de El Señor de los Anillos, la trilogía de Las Crónicas de Narnia, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine.
