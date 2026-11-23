@@ -47,8 +47,8 @@ export function initCasaUI(
     if (cambio) {
       if (titulo) titulo.textContent = fase === 'noche' || fase === 'tarde' ? 'La casa, después de las 6' : 'La casa, de día';
       if (subtitulo) subtitulo.textContent = subtitulos[fase];
+      oyentes.forEach((cb) => cb(fase));
     }
-    return cambio;
   };
 
   const programar = () => {
@@ -71,11 +71,9 @@ export function initCasaUI(
   };
 
   const setOffset = (h: number) => {
-    const antes = fase;
     offset = h;
     boton?.setAttribute('aria-pressed', String(h !== 0));
     pintar();
-    if (fase !== antes) oyentes.forEach((cb) => cb(fase));
   };
 
   const onClickBoton = (b: HTMLButtonElement) => () => open(b.dataset.objeto as ObjetoId);

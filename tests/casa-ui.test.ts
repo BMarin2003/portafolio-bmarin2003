@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { initCasaUI } from '../src/scripts/casa/ui';
 import type { Fase } from '../src/lib/casa/time';
 
@@ -70,5 +70,43 @@ describe('initCasaUI', () => {
     ui.setOffset(10);
     ui.setOffset(0);
     expect(got).toEqual(['amanecer', 'noche']);
+  });
+});
+
+describe('reloj real', () => {
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+  const arrancar = (reducido = false) => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date('2026-11-23T22:59:30Z')); // 17:59:30 en Trujillo
+    if (reducido) vi.stubGlobal('matchMedia', () => ({ matches: true }));
+    ui.destroy();
+    root = mount();
+    ui = initCasaUI(root, { now: () => new Date() });
+  };
+
+  it('avisa una sola vez al cruzar 18:00', () => {
+    arrancar();
+    const got: Fase[] = [];
+    ui.onFase((f) => got.push(f));
+    expect(ui.getFase()).toBe('dia');
+    vi.advanceTimersByTime(31_000);
+    expect(got).toEqual(['tarde']);
+    vi.advanceTimersByTime(30_000);
+    expect(got).toEqual(['tarde']);
+  });
+  it('destroy limpia el timer', () => {
+    arrancar();
+    const got: Fase[] = [];
+    ui.onFase((f) => got.push(f));
+    ui.destroy();
+    vi.advanceTimersByTime(120_000);
+    expect(got).toEqual([]);
+  });
+  it('con movimiento reducido no programa timer', () => {
+    arrancar(true);
+    expect(vi.getTimerCount()).toBe(0);
   });
 });
