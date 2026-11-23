@@ -1,53 +1,39 @@
 ---
 import Base from '../layouts/Base.astro';
-import House from '../components/House.astro';
-import Taller from '../components/Taller.astro';
-import Cuarto from '../components/Cuarto.astro';
+import Sprite from '../components/Sprite.astro';
+import Hero from '../components/pro/Hero.astro';
+import Proyectos from '../components/pro/Proyectos.astro';
+import Oficios from '../components/pro/Oficios.astro';
+import ComoTrabajo from '../components/pro/ComoTrabajo.astro';
+import PuertaCasa from '../components/pro/PuertaCasa.astro';
+import Pie from '../components/Pie.astro';
 import { links } from '../data/site';
 ---
 <Base
   title="Bryan Marin · ingeniero de sistemas en Trujillo"
-  description="Ingeniero de sistemas junior en CorAll D&R. De día construyo sistemas con Claude y su cuadrilla de skills; de noche, rol, juegos y música."
+  description="Ingeniero de sistemas junior en CorAll D&R, en Trujillo. Construyo sistemas con una cuadrilla de oficios, junto a Claude; después de las 6, rol, juegos y música."
 >
-  <div id="top" class="page">
+  <div class="page">
     <header class="wrap site-header">
-      <a href="#top" class="brand">Bryan Marin <span class="mono sub">ingeniero de sistemas · Trujillo</span></a>
+      <a href="#top" class="brand"><Sprite name="bryan" anim="idle" scale={2} paused />Bryan Marin</a>
       <nav class="mono" aria-label="Principal">
-        <a href="#taller">N+2 taller</a>
-        <a href="#cuarto">N+1 cuarto</a>
+        <a href="#proyectos">proyectos</a>
+        <a href="#oficios">oficios</a>
+        <a href="#ia">cómo trabajo</a>
         <a href={links.github}>github</a>
         <a href={links.linkedin}>linkedin</a>
+        <a href="/casa" class="nav-casa">la casa →</a>
       </nav>
     </header>
 
     <main>
-    <section class="wrap intro">
-      <div class="intro-head">
-        <p class="mono meta">CORTE A–A · ESC. 1:50 · REV. 2026</p>
-        <h1>De día construyo sistemas. De noche, otra cosa.</h1>
-      </div>
-      <p class="lede">Ingeniero de sistemas junior en CorAll D&amp;R. Trabajo junto a Claude y un puñado de skills; fuera de horario, rol, juegos y música. Entra por el piso que te interese.</p>
-    </section>
-
-    <House />
-    <Taller />
-    <Cuarto />
+      <Hero />
+      <Proyectos />
+      <Oficios />
+      <ComoTrabajo />
+      <PuertaCasa />
     </main>
 
-    <footer class="mono site-footer wrap">
-      <span>Bryan Marin Yupanqui · Trujillo, Perú</span>
-      <span>Construido junto a Claude (Anthropic)</span>
-    </footer>
+    <Pie />
   </div>
 </Base>
-
-<script>
-  import { startRotation } from '../scripts/rotate';
-  startRotation(document, {
-    intervalMs: 3200,
-    reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
-  });
-
-  import { startNowPlaying } from '../scripts/now-playing';
-  startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
-</script>

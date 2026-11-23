@@ -1,0 +1,23 @@
+---
+import Sprite from '../Sprite.astro';
+import { oficios } from '../../data/site';
+---
+<section id="oficios" class="seccion" aria-labelledby="oficios-h">
+  <p class="mono kicker">02 · LA CUADRILLA</p>
+  <h2 id="oficios-h" class="tight">Un oficio por área</h2>
+  <p class="seccion-lede">Cada oficio junta lo que he usado en trabajo real. Las etiquetas crecen a medida que la obra crece.</p>
+  <div class="grid">
+    {oficios.map((o) => (
+      <article class="panel oficio">
+        <Sprite name={o.sprite} anim="action" scale={4} class="act" />
+        <div class="oficio-body">
+          <h3>{o.oficio}</h3>
+          <span class="mono area">{o.area}</span>
+          <ul class="tags">
+            {o.tags.map((t) => <li class="mono">{t}</li>)}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

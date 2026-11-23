@@ -1,0 +1,17 @@
+---
+import Sprite from '../Sprite.astro';
+---
+<section class="puerta-band" aria-labelledby="casa-h">
+  <a href="/casa" class="wrap puerta">
+    <div class="puerta-text">
+      <p class="mono puerta-kicker">DESPUÉS DE LAS 6</p>
+      <h2 id="casa-h">La obra cierra. La casa se enciende.</h2>
+      <p>Rol, juegos, series y lo que suena ahora en Spotify.</p>
+    </div>
+    <div class="puerta-escena">
+      <span class="paseo" aria-hidden="true"><Sprite name="bryan" anim="walk" scale={4} /></span>
+      <span class="puerta-door" aria-hidden="true"><span class="puerta-pomo"></span></span>
+      <span class="mono puerta-cta">entrar a la casa →</span>
+    </div>
+  </a>
+</section>

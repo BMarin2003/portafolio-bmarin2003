@@ -1,0 +1,38 @@
+---
+import Sprite from '../Sprite.astro';
+
+// La escena de la obra: cada sprite se ubica por el centro (--x) para que reparta igual a cualquier ancho.
+const arriba = [
+  { name: 'capataz', x: '18%' },
+  { name: 'electricista', x: '47%' },
+  { name: 'decorador', x: '82%' },
+];
+const abajo = [
+  { name: 'maestro', x: '14%' },
+  { name: 'doble', x: '32%', slow: true },
+  { name: 'archivista', x: '84%' },
+];
+---
+<section id="top" class="hero">
+  <div class="hero-text">
+    <span class="mono hero-tag"><span class="hero-dot" aria-hidden="true"></span>INGENIERO DE SISTEMAS JUNIOR · CORALL D&amp;R · TRUJILLO</span>
+    <h1>Construyo sistemas con una cuadrilla de oficios.</h1>
+    <p class="hero-lede">Método, backend, diseño, infraestructura, pruebas y documentación: cada área es un oficio de la obra. Trabajo junto a Claude, y la cuadrilla crece con cada proyecto.</p>
+    <div class="hero-ctas">
+      <a href="#proyectos" class="btn btn-main">Ver la obra</a>
+      <a href="#oficios" class="btn btn-line mono">conocer la cuadrilla</a>
+    </div>
+  </div>
+
+  <div class="obra-window">
+    <div class="mono obra-bar"><span>LA OBRA · EN VIVO</span><span>6 oficios trabajando</span></div>
+    <div class="obra" data-obra aria-hidden="true">
+      <div class="obra-andamio"></div>
+      <div class="obra-tablon"></div>
+      <div class="obra-suelo"></div>
+      {arriba.map((s) => <Sprite name={s.name} anim="action" scale={4} class="act arriba" style={`--x:${s.x}`} />)}
+      {abajo.map((s) => <Sprite name={s.name} anim="action" scale={4} class={s.slow ? 'act abajo slow' : 'act abajo'} style={`--x:${s.x}`} />)}
+      <Sprite name="bryan" anim="idle" scale={4} paused class="abajo" style="--x:50%" />
+    </div>
+  </div>
+</section>

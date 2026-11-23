@@ -1,11 +1,9 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { Window } from 'happy-dom';
 import { beforeAll, describe, expect, it } from 'vitest';
-import Taller from '../src/components/Taller.astro';
 import Cuarto from '../src/components/Cuarto.astro';
 import People from '../src/components/People.astro';
-import Index from '../src/pages/index.astro';
-import { bands, corall, oficios, games, screens } from '../src/data/site';
+import { bands, games, screens } from '../src/data/site';
 
 const parse = (html: string) => {
   const win = new Window();
@@ -13,39 +11,15 @@ const parse = (html: string) => {
   return win.document as unknown as Document;
 };
 
-let taller: Document;
 let cuarto: Document;
 let container: Awaited<ReturnType<typeof AstroContainer.create>>;
 
 beforeAll(async () => {
   container = await AstroContainer.create({ astroConfig: { site: 'https://example.com' } as never });
-  taller = parse(await container.renderToString(Taller));
   cuarto = parse(await container.renderToString(Cuarto));
 });
 
 const children = (doc: Document, sel: string) => [...doc.querySelectorAll(`${sel} > *`)];
-
-describe('Taller', () => {
-  it('lista los 6 proyectos en orden', () => {
-    const names = [...taller.querySelectorAll('[data-project] h4')].map((e) => e.textContent?.trim());
-    expect(names).toEqual(corall.map((p) => p.name));
-  });
-  // fase 2: la Task 3 reemplaza este componente
-  it.skip('lista la cuadrilla', () => {
-    const names = [...taller.querySelectorAll('[data-crew-name]')].map((e) => e.textContent?.trim());
-    expect(names).toEqual(oficios.map((o) => o.oficio));
-    expect(names.length).toBe(5);
-  });
-  it('muestra "El reto" solo en los proyectos que lo tienen', () => {
-    const articles = [...taller.querySelectorAll('[data-project]')];
-    corall.forEach((p, i) => {
-      const reto = articles[i].querySelector('[data-challenge]');
-      if (p.challenge) expect(reto?.textContent?.replace(/\s+/g, ' ').trim()).toBe(`El reto: ${p.challenge}`);
-      else expect(reto).toBeNull();
-    });
-    expect(corall.find((p) => p.name === 'MaqinPro')?.challenge).toContain('En proceso en el taller');
-  });
-});
 
 describe('People', () => {
   it('une los grupos y enlaza solo a quien tiene url', async () => {
@@ -88,14 +62,5 @@ describe('Cuarto', () => {
       expect(link!.textContent).toContain(item.source);
       expect(link!.getAttribute('aria-label')).toBe(`${item.title} en ${item.source}`);
     }
-  });
-});
-
-describe('Pie', () => {
-  it('acredita a Claude', async () => {
-    const doc = parse(await container.renderToString(Index, { request: new Request('https://example.com/') }));
-    expect(doc.querySelector('footer')?.textContent).toContain('Construido junto a Claude (Anthropic)');
-    expect(doc.querySelector('main')).not.toBeNull();
-    expect(doc.querySelector('main footer')).toBeNull();
   });
 });

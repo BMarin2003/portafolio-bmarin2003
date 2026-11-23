@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Cuarto from '../components/Cuarto.astro';
+import Pie from '../components/Pie.astro';
+---
+<Base
+  title="La casa de Bryan"
+  description="La casa de Bryan después de las 6: rol, juegos, series y lo que suena ahora en Spotify."
+>
+  <div class="page casa-page">
+    <header class="wrap site-header">
+      <a href="/" class="mono">← volver a la obra</a>
+    </header>
+
+    <main>
+      <div class="wrap casa-intro">
+        <h1>La casa, después de las 6</h1>
+      </div>
+      <Cuarto />
+    </main>
+
+    <Pie />
+  </div>
+</Base>
+
+<script>
+  import { startRotation } from '../scripts/rotate';
+  startRotation(document, {
+    intervalMs: 3200,
+    reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+  });
+
+  import { startNowPlaying } from '../scripts/now-playing';
+  startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
+</script>

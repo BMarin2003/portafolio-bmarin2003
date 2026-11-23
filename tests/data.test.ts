@@ -18,7 +18,8 @@ describe('oficios', () => {
   it('cada proyecto trae su area', () => {
     expect(corall.map((p) => p.area)).toEqual(['PRIMER PROYECTO', 'APORTE PUNTUAL', 'PLATAFORMA · A MI CARGO', 'CIERRE DE PROYECTO', 'ERP INTERNO']);
   });
-  it('comoTrabajo es un hueco entre corchetes', () => {
-    expect(comoTrabajo).toMatch(/^\[.*\]$/);
+  it('comoTrabajo es un texto no vacío', () => {
+    expect(typeof comoTrabajo).toBe('string');
+    expect(comoTrabajo.trim()).not.toBe('');
   });
 });

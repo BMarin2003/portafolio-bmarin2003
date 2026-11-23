@@ -1,0 +1,26 @@
+---
+import Sprite from '../Sprite.astro';
+import People from '../People.astro';
+import { corall } from '../../data/site';
+import { peopleGroups } from '../../lib/text';
+---
+<section id="proyectos" class="seccion" aria-labelledby="proyectos-h">
+  <p class="mono kicker">01 · PROYECTOS EN LOS QUE FORMÉ PARTE</p>
+  <h2 id="proyectos-h">La obra en CorAll D&amp;R</h2>
+  <div class="grid">
+    {corall.map((p) => (
+      <article class="panel proyecto">
+        <div class="proyecto-head">
+          <div>
+            <span class="mono area">{p.area}</span>
+            <h3>{p.name}</h3>
+          </div>
+          <Sprite name={p.sprite} anim="action" scale={3} class="act" />
+        </div>
+        <p>{p.did}</p>
+        {peopleGroups(p.people).length > 0 && <p><People people={p.people} /></p>}
+        {p.challenge && <p data-challenge><strong>El reto:</strong> {p.challenge}</p>}
+      </article>
+    ))}
+  </div>
+</section>
