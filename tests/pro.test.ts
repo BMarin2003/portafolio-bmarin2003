@@ -116,11 +116,9 @@ describe('/ · página', () => {
 });
 
 describe('/casa', () => {
-  it('tiene el cuarto con sus cuatro tarjetas y el parlante', () => {
+  it('tiene el h1 de noche y el parlante', () => {
     expect(text(casa.querySelector('h1'))).toBe('La casa, después de las 6');
     expect(casa.querySelector('[data-speaker]')).not.toBeNull();
-    const cards = [...casa.querySelectorAll('[data-card]')].map((c) => c.getAttribute('data-card'));
-    expect(cards).toEqual(['mesa', 'pc', 'tv', 'speaker']);
   });
   it('vuelve a la obra', () => {
     const back = casa.querySelector('a[href="/"]');

@@ -1,22 +1,41 @@
 ---
 import Base from '../layouts/Base.astro';
-import Cuarto from '../components/Cuarto.astro';
 import Pie from '../components/Pie.astro';
+import Reloj from '../components/casa/Reloj.astro';
+import Objetos from '../components/casa/Objetos.astro';
+import Panel from '../components/casa/Panel.astro';
+import { bands } from '../data/site';
 ---
 <Base
   title="La casa de Bryan"
   description="La casa de Bryan después de las 6: rol, juegos, series y lo que suena ahora en Spotify."
 >
-  <div class="page casa-page">
+  <div class="page casa-page" data-casa>
     <header class="wrap site-header">
       <a href="/" class="mono">← volver a la obra</a>
+      <Reloj />
     </header>
 
-    <main>
-      <div class="wrap casa-intro">
-        <h1>La casa, después de las 6</h1>
+    <main class="wrap casa-main">
+      <h1 data-titulo>La casa, después de las 6</h1>
+      <p class="casa-sub" data-subtitulo>Bryan en la PC; la cuadrilla llegó para la partida de rol.</p>
+
+      <div class="casa-escena" data-scene aria-hidden="true">
+        <img src="/casa-estatica.png" alt="" width="1100" height="640" />
       </div>
-      <Cuarto />
+
+      <p class="mono casa-parlante" data-speaker>
+        <span aria-hidden="true">♪ </span>
+        <span data-rotate>
+          {bands.map((b, i) => <span hidden={i > 0}>{b}</span>)}
+        </span>
+        <span data-live hidden></span>
+      </p>
+
+      <div class="casa-bajo">
+        <Objetos />
+        <Panel />
+      </div>
     </main>
 
     <Pie />
@@ -25,11 +44,11 @@ import Pie from '../components/Pie.astro';
 
 <script>
   import { startRotation } from '../scripts/rotate';
-  startRotation(document, {
-    intervalMs: 3200,
-    reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
-  });
-
   import { startNowPlaying } from '../scripts/now-playing';
+  import { initCasaUI } from '../scripts/casa/ui';
+
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  startRotation(document, { intervalMs: 3200, reducedMotion });
   startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
+  initCasaUI(document.querySelector<HTMLElement>('[data-casa]')!);
 </script>

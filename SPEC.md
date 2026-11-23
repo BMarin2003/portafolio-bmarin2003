@@ -39,7 +39,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
   - Los seis oficios con sus etiquetas de tecnologías: Capataz (planificación y método), Maestro de obra (backend y datos), Decorador (frontend y diseño), Electricista (infraestructura y despliegue), Doble de riesgo (calidad y seguridad) y Archivista (documentación y conocimiento). La lista crece con la experiencia de Bryan.
   - "Con IA, sin dejar de aprender": cómo trabaja con Claude, dónde la IA no alcanza y cómo aprende usándola.
   - La puerta a la casa.
-- **`/casa` (personal):** el cuarto con la PC, la TV, el parlante y la mesa de rol con dados. Es una versión provisoria: una escena animada de la casa, con día y noche, la reemplazará con el mismo contenido.
+- **`/casa` (personal):** el cuarto con la PC, la TV, el parlante y la mesa de rol con dados. Hoy es una versión accesible con la escena como imagen, el reloj de Trujillo y un panel por objeto; la escena animada, con día y noche, se monta encima con el mismo contenido.
   - Rol: D&D primero, después Cyberpunk RED.
   - La PC rota portadas de RimWorld, Mount & Blade: Warband, Crusader Kings II y III, Project Zomboid, Fallout 4 y Fallout: New Vegas.
   - La TV rota entre Django sin cadenas, The Batman, Superman (2025), la trilogía de El Señor de los Anillos, la trilogía de Las Crónicas de Narnia, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine.

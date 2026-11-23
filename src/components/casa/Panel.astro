@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { bands, games, rol, screens } from '../../data/site';
+import type { Credit } from '../../data/site';
+
+const lista: { id: 'pc' | 'tv'; kicker: string; titulo: string; items: Credit[] }[] = [
+  { id: 'pc', kicker: 'LA PC · LO QUE JUEGO', titulo: 'Juegos', items: games },
+  { id: 'tv', kicker: 'LA TELE · SERIES Y PELIS', titulo: 'En pantalla', items: screens },
+];
+---
+<aside class="casa-panel" aria-live="polite">
+  {lista.map((l) => (
+    <section class="casa-seccion" data-panel={l.id}>
+      <p class="mono kind accent-k">{l.kicker}</p>
+      <h2 tabindex="-1">{l.titulo}</h2>
+      <ul class="casa-lista">
+        {l.items.map((it) => (
+          <li>
+            <span class="casa-item">{it.cover ? <Image src={it.cover} alt={it.title} width={160} /> : it.title}</span>
+            <a class="credit mono" href={it.sourceUrl} aria-label={`${it.title} vía ${it.source}`}>vía {it.source}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+  <section class="casa-seccion" data-panel="parlante">
+    <p class="mono kind accent-k">EL PARLANTE · EN VIVO DESDE SPOTIFY</p>
+    <h2 tabindex="-1">Lo que suena</h2>
+    <p class="casa-nota">Lo que suena ahora aparece en la leyenda de la escena. Si no suena nada, esto es lo que escucho:</p>
+    <ul class="casa-lista">
+      {bands.map((b) => <li><span class="casa-item">{b}</span></li>)}
+    </ul>
+  </section>
+  <section class="casa-seccion" data-panel="mesa">
+    <p class="mono kind accent-k">LA MESA</p>
+    <h2 tabindex="-1">{rol[0]}, luego {rol[1]}</h2>
+  </section>
+  <section class="casa-seccion" data-panel="estante">
+    <p class="mono kind accent-k">EL ESTANTE · HISTORIA</p>
+    <h2 tabindex="-1">Leo sobre historia</h2>
+  </section>
+</aside>

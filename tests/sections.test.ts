@@ -1,9 +1,7 @@
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { Window } from 'happy-dom';
 import { beforeAll, describe, expect, it } from 'vitest';
-import Cuarto from '../src/components/Cuarto.astro';
 import People from '../src/components/People.astro';
-import { bands, games, screens } from '../src/data/site';
 
 const parse = (html: string) => {
   const win = new Window();
@@ -11,15 +9,11 @@ const parse = (html: string) => {
   return win.document as unknown as Document;
 };
 
-let cuarto: Document;
 let container: Awaited<ReturnType<typeof AstroContainer.create>>;
 
 beforeAll(async () => {
   container = await AstroContainer.create({ astroConfig: { site: 'https://example.com' } as never });
-  cuarto = parse(await container.renderToString(Cuarto));
 });
-
-const children = (doc: Document, sel: string) => [...doc.querySelectorAll(`${sel} > *`)];
 
 describe('People', () => {
   it('une los grupos y enlaza solo a quien tiene url', async () => {
@@ -34,33 +28,5 @@ describe('People', () => {
   it('no renderiza nada si los tres grupos están vacíos', async () => {
     const html = await container.renderToString(People, { props: { people: { companeros: [], supervisores: [], gerentes: [] } } });
     expect(html.trim()).toBe('');
-  });
-});
-
-describe('Cuarto', () => {
-  it('menciona el rol', () => {
-    expect(cuarto.body.textContent).toContain('D&D');
-    expect(cuarto.body.textContent).toContain('Cyberpunk RED');
-  });
-  it.each([
-    ['[data-card="pc"] [data-rotate]', games.map((g) => g.title)],
-    ['[data-card="tv"] [data-rotate]', screens.map((s) => s.title)],
-    ['[data-card="speaker"] [data-rotate]', bands],
-  ])('%s muestra el primero y esconde el resto', (sel, items) => {
-    const kids = children(cuarto, sel);
-    expect(kids.length).toBe(items.length);
-    expect(kids.map((k) => k.hasAttribute('hidden'))).toEqual(items.map((_, i) => i > 0));
-    expect(kids[0].textContent).toContain(items[0]);
-  });
-  it('data-rotate no va en el contenedor de la tarjeta', () => {
-    expect(cuarto.querySelector('[data-card][data-rotate]')).toBeNull();
-  });
-  it('cada juego y serie lleva crédito enlazado a su fuente', () => {
-    for (const item of [...games, ...screens]) {
-      const link = [...cuarto.querySelectorAll('a')].find((a) => a.getAttribute('href') === item.sourceUrl);
-      expect(link, item.title).toBeTruthy();
-      expect(link!.textContent).toContain(item.source);
-      expect(link!.getAttribute('aria-label')).toBe(`${item.title} vía ${item.source}`);
-    }
   });
 });

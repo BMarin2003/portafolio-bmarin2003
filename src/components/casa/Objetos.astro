@@ -1,0 +1,11 @@
+---
+import { objetos } from '../../lib/casa/scene';
+---
+<nav class="casa-objetos" aria-label="Objetos de la casa">
+  <p class="mono kind">OBJETOS · TAMBIÉN CON TECLADO</p>
+  <div class="casa-objetos-lista">
+    {objetos.map((o) => (
+      <button type="button" class="mono casa-objeto" data-objeto={o.id} aria-pressed={o.id === 'parlante' ? 'true' : 'false'}>{o.label}</button>
+    ))}
+  </div>
+</nav>
