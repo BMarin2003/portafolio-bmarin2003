@@ -64,8 +64,8 @@ describe('pisos', () => {
       for (const a of actoresPorFase(f)) {
         expect(new Set(a.route.map((p) => p.y)).size).toBe(1);
         const pies = a.route[0].y + spriteMeta(a.sprite, a.anim).height;
-        // Excepción explícita: el doble actúa parado sobre la mesa de rol (pies en y=138, no en el suelo).
-        if (a.sprite === 'doble') expect(pies).toBe(138);
+        // Excepción explícita: el doble actúa parado sobre la mesa de rol (pies en y=139, no en el suelo).
+        if (a.sprite === 'doble') expect(pies).toBe(139);
         else expect([97, 170]).toContain(pies);
       }
     }

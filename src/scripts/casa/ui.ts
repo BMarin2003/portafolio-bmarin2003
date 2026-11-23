@@ -83,7 +83,8 @@ export function initCasaUI(
   boton?.addEventListener('click', alAdelantar);
   if (boton) boton.hidden = false;
   const alTeclear = (e: Event) => {
-    if ((e as KeyboardEvent).key === 'Escape') botones.find((b) => b.dataset.objeto === abierto)?.focus();
+    if ((e as KeyboardEvent).key !== 'Escape' || !doc.activeElement?.closest('[data-panel]')) return;
+    botones.find((b) => b.dataset.objeto === abierto)?.focus();
   };
   doc.addEventListener('keydown', alTeclear);
 

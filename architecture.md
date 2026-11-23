@@ -34,7 +34,7 @@ parent: portfolio
 
 - **El token de Spotify nunca llega al navegador.** Vive como secreto de Cloudflare y solo lo lee la función.
 - **`/` no carga motor de juego ni scripts de cliente propios.**
-- **Las dos páginas funcionan sin JavaScript.** Sin scripts, la PC, la TV y el parlante muestran el primer título de su lista.
+- **Las dos páginas funcionan sin JavaScript.** `/` se ve completa. `/casa` muestra la imagen de la casa de noche, los cinco paneles con sus listas completas y la primera banda en el parlante.
 - **Se respeta `prefers-reduced-motion`.** Si el visitante lo pide, se detienen las animaciones y la rotación; con ello la escena de `/casa` no se monta y queda la imagen estática.
 - **El canvas siempre tiene su equivalente accesible en el DOM.** El canvas va oculto a lectores de pantalla (`aria-hidden`); todo objeto de la escena existe como botón y panel.
 - **Ningún texto entre corchetes (`[nombres]`, `[Qué hice]`) llega a producción.** El build falla si encuentra uno. Decisión mía.

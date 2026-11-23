@@ -13,7 +13,13 @@ export async function bootCasa(
   try {
     if (!container) throw new Error('falta [data-scene]');
     const { mountScene } = await deps.loadScene();
-    await mountScene(container, { open: deps.ui.open, onFase: deps.ui.onFase, fase: deps.ui.getFase() });
+    await mountScene(container, {
+      open: deps.ui.open,
+      onFase: deps.ui.onFase,
+      get fase() {
+        return deps.ui.getFase();
+      },
+    });
     return 'scene';
   } catch (err) {
     container?.querySelector('img')?.style.removeProperty('visibility');

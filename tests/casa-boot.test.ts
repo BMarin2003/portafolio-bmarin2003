@@ -69,6 +69,22 @@ describe('bootCasa', () => {
   });
 });
 
+describe('fase durante el montaje', () => {
+  it('la escena lee la fase vigente, no la del inicio del montaje', async () => {
+    const ui = fakeUI();
+    let fase: 'dia' | 'noche' = 'dia';
+    ui.getFase = () => fase as never;
+    let leida: string | undefined;
+    const mountScene: MountScene = async (_c, sceneUI) => {
+      fase = 'noche'; // el reloj cambia de fase mientras se monta
+      leida = sceneUI.fase;
+      return { destroy() {} };
+    };
+    await bootCasa(root, { reducedMotion: false, ui, loadScene: async () => ({ mountScene }) });
+    expect(leida).toBe('noche');
+  });
+});
+
 describe('/ sin motor de juego', () => {
   it('el HTML de / no menciona pixi', async () => {
     const container = await AstroContainer.create({ astroConfig: { site: 'https://example.com' } as never });

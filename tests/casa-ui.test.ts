@@ -64,6 +64,13 @@ describe('initCasaUI', () => {
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     expect(document.activeElement).toBe(root.querySelector('[data-objeto="tv"]'));
   });
+  it('Escape fuera de un panel no mueve el foco', () => {
+    ui.open('tv');
+    const otro = root.querySelector<HTMLElement>('[data-adelantar]')!;
+    otro.focus();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    expect(document.activeElement).toBe(otro);
+  });
   it('onFase avisa el cambio al adelantar', () => {
     const got: Fase[] = [];
     ui.onFase((f) => got.push(f));

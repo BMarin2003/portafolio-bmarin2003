@@ -31,7 +31,7 @@ export const objetos: Objeto[] = [
 const bryanSentado: Actor = { sprite: 'bryan', anim: 'sit', speed: 0, route: [{ x: 34, y: 146 }] };
 const partida: Actor[] = [
   { sprite: 'capataz', anim: 'idle', speed: 0, route: [{ x: 196, y: 154 }] },
-  { sprite: 'doble', anim: 'action', speed: 0, route: [{ x: 217, y: 122 }] },
+  { sprite: 'doble', anim: 'action', speed: 0, route: [{ x: 217, y: 123 }] },
   { sprite: 'decorador', anim: 'idle', speed: 0, route: [{ x: 279, y: 154 }] },
 ];
 
