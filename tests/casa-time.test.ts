@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { faseAt, formatClock, msUntilNextMinute, trujilloHour } from '../src/lib/casa/time';
+import { esDeNoche, faseAt, formatClock, msUntilNextMinute, trujilloHour } from '../src/lib/casa/time';
 
 describe('trujilloHour', () => {
   it('da la hora de Trujillo (UTC−5) desde UTC', () => {
@@ -42,5 +42,14 @@ describe('formatClock', () => {
 describe('msUntilNextMinute', () => {
   it('cuenta hasta el próximo minuto exacto', () => {
     expect(msUntilNextMinute(new Date('2026-11-23T02:30:15.500Z'))).toBe(44500);
+  });
+});
+
+describe('esDeNoche', () => {
+  it('la tarde va con la noche y el amanecer con el día', () => {
+    expect(esDeNoche('noche')).toBe(true);
+    expect(esDeNoche('tarde')).toBe(true);
+    expect(esDeNoche('dia')).toBe(false);
+    expect(esDeNoche('amanecer')).toBe(false);
   });
 });

@@ -16,6 +16,11 @@ export function faseAt(hour: number): Fase {
   return 'noche';
 }
 
+/** La tarde se pinta como la noche y el amanecer como el día: la escena solo usa las dos paletas aprobadas. */
+export function esDeNoche(f: Fase): boolean {
+  return f === 'noche' || f === 'tarde';
+}
+
 /** Hora en formato HH:MM de 24 horas. */
 export function formatClock(h: { hour: number; minute: number }): string {
   return `${String(h.hour).padStart(2, '0')}:${String(h.minute).padStart(2, '0')}`;

@@ -3,6 +3,7 @@ import type { Ticker } from 'pixi.js';
 import { HEIGHT, WIDTH, actoresPorFase, habitaciones, objetos } from '../../lib/casa/scene';
 import type { Actor, ObjetoId, Rect } from '../../lib/casa/scene';
 import { positionAt } from '../../lib/casa/route';
+import { esDeNoche } from '../../lib/casa/time';
 import type { Fase } from '../../lib/casa/time';
 
 export type MountScene = (
@@ -26,15 +27,9 @@ const PANTALLA = 0x7c93b8;
 /** Cuadros por tick a 60 fps (0.1 ≈ 6 cuadros por segundo). */
 const VELOCIDAD: Record<Actor['anim'], number> = { walk: 0.1, action: 0.05, roll: 0.04, idle: 0.03, sit: 0 };
 
-/** amanecer y tarde quedan a medio camino entre noche y día. */
-function mezcla(a: number, b: number, k: number): number {
-  const c = (s: number) => Math.round(((a >> s) & 255) * (1 - k) + ((b >> s) & 255) * k) << s;
-  return c(16) | c(8) | c(0);
-}
-
 function colores(f: Fase) {
-  const k = f === 'dia' ? 1 : f === 'noche' ? 0 : 0.5;
-  return { pared: mezcla(PARED.noche, PARED.dia, k), cielo: mezcla(CIELO.noche, CIELO.dia, k), sol: f === 'dia' || f === 'amanecer' };
+  const paleta = esDeNoche(f) ? 'noche' : 'dia';
+  return { pared: PARED[paleta], cielo: CIELO[paleta], sol: !esDeNoche(f) };
 }
 
 /** Borde de 1 px por fuera del rectángulo, con rectángulos llenos para que quede nítido. */
@@ -197,7 +192,7 @@ function montar(
   let noche = false;
   const ponerFase = (f: Fase) => {
     dibujarCasa(casa, f);
-    noche = f === 'noche' || f === 'tarde';
+    noche = esDeNoche(f);
     brillo.visible = noche;
     actores.removeChildren().forEach((c) => c.destroy());
     sprites = actoresPorFase(f).map((a) => {
