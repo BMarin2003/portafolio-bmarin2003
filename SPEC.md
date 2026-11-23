@@ -23,7 +23,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
 ## Principios
 
 - **Dos páginas.** `/` es la profesional y lo primero que se ve: manda el contenido y los muñequitos acompañan. `/casa` es la personal, de noche, con lo que Bryan hace después de las 6. Cada una lleva a la otra.
-- **Un mundo pixel art original.** Todo el arte está dibujado con código; nada de packs, assets de terceros ni generadores de imagen. Es el mismo muñequito en las dos páginas. Sobrio: se mueve poco y respeta `prefers-reduced-motion`.
+- **Un mundo pixel art original.** El arte del mundo, personajes y escenas, es 100 % original y está dibujado con código: nada de packs, assets de terceros ni generadores de imagen. Es el mismo muñequito en las dos páginas. Sobrio: se mueve poco y respeta `prefers-reduced-motion`.
 - **La cuadrilla son oficios de obra, nunca herramientas.** Cada oficio es un área de desarrollo de Bryan; ninguno lleva el nombre de una herramienta, de una marca ni de un stack fijo.
 - **Material real, siempre.** Nada inventado: ni cifras, ni descripciones, ni personas. Lo que Bryan no ha dado no se publica.
 - **Bryan decide qué proyectos aparecen.** No se lista ninguno sin su confirmación. Quedan fuera Agrotrack (inconcluso y dependía de hardware ajeno), los proyectos de Calradia (primero tienen que existir como paper) y KenshiCoop (no es suyo).
