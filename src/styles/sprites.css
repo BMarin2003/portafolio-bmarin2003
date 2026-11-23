@@ -1,0 +1,25 @@
+/* Hojas de sprites: una fila por animación, cuadros de izquierda a derecha. Ver art/SPEC.md. */
+.spr {
+  --d: 0.7s;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: calc(var(--fw) * var(--s) * 1px);
+  height: calc(var(--fh) * var(--s) * 1px);
+  background-repeat: no-repeat;
+  background-size: calc(var(--fw) * var(--cols) * var(--s) * 1px) auto;
+  background-position: 0 calc(var(--fh) * var(--s) * var(--row) * -1px);
+  image-rendering: pixelated;
+}
+.spr-anim {
+  animation: spr-play var(--d) steps(var(--n)) infinite;
+}
+@keyframes spr-play {
+  to {
+    background-position-x: calc(var(--fw) * var(--s) * var(--n) * -1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spr-anim {
+    animation: none;
+  }
+}

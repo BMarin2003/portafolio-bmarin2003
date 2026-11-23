@@ -1,0 +1,18 @@
+---
+import { spriteCols, spriteMeta } from '../lib/sprite-meta';
+
+interface Props {
+  name: string;
+  anim: string;
+  scale?: 2 | 3 | 4 | 5;
+  paused?: boolean;
+  class?: string;
+  style?: string;
+}
+const { name, anim, scale = 3, paused = false, class: extra = '', style = '' } = Astro.props;
+const { width, height, row, frames } = spriteMeta(name, anim);
+const cols = spriteCols(name);
+const animated = !paused && frames > 1;
+const vars = `--s:${scale};--row:${row};--n:${frames};--cols:${cols};--fw:${width};--fh:${height};background-image:url(/sprites/${name}.png)`;
+---
+<span class:list={['spr', animated && 'spr-anim', extra]} aria-hidden="true" style={style ? `${vars};${style}` : vars}></span>
