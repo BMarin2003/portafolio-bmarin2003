@@ -23,4 +23,7 @@ describe('findPlaceholders', () => {
     expect(parrafo.length).toBeGreaterThan(60);
     expect(findPlaceholders('<p>' + parrafo + '</p>')).toEqual([parrafo]);
   });
+  it('un corchete suelto entre etiquetas no se reporta como placeholder', () => {
+    expect(findPlaceholders('<p>a [ b</p><p>c ] d</p>')).toEqual([]);
+  });
 });

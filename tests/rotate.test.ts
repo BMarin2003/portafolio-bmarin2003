@@ -69,9 +69,9 @@ describe('startRotation', () => {
     expect(visible(a)).toBe(0);
     expect(visible(b)).toBe(1);
   });
-  it('pausa las listas dentro de un .floor con foco; una lista fuera sigue rotando', () => {
+  it('pausa las listas dentro de una .card con foco; una lista de otra .card sigue rotando', () => {
     document.body.innerHTML = `
-      <a href="#t" class="floor" id="f"><span data-rotate id="a"><i></i><i hidden></i></span></a>
+      <a href="#t" class="card" id="f"><span data-rotate id="a"><i></i><i hidden></i></span></a>
       <div class="card"><div data-rotate id="c"><i></i><i hidden></i></div></div>`;
     const orig = Element.prototype.matches;
     vi.spyOn(Element.prototype, 'matches').mockImplementation(function (this: Element, sel: string) {

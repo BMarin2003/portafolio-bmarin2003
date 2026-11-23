@@ -76,7 +76,7 @@ describe('/ · cómo trabajo', () => {
   it('tiene el título y el texto de comoTrabajo', () => {
     const ia = index.querySelector('#ia');
     expect(text(ia?.querySelector('h2'))).toBe('Con IA, sin dejar de aprender');
-    expect(text(ia)).toContain(comoTrabajo);
+    expect(text(ia)).toContain(comoTrabajo.replace(/\s+/g, ' ').trim());
   });
 });
 

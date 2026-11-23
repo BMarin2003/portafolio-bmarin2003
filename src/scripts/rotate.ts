@@ -5,8 +5,8 @@ export function startRotation(
   if (opts.reducedMotion) return () => {};
   const id = setInterval(() => {
     root.querySelectorAll('[data-rotate]').forEach((list) => {
-      // WCAG 2.2.2: se pausa mientras el piso o la tarjeta de la lista tiene el puntero o el foco.
-      const box = list.closest('.floor, .card') ?? list;
+      // WCAG 2.2.2: se pausa mientras la tarjeta de la lista tiene el puntero o el foco.
+      const box = list.closest('.card') ?? list;
       if (list.hasAttribute('data-paused') || box.matches(':hover, :focus-within')) return;
       const items = [...list.children];
       if (items.length < 2) return;
