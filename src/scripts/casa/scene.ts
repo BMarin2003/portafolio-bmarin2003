@@ -123,7 +123,7 @@ export const mountScene: MountScene = async (container, ui) => {
     await container.ownerDocument.fonts?.ready.catch(() => {});
     app = new Application();
     const resolution = Math.max(1, container.ownerDocument.defaultView?.devicePixelRatio ?? 1);
-    await app.init({ backgroundAlpha: 0, antialias: false, roundPixels: true, resolution, autoDensity: true, resizeTo: container });
+    await app.init({ backgroundAlpha: 0, preference: 'webgl', antialias: false, roundPixels: true, resolution, autoDensity: true, resizeTo: container });
     return montar(app, container, ui, hojas, liberar);
   } catch (err) {
     try {

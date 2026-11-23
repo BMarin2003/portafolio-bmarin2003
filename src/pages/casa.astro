@@ -9,6 +9,8 @@ import { bands } from '../data/site';
 <Base
   title="La casa de Bryan"
   description="La casa de Bryan después de las 6: rol, juegos, series y lo que suena ahora en Spotify."
+  ogImage="/og-casa.png"
+  ogImageAlt="La casa de Bryan de noche: la PC, la mesa de rol y la cuadrilla jugando"
 >
   <div class="page casa-page" data-casa>
     <header class="wrap site-header">
@@ -53,5 +55,10 @@ import { bands } from '../data/site';
   startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
   const root = document.querySelector<HTMLElement>('[data-casa]')!;
   const ui = initCasaUI(root);
-  void bootCasa(root, { reducedMotion, ui, loadScene: () => import('../scripts/casa/scene') });
+  // La escena es decoración: se monta cuando la página ya cargó y el navegador está libre, para no bloquear la interacción.
+  const alTerminar = () =>
+    void bootCasa(root, { reducedMotion, ui, loadScene: () => import('../scripts/casa/scene') });
+  const cuandoLibre = () => ('requestIdleCallback' in window ? requestIdleCallback(alTerminar, { timeout: 3000 }) : setTimeout(alTerminar, 1000));
+  if (document.readyState === 'complete') cuandoLibre();
+  else addEventListener('load', cuandoLibre, { once: true });
 </script>

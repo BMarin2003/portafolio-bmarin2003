@@ -39,11 +39,12 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
   - Los seis oficios con sus etiquetas de tecnologías: Capataz (planificación y método), Maestro de obra (backend y datos), Decorador (frontend y diseño), Electricista (infraestructura y despliegue), Doble de riesgo (calidad y seguridad) y Archivista (documentación y conocimiento). La lista crece con la experiencia de Bryan.
   - "Con IA, sin dejar de aprender": cómo trabaja con Claude, dónde la IA no alcanza y cómo aprende usándola.
   - La puerta a la casa.
-- **`/casa` (personal):** el cuarto con la PC, la TV, el parlante y la mesa de rol con dados. Hoy es una versión accesible con la escena como imagen, el reloj de Trujillo y un panel por objeto; la escena animada, con día y noche, se monta encima con el mismo contenido.
-  - Rol: D&D primero, después Cyberpunk RED.
-  - La PC rota portadas de RimWorld, Mount & Blade: Warband, Crusader Kings II y III, Project Zomboid, Fallout 4 y Fallout: New Vegas.
-  - La TV rota entre Django sin cadenas, The Batman, Superman (2025), la trilogía de El Señor de los Anillos, la trilogía de Las Crónicas de Narnia, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine.
-  - El parlante muestra lo que Bryan escucha en Spotify en ese momento. Si no suena nada, rota entre Enjambre, Los Bunkers, Rio, Enanitos Verdes y Jamiroquai.
+- **`/casa` (personal):** la casa de Bryan vista en corte, con la biblioteca, el parlante, el cuarto (la PC y la TV) y la mesa de rol con dados. Es una escena animada en PixiJS, con día y noche según la hora real de Trujillo, encima de una página accesible que dice lo mismo en el DOM: el reloj, un botón por objeto y un panel por objeto. Sin escena (sin JavaScript, con `prefers-reduced-motion` o si la carga falla) queda la imagen estática de la casa de noche.
+  - Rol (mesa de rol): D&D primero, después Cyberpunk RED.
+  - Juegos (PC): RimWorld, Mount & Blade: Warband, Crusader Kings II y III, Project Zomboid, Fallout 4 y Fallout: New Vegas, como lista con portadas.
+  - Series y películas (TV): Django sin cadenas, The Batman, Superman (2025), la trilogía de El Señor de los Anillos, la trilogía de Las Crónicas de Narnia, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine, como lista con pósters.
+  - Estante: «Leo sobre historia».
+  - El parlante muestra lo que Bryan escucha en Spotify en ese momento. Si no suena nada, rota entre Enjambre, Los Bunkers, Rio, Enanitos Verdes y Jamiroquai. Es lo único que rota.
 - **Enlaces** a GitHub y LinkedIn.
 - **En español.** El inglés se suma antes de que Bryan empiece a postular.
 
