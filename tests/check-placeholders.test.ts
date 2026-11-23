@@ -15,4 +15,12 @@ describe('findPlaceholders', () => {
     expect(findPlaceholders('<script>a[0]</script>')).toEqual([]);
     expect(findPlaceholders('<style>a[href]{}</style>')).toEqual([]);
   });
+  it('detecta corchetes largos de una línea', () => {
+    expect(findPlaceholders('<p>[' + 'x'.repeat(150) + ']</p>')).toHaveLength(1);
+  });
+  it('detecta un placeholder de párrafo de ~106 caracteres', () => {
+    const parrafo = '[Tu párrafo: cómo trabajas con un cliente, desde el primer mensaje hasta la entrega, en pocas líneas]';
+    expect(parrafo.length).toBeGreaterThan(60);
+    expect(findPlaceholders('<p>' + parrafo + '</p>')).toEqual([parrafo]);
+  });
 });

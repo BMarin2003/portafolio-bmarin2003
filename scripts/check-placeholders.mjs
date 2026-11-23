@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
  */
 export function findPlaceholders(html) {
   const text = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
-  return text.match(/\[[^\[\]\n]{1,60}\]/g) ?? [];
+  return text.match(/\[[^\[\]\n]+\]/g) ?? [];
 }
 
 function htmlFiles(dir) {
