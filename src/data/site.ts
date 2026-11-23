@@ -73,8 +73,7 @@ export const oficios: Oficio[] = [
   { sprite: 'archivista', oficio: 'Archivista', area: 'Documentación y conocimiento', tags: ['Obsidian', 'Notion', 'Markdown'] },
 ];
 
-// Hueco a propósito: el guard de corchetes bloquea `npm run build` hasta que Bryan lo escriba.
-export const comoTrabajo = '[Tu párrafo: cómo trabajas con Claude, dónde la IA no alcanza y lo resuelves tú, y cómo aprendes usándola.]';
+export const comoTrabajo = 'Claude es hoy una herramienta fundamental para cualquier desarrollador, y en mi trabajo la uso como tal. Pero mi función no cambia: soy ingeniero de software, y las herramientas están para hacer software. La IA escribe código rápido; lo que no hace por mí es entender qué necesita el taller de Maqinpro o cómo funcionan las detracciones de una PYME. Esa parte (preguntar, entender, decidir y revisar lo que se construye) sigue siendo el trabajo, y es donde más aprendo.';
 
 const steam = (title: string, id: number): Credit => ({
   title,
