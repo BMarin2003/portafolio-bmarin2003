@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fase 3 · La casa</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0F14}
+a{color:#D9A55B}a:hover{color:#EBC387}
+.mono{font-family:'DM Mono',monospace;letter-spacing:.04em}
+.spr{--s:4;--row:1;--n:4;--d:.7s;display:inline-block;width:calc(16px*var(--s));height:calc(16px*var(--s));background-repeat:no-repeat;background-size:calc(64px*var(--s)) auto;background-position:0 calc(-16px*var(--s)*var(--row));image-rendering:pixelated;animation:play var(--d) steps(var(--n)) infinite}
+.tall{height:calc(24px*var(--s));background-position:0 calc(-24px*var(--s)*var(--row))}
+.x3{--s:3}.x4{--s:4}
+.idle{--row:0;animation:none}.walk{--row:1;--n:4;--d:.7s}.act{--row:2;--n:3;--d:1.2s}.sit{--row:2;animation:none}.roll{--row:3;--n:3;--d:1.4s}
+@keyframes play{to{background-position-x:calc(-16px*var(--s)*var(--n))}}
+@keyframes stroll{0%{transform:translateX(0)}50%{transform:translateX(150px)}50.01%{transform:translateX(150px) scaleX(-1)}100%{transform:translateX(0) scaleX(-1)}}
+@keyframes flicker{0%,100%{opacity:.85}50%{opacity:1}}
+.stroll{animation:stroll 8s linear infinite}
+.flicker{animation:flicker 1.6s ease-in-out infinite}
+.s-bryan{background-image:url(/_blob/84e85ad8c4d2faf68b61c00ee518d276)}
+.s-capataz{background-image:url(/_blob/5d988a119e5b91a671a416cf146c3848)}
+.s-decorador{background-image:url(/_blob/dc7431d6b70032bfcf54e49308936d08)}
+.s-doble{background-image:url(/_blob/6c33a1851d84483f94d6c77be476f164)}
+.hot{position:absolute;border:2px dashed transparent;border-radius:8px;background:transparent;cursor:pointer;padding:0}
+.hot:hover,.hot:focus-visible{border-color:#D9A55B;outline:none}
+@media (prefers-reduced-motion: reduce){.spr,.stroll,.flicker{animation:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0C0F14; color: #E6E3DD; font-family: 'Schibsted Grotesk', sans-serif">
+
+<header style="max-width: 1200px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; border-bottom: 1px solid #262C36">
+  <a href="#" class="mono" style="font-size: 13px">← volver a la obra</a>
+  <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
+    <span class="mono" style="font-size: 13px; color: #B3B9C2">TRUJILLO · {{clock}}</span>
+    <button onClick="{{toggle}}" aria-pressed="{{night}}" class="mono" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #D9A55B; background: transparent; color: #D9A55B; font-size: 13px; cursor: pointer">adelantar reloj: {{nextLabel}}</button>
+  </div>
+</header>
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 40px 32px 0">
+  <h1 style="margin: 0 0 8px; font-size: 48px; font-weight: 800; letter-spacing: -1px">{{title}}</h1>
+  <p style="margin: 0 0 28px; font-size: 17px; color: #B3B9C2">{{subtitle}}</p>
+
+  <div style="position: relative; height: 640px; max-width: 1100px; margin: 0 auto">
+    <div aria-hidden="true" style="position: absolute; left: 70px; right: 70px; top: 0; height: 90px; background: #39414E; clip-path: polygon(50% 0, 100% 100%, 0 100%)"></div>
+    <div style="position: absolute; left: 70px; right: 70px; top: 90px; bottom: 30px; border: 6px solid #39414E; background: {{wall}}; transition: background .6s">
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 250px; height: 10px; background: #39414E"></div>
+      <div aria-hidden="true" style="position: absolute; left: 50%; top: 0; width: 6px; height: 250px; background: #39414E"></div>
+      <div aria-hidden="true" style="position: absolute; left: 58%; top: 260px; width: 6px; bottom: 0; background: #39414E"></div>
+
+      <span class="mono" style="position: absolute; left: 16px; top: 12px; font-size: 11px; color: #8F97A3">BIBLIOTECA</span>
+      <span class="mono" style="position: absolute; left: calc(50% + 18px); top: 12px; font-size: 11px; color: #8F97A3">MÚSICA</span>
+      <span class="mono" style="position: absolute; left: 16px; top: 272px; font-size: 11px; color: #8F97A3">CUARTO</span>
+      <span class="mono" style="position: absolute; left: calc(58% + 18px); top: 272px; font-size: 11px; color: #8F97A3">MESA DE ROL</span>
+
+      <div aria-hidden="true" style="position: absolute; right: 30px; top: 30px; width: 90px; height: 70px; border: 5px solid #39414E; background: {{sky}}; transition: background .6s; display: flex; align-items: center; justify-content: center">
+        <span style="width: 20px; height: 20px; border-radius: 50%; background: {{orb}}; box-shadow: {{orbShadow}}"></span>
+      </div>
+
+      <div aria-hidden="true" style="position: absolute; left: 40px; top: 60px; width: 170px; height: 160px; border: 4px solid #5A4A3A; display: flex; flex-direction: column; justify-content: space-around; padding: 6px; box-sizing: border-box; background: #2A221B">
+        <div style="display: flex; gap: 4px; align-items: flex-end; height: 38px"><span style="width: 12px; height: 34px; background: #B0564B"></span><span style="width: 10px; height: 30px; background: #7C93B8"></span><span style="width: 14px; height: 36px; background: #D9A55B"></span><span style="width: 10px; height: 28px; background: #958AC0"></span><span style="width: 12px; height: 34px; background: #8FA86B"></span></div>
+        <div style="height: 4px; background: #5A4A3A"></div>
+        <div style="display: flex; gap: 4px; align-items: flex-end; height: 38px"><span style="width: 14px; height: 30px; background: #C27A5C"></span><span style="width: 10px; height: 36px; background: #E6E3DD"></span><span style="width: 12px; height: 32px; background: #7C93B8"></span><span style="width: 14px; height: 34px; background: #B0564B"></span></div>
+      </div>
+      <button class="hot" onClick="{{openBooks}}" aria-label="Estante de historia" style="left: 34px; top: 54px; width: 182px; height: 172px"></button>
+
+      <sc-if value="{{day}}" hint-placeholder-val="{{ true }}">
+        <div class="stroll" aria-hidden="true" style="position: absolute; left: 240px; top: 150px"><span class="spr x4 tall s-bryan walk"></span></div>
+      </sc-if>
+
+      <div aria-hidden="true" style="position: absolute; left: calc(50% + 70px); top: 90px; width: 70px; height: 130px; background: #262C36; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px">
+        <span style="width: 38px; height: 38px; border-radius: 50%; border: 6px solid #0B0E13; box-sizing: border-box"></span>
+        <span style="width: 20px; height: 20px; border-radius: 50%; border: 5px solid #0B0E13; box-sizing: border-box"></span>
+      </div>
+      <button class="hot" onClick="{{openSpeaker}}" aria-label="Parlante: lo que suena ahora" style="left: calc(50% + 62px); top: 82px; width: 86px; height: 146px"></button>
+      <div class="mono" style="position: absolute; left: calc(50% + 160px); top: 110px; font-size: 12px; color: #B3B9C2; max-width: 200px">♪ {{nowPlaying}}</div>
+
+      <div aria-hidden="true" style="position: absolute; left: 230px; top: 300px; width: 150px; height: 96px; background: #0B0E13; border: 5px solid #39414E; box-sizing: border-box; display: flex; align-items: flex-end; padding: 8px"><span class="mono" style="font-size: 11px; color: #E6E3DD">TV · Andor</span></div>
+      <div aria-hidden="true" style="position: absolute; left: 285px; top: 396px; width: 40px; height: 14px; background: #39414E"></div>
+      <button class="hot" onClick="{{openTv}}" aria-label="Televisor: series y películas" style="left: 222px; top: 292px; width: 166px; height: 124px"></button>
+
+      <sc-if value="{{night}}" hint-placeholder-val="{{ false }}">
+        <div aria-hidden="true" style="position: absolute; left: 40px; bottom: 0"><span class="spr x4 tall s-bryan sit"></span></div>
+        <div class="flicker" aria-hidden="true" style="position: absolute; left: 60px; bottom: 120px; width: 140px; height: 50px; background: radial-gradient(closest-side, rgba(124,147,184,.35), transparent)"></div>
+      </sc-if>
+      <button class="hot" onClick="{{openPc}}" aria-label="PC: juegos" style="left: 30px; bottom: 6px; width: 120px; height: 110px"></button>
+
+      <div aria-hidden="true" style="position: absolute; right: 70px; bottom: 40px; width: 220px; height: 70px; background: #5A4A3A; border: 4px solid #39414E; box-sizing: border-box"></div>
+      <div aria-hidden="true" style="position: absolute; right: 165px; bottom: 112px; width: 18px; height: 18px; background: #B0564B; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)"></div>
+      <sc-if value="{{night}}" hint-placeholder-val="{{ false }}">
+        <span class="spr x3 s-capataz idle" aria-hidden="true" style="position: absolute; right: 290px; bottom: 30px"></span>
+        <span class="spr x3 s-doble act" aria-hidden="true" style="position: absolute; right: 230px; bottom: 112px"></span>
+        <span class="spr x3 s-decorador idle" aria-hidden="true" style="position: absolute; right: 18px; bottom: 30px"></span>
+      </sc-if>
+      <button class="hot" onClick="{{openRol}}" aria-label="Mesa de rol" style="right: 62px; bottom: 32px; width: 236px; height: 86px"></button>
+    </div>
+    <div aria-hidden="true" style="position: absolute; left: 40px; right: 40px; bottom: 18px; height: 12px; background: #39414E"></div>
+  </div>
+</section>
+
+<section style="max-width: 1200px; margin: 0 auto; padding: 8px 32px 64px; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+  <nav aria-label="Objetos de la casa" style="flex: 1 1 360px; min-width: 0">
+    <p class="mono" style="margin: 0 0 10px; font-size: 11px; color: #8F97A3">OBJETOS · TAMBIÉN CON TECLADO</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px">
+      <sc-for list="{{objects}}" as="o" hint-placeholder-count="5">
+        <button onClick="{{o.open}}" aria-pressed="{{o.active}}" class="mono" style="min-height: 44px; padding: 0 14px; border-radius: 8px; border: 1px solid {{o.border}}; background: #161B23; color: #E6E3DD; font-size: 13px; cursor: pointer">{{o.label}}</button>
+      </sc-for>
+    </div>
+  </nav>
+  <aside aria-live="polite" style="flex: 1 1 460px; min-width: 0; padding: 22px 24px; border: 1px solid #39414E; border-radius: 14px; background: #161B23">
+    <p class="mono" style="margin: 0 0 6px; font-size: 11px; color: #D9A55B">{{panel.kicker}}</p>
+    <h2 style="margin: 0 0 12px; font-size: 26px; font-weight: 700">{{panel.title}}</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px">
+      <sc-for list="{{panel.items}}" as="it" hint-placeholder-count="5">
+        <span class="mono" style="padding: 4px 9px; border: 1px solid #39414E; border-radius: 6px; font-size: 12px">{{it}}</span>
+      </sc-for>
+    </div>
+  </aside>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+var PANELS = {
+  pc: { label: 'PC', kicker: 'LA PC · LO QUE JUEGO', title: 'Juegos', items: ['RimWorld', 'Mount & Blade: Warband', 'Crusader Kings II', 'Crusader Kings III', 'Project Zomboid', 'Fallout 4', 'Fallout: New Vegas'] },
+  tv: { label: 'Televisor', kicker: 'LA TELE · SERIES Y PELIS', title: 'En pantalla', items: ['Django sin cadenas', 'The Batman', 'Superman (2025)', 'El Señor de los Anillos (trilogía)', 'Las Crónicas de Narnia (trilogía)', 'Andor', 'Vinland Saga', 'Power Rangers SPD', 'The Walking Dead', 'Game of Thrones', 'Brooklyn Nine-Nine'] },
+  speaker: { label: 'Parlante', kicker: 'EL PARLANTE · EN VIVO DESDE SPOTIFY', title: 'Rosa Náutica (Del Piso) — Enjambre', items: ['Enjambre', 'Los Bunkers', 'Rio', 'Enanitos Verdes', 'Jamiroquai'] },
+  rol: { label: 'Mesa de rol', kicker: 'LA MESA', title: 'D&D, luego Cyberpunk RED', items: ['D&D', 'Cyberpunk RED'] },
+  books: { label: 'Estante', kicker: 'EL ESTANTE · HISTORIA', title: 'Lo que leo', items: ['[libros de historia que quieras mostrar]'] }
+};
+var ORDER = ['pc', 'tv', 'speaker', 'rol', 'books'];
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { night: true, open: 'speaker' }; }
+  renderVals() {
+    var n = this.state.night, open = this.state.open, self = this;
+    var go = function (k) { return function () { self.setState({ open: k }); }; };
+    return {
+      night: n, day: !n,
+      toggle: function () { self.setState({ night: !n }); },
+      clock: n ? '21:40' : '15:10',
+      nextLabel: n ? 'ir a las 15:10' : 'ir a las 21:40',
+      title: n ? 'La casa, después de las 6' : 'La casa, de día',
+      subtitle: n ? 'Bryan en la PC; la cuadrilla llegó para la partida de rol.' : 'La cuadrilla está en la obra; Bryan pasea por la biblioteca.',
+      wall: n ? '#1A2030' : '#2A303C',
+      sky: n ? '#0B1022' : '#9CC3E0',
+      orb: n ? '#E6E3DD' : '#F2C94C',
+      orbShadow: n ? '-6px 3px 0 0 #0B1022 inset' : '0 0 14px #F2C94C',
+      nowPlaying: 'Rosa Náutica — Enjambre',
+      openPc: go('pc'), openTv: go('tv'), openSpeaker: go('speaker'), openRol: go('rol'), openBooks: go('books'),
+      panel: PANELS[open],
+      objects: ORDER.map(function (k) { return { label: PANELS[k].label, open: go(k), active: k === open, border: k === open ? '#D9A55B' : '#39414E' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

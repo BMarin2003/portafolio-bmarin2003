@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fase 2 · Página profesional</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#11151B}
+a{color:#D9A55B}a:hover{color:#EBC387}
+.mono{font-family:'DM Mono',monospace;letter-spacing:.04em}
+.spr{--s:4;--row:1;--n:4;--d:.7s;display:inline-block;flex:0 0 auto;width:calc(16px*var(--s));height:calc(16px*var(--s));background-repeat:no-repeat;background-size:calc(64px*var(--s)) auto;background-position:0 calc(-16px*var(--s)*var(--row));image-rendering:pixelated;animation:play var(--d) steps(var(--n)) infinite}
+.tall{height:calc(24px*var(--s));background-position:0 calc(-24px*var(--s)*var(--row))}
+.x2{--s:2}.x3{--s:3}.x4{--s:4}.x5{--s:5}
+.idle{--row:0;animation:none}
+.walk{--row:1;--n:4;--d:.7s}
+.act{--row:2;--n:3;--d:1.1s}
+.roll{--row:3;--n:3;--d:1.4s}
+.slow{--d:1.8s}
+@keyframes play{to{background-position-x:calc(-16px*var(--s)*var(--n))}}
+@keyframes stroll{0%{transform:translateX(0)}50%{transform:translateX(120px)}50.01%{transform:translateX(120px) scaleX(-1)}100%{transform:translateX(0) scaleX(-1)}}
+.stroll{animation:stroll 7s linear infinite}
+.s-bryan{background-image:url(/_blob/84e85ad8c4d2faf68b61c00ee518d276)}
+.s-capataz{background-image:url(/_blob/5d988a119e5b91a671a416cf146c3848)}
+.s-maestro{background-image:url(/_blob/a32f1948bf919a2a75fe70122d0a79ce)}
+.s-decorador{background-image:url(/_blob/dc7431d6b70032bfcf54e49308936d08)}
+.s-electricista{background-image:url(/_blob/1b6545deaf5e7bc65b4295fd28606f43)}
+.s-doble{background-image:url(/_blob/6c33a1851d84483f94d6c77be476f164)}
+.s-archivista{background-image:url(/_blob/353f778ee6ff07380cfe861b46f9859b)}
+@media (prefers-reduced-motion: reduce){.spr,.stroll{animation:none}}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #11151B; color: #E6E3DD; font-family: 'Schibsted Grotesk', sans-serif">
+
+<header style="max-width: 1200px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; border-bottom: 1px solid #262C36">
+  <a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #E6E3DD; font-weight: 800; font-size: 19px"><span class="spr x2 tall s-bryan idle" aria-hidden="true"></span>Bryan Marin</a>
+  <nav class="mono" style="display: flex; flex-wrap: wrap; gap: 26px; align-items: center; font-size: 13px">
+    <a href="#proyectos">proyectos</a>
+    <a href="#oficios">oficios</a>
+    <a href="#ia">cómo trabajo</a>
+    <a href="https://github.com/BMarin2003">github</a>
+    <a href="https://www.linkedin.com/in/bmarin2003">linkedin</a>
+    <a href="#casa" style="min-height: 40px; display: flex; align-items: center; padding: 0 14px; border-radius: 8px; background: #D9A55B; color: #11151B; text-decoration: none; font-weight: 500">la casa →</a>
+  </nav>
+</header>
+
+<section id="top" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px 88px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+  <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+    <span class="mono" style="align-self: flex-start; display: flex; align-items: center; gap: 10px; padding: 6px 12px; border: 1px solid #39414E; border-radius: 999px; font-size: 12px; color: #B3B9C2"><span style="width: 8px; height: 8px; background: #D9A55B"></span>INGENIERO DE SISTEMAS JUNIOR · CORALL D&amp;R · TRUJILLO</span>
+    <h1 style="margin: 0; font-size: 68px; line-height: 1; font-weight: 800; letter-spacing: -2px">Construyo sistemas con una cuadrilla de oficios.</h1>
+    <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #B3B9C2; max-width: 42ch">Método, backend, diseño, infraestructura, pruebas y documentación: cada área es un oficio de la obra. Trabajo junto a Claude, y la cuadrilla crece con cada proyecto.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 12px">
+      <a href="#proyectos" style="min-height: 48px; padding: 0 22px; display: flex; align-items: center; border-radius: 10px; background: #D9A55B; color: #11151B; text-decoration: none; font-weight: 700">Ver la obra</a>
+      <a href="#oficios" class="mono" style="min-height: 48px; padding: 0 22px; display: flex; align-items: center; border-radius: 10px; border: 1px solid #39414E; color: #E6E3DD; text-decoration: none">conocer la cuadrilla</a>
+    </div>
+  </div>
+
+  <div style="flex: 1 1 560px; min-width: 0; border: 1px solid #39414E; border-radius: 14px; background: #161B23; overflow: hidden">
+    <div class="mono" style="display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid #262C36; font-size: 11px; color: #8F97A3"><span>LA OBRA · EN VIVO</span><span>6 oficios trabajando</span></div>
+    <div style="position: relative; height: 380px; background: #131820">
+      <div aria-hidden="true" style="position: absolute; left: 40px; right: 40px; top: 70px; height: 210px; border: 3px solid #5A4A3A; border-bottom: none"></div>
+      <div aria-hidden="true" style="position: absolute; left: 40px; right: 40px; top: 170px; height: 8px; background: #8A6A45"></div>
+      <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 100px; background: #1B212B; border-top: 4px solid #39414E"></div>
+      <span class="spr x4 s-capataz act" aria-hidden="true" style="position: absolute; left: 70px; top: 106px"></span>
+      <span class="spr x4 s-electricista act" aria-hidden="true" style="position: absolute; left: 230px; top: 106px"></span>
+      <span class="spr x4 s-decorador act" aria-hidden="true" style="position: absolute; right: 70px; top: 106px"></span>
+      <span class="spr x4 s-maestro act" aria-hidden="true" style="position: absolute; left: 60px; bottom: 96px"></span>
+      <span class="spr x4 s-doble act slow" aria-hidden="true" style="position: absolute; left: 190px; bottom: 96px"></span>
+      <span class="spr x4 tall s-bryan idle" aria-hidden="true" style="position: absolute; left: 50%; margin-left: -32px; bottom: 96px"></span>
+      <span class="spr x4 s-archivista act" aria-hidden="true" style="position: absolute; right: 60px; bottom: 96px"></span>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; border-top: 1px solid #262C36">
+  <p class="mono" style="margin: 0 0 8px; font-size: 12px; color: #D9A55B">01 · PROYECTOS EN LOS QUE FORMÉ PARTE</p>
+  <h2 style="margin: 0 0 36px; font-size: 44px; font-weight: 800; letter-spacing: -1px">La obra en CorAll D&amp;R</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px">
+    <sc-for list="{{projects}}" as="p" hint-placeholder-count="5">
+      <article style="position: relative; padding: 26px 26px 26px; border: 1px solid #262C36; border-radius: 14px; background: #161B23; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+          <div>
+            <span class="mono" style="font-size: 11px; color: #8F97A3">{{p.area}}</span>
+            <h3 style="margin: 4px 0 0; font-size: 24px; font-weight: 700">{{p.name}}</h3>
+          </div>
+          <span class="spr x3 act s-{{p.sprite}}" aria-hidden="true"></span>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #B3B9C2">{{p.did}}</p>
+        <sc-if value="{{p.hasReto}}" hint-placeholder-val="{{ true }}">
+          <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #B3B9C2"><strong style="color: #D9A55B; font-weight: 500">El reto:</strong> {{p.reto}}</p>
+        </sc-if>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section id="oficios" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; border-top: 1px solid #262C36">
+  <p class="mono" style="margin: 0 0 8px; font-size: 12px; color: #D9A55B">02 · LA CUADRILLA</p>
+  <h2 style="margin: 0 0 12px; font-size: 44px; font-weight: 800; letter-spacing: -1px">Un oficio por área</h2>
+  <p style="margin: 0 0 36px; font-size: 17px; color: #B3B9C2; max-width: 60ch">Cada oficio junta lo que he usado en trabajo real. Las etiquetas crecen a medida que la obra crece.</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px">
+    <sc-for list="{{crew}}" as="c" hint-placeholder-count="6">
+      <article style="padding: 24px; border: 1px solid #262C36; border-radius: 14px; background: #161B23; display: flex; gap: 18px; align-items: flex-start">
+        <span class="spr x4 act s-{{c.sprite}}" aria-hidden="true"></span>
+        <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+          <h3 style="margin: 0; font-size: 21px; font-weight: 700">{{c.oficio}}</h3>
+          <span class="mono" style="font-size: 12px; color: #8F97A3">{{c.area}}</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
+            <sc-for list="{{c.tags}}" as="t" hint-placeholder-count="4">
+              <span class="mono" style="padding: 3px 8px; border: 1px solid #39414E; border-radius: 6px; font-size: 11px; color: #E6E3DD">{{t}}</span>
+            </sc-for>
+          </div>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+  <p class="mono" style="margin: 14px 0 0; font-size: 11px; color: #8F97A3">Etiquetas tomadas del README y del stack de CorAll · Bryan las confirma antes de publicar</p>
+</section>
+
+<section id="ia" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; border-top: 1px solid #262C36; display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+  <div style="flex: 1 1 520px; min-width: 0">
+    <p class="mono" style="margin: 0 0 8px; font-size: 12px; color: #D9A55B">03 · CÓMO TRABAJO</p>
+    <h2 style="margin: 0 0 16px; font-size: 44px; font-weight: 800; letter-spacing: -1px">Con IA, sin dejar de aprender</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.6; color: #B3B9C2">[Tu párrafo: cómo trabajas con Claude, dónde la IA no alcanza y lo resuelves tú, y cómo aprendes usándola.]</p>
+  </div>
+  <div style="flex: 0 0 auto; display: flex; gap: 14px; align-items: flex-end">
+    <span class="spr x5 act s-doble slow" aria-hidden="true"></span>
+    <span class="spr x5 tall s-bryan roll" aria-hidden="true"></span>
+  </div>
+</section>
+
+<section id="casa" style="border-top: 1px solid #262C36; background: #0C0F14">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between">
+    <div style="flex: 1 1 420px; min-width: 0">
+      <p class="mono" style="margin: 0 0 8px; font-size: 12px; color: #8F97A3">DESPUÉS DE LAS 6</p>
+      <h2 style="margin: 0 0 10px; font-size: 40px; font-weight: 800; letter-spacing: -1px">La obra cierra. La casa se enciende.</h2>
+      <p style="margin: 0; font-size: 17px; color: #B3B9C2">Rol, juegos, series y lo que suena ahora en Spotify.</p>
+    </div>
+    <a href="#" style="position: relative; display: flex; align-items: flex-end; gap: 0; min-height: 150px; padding: 0 24px; text-decoration: none">
+      <span class="stroll" style="display: inline-block" aria-hidden="true"><span class="spr x4 tall s-bryan walk"></span></span>
+      <span style="width: 86px; height: 128px; margin-left: 140px; background: #5A4A3A; border: 4px solid #39414E; border-bottom: none; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; box-sizing: border-box"><span style="width: 8px; height: 8px; background: #D9A55B"></span></span>
+      <span class="mono" style="position: absolute; right: 24px; top: 0; font-size: 13px; color: #D9A55B">entrar a la casa →</span>
+    </a>
+  </div>
+  <footer class="mono" style="max-width: 1200px; margin: 0 auto; padding: 22px 32px; border-top: 1px solid #262C36; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: 12px; color: #8F97A3">
+    <span>Bryan Marin Yupanqui · Trujillo, Perú</span>
+    <span>Construido junto a Claude (Anthropic) · pixel art original</span>
+  </footer>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+var PROJECTS = [
+  { name: 'MaqinPro', area: 'PLATAFORMA · A MI CARGO', sprite: 'capataz', did: 'Gestión para Maqinpro, empresa de maquinaria industrial: un panel para su taller y un portal donde sus clientes siguen sus equipos, aprueban cotizaciones y consultan documentos.', reto: 'equilibrar lo cómodo para el taller con lo más eficiente; en el portal, las etapas internas se agrupan en «En proceso en el taller».' },
+  { name: 'Corall-ERP', area: 'ERP INTERNO', sprite: 'archivista', did: 'El sistema con el que CorAll automatiza su propio trabajo, de marketing y finanzas a proyectos e inventario.', reto: 'el área contable: detracciones, marco legal y qué pagos y gastos corresponden a una PYME.' },
+  { name: 'Comphill', area: 'CIERRE DE PROYECTO', sprite: 'electricista', did: 'Operaciones del Mercado Mayorista Pesquero COMPHILL: completamos el panel operativo, la garita con lectores de DNI y QR y la adaptación a celulares.', reto: 'cerrar un sistema construido por otra persona sin romper lo que ya funcionaba.' },
+  { name: 'Totem Multimedia', area: 'PRIMER PROYECTO', sprite: 'maestro', did: 'Mi primer proyecto en CorAll: construir funcionalidades y explicar cada avance al cliente.', reto: 'pasar de un flujo universitario a uno con nuevas herramientas y la IA como herramienta de trabajo.' },
+  { name: 'CCAE', area: 'APORTE PUNTUAL', sprite: 'decorador', did: 'Gestión de arbitrajes para una cámara de comercio; diseñé un par de interfaces de su extranet.' }
+];
+var CREW = [
+  { oficio: 'Capataz', area: 'Planificación y método', sprite: 'capataz', tags: ['PMBOK', 'ITIL', 'Scrum', 'Jira', 'Trello'] },
+  { oficio: 'Maestro de obra', area: 'Backend y datos', sprite: 'maestro', tags: ['Java / Spring', 'Bun / Elysia', 'Node.js', 'FastAPI', 'PostgreSQL', 'MySQL'] },
+  { oficio: 'Decorador', area: 'Frontend y diseño', sprite: 'decorador', tags: ['React', 'Angular', 'Astro', 'Ant Design', 'Tailwind'] },
+  { oficio: 'Electricista', area: 'Infraestructura y despliegue', sprite: 'electricista', tags: ['Docker', 'Cloudflare', 'AWS', 'Nginx', 'Terraform', 'Jenkins'] },
+  { oficio: 'Doble de riesgo', area: 'Calidad y seguridad', sprite: 'doble', tags: ['Pruebas e2e', 'Caja negra', 'Caja blanca', 'Postman'] },
+  { oficio: 'Archivista', area: 'Documentación y conocimiento', sprite: 'archivista', tags: ['Obsidian', 'Notion', 'Markdown'] }
+];
+class Component extends DCLogic {
+  renderVals() {
+    return { projects: PROJECTS.map(function (p) { return Object.assign({}, p, { hasReto: !!p.reto }); }), crew: CREW };
+  }
+}
+</script>
+</body>
+</html>
