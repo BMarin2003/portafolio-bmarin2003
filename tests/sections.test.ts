@@ -60,7 +60,7 @@ describe('Cuarto', () => {
       const link = [...cuarto.querySelectorAll('a')].find((a) => a.getAttribute('href') === item.sourceUrl);
       expect(link, item.title).toBeTruthy();
       expect(link!.textContent).toContain(item.source);
-      expect(link!.getAttribute('aria-label')).toBe(`${item.title} en ${item.source}`);
+      expect(link!.getAttribute('aria-label')).toBe(`${item.title} vía ${item.source}`);
     }
   });
 });

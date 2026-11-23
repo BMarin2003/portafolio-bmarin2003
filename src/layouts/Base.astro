@@ -5,6 +5,10 @@ import '@fontsource/schibsted-grotesk/700.css';
 import '@fontsource/schibsted-grotesk/800.css';
 import '@fontsource/dm-mono/400.css';
 import '@fontsource/dm-mono/500.css';
+import font800 from '@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-800-normal.woff2?url';
+import font400 from '@fontsource/schibsted-grotesk/files/schibsted-grotesk-latin-400-normal.woff2?url';
+import mono400 from '@fontsource/dm-mono/files/dm-mono-latin-400-normal.woff2?url';
+import mono500 from '@fontsource/dm-mono/files/dm-mono-latin-500-normal.woff2?url';
 import '../styles/global.css';
 import '../styles/sprites.css';
 
@@ -20,6 +24,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" as="font" type="font/woff2" href={font800} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={font400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={mono400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={mono500} crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
