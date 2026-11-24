@@ -20,7 +20,7 @@ const ACENTO = 0xd9a55b;
 const MADERA = 0x5a4a3a;
 const OSCURO = 0x0b0e13;
 const PARED = { noche: 0x1a2030, dia: 0x2a303c };
-const CIELO = { noche: 0x0b1022, dia: 0x9cc3e0 };
+const CIELO = { noche: 0x0b1022, dia: 0x3b4b60 };
 const SOL = 0xf2c94c;
 const LUNA = 0xe6e3dd;
 const PANTALLA = 0x7c93b8;
@@ -28,8 +28,9 @@ const CIAN = 0x8ad0e0;
 const CALIDO = 0xf2d79a;
 const PISO = 0x3b3027;
 const JUNTA = 0x2a221b;
-const CIUDAD = { noche: 0x141b2c, dia: 0x86a0b6 };
-const SUELO = { noche: OSCURO, dia: 0x4a5048 };
+const CIUDAD = { noche: 0x141b2c, dia: 0x2c3747 };
+const SUELO = { noche: OSCURO, dia: 0x22262a };
+const LUZ = 0xf08a20;
 /** Edificios lejanos a los costados de la casa: [x, ancho, techo]; llegan hasta la vereda (y=172). */
 const EDIFICIOS = [
   [-64, 14, 126], [-50, 12, 140], [-38, 15, 116], [-23, 10, 132], [-13, 13, 122], [0, 11, 140], [11, 9, 150],
@@ -47,7 +48,7 @@ const ESTRELLAS = [
 const LAMPARAS = [
   [118, 29, 7, 93],
   [231, 29, 7, 93],
-  [57, 102, 10, 166],
+  [78, 102, 10, 166],
   [245, 102, 12, 166],
 ];
 /** Cuadros por tick a 60 fps (0.1 ≈ 6 cuadros por segundo). */
@@ -104,7 +105,7 @@ function dibujarCasa(g: Graphics, f: Fase): void {
   // ventana del cuarto, con cortinas
   g.rect(144, 110, 22, 18).fill(LINEA).rect(146, 112, 18, 14).fill(cielo).rect(154, 112, 1, 14).rect(146, 118, 18, 1).fill(LINEA);
   if (sol) {
-    g.rect(148, 115, 5, 1).rect(149, 114, 3, 1).rect(157, 121, 6, 1).fill(0xdfe8ef); // nubes
+    g.rect(148, 115, 5, 1).rect(149, 114, 3, 1).rect(157, 121, 6, 1).fill(0x8796a8); // nubes
   } else {
     g.rect(159, 113, 2, 1).rect(158, 114, 4, 2).rect(159, 116, 2, 1).fill(LUNA);
     g.rect(148, 114, 1, 1).rect(151, 123, 1, 1).rect(157, 124, 1, 1).rect(162, 121, 1, 1).fill(0x8f97a3);
@@ -115,12 +116,10 @@ function dibujarCasa(g: Graphics, f: Fase): void {
 }
 
 function dibujarMuebles(g: Graphics): void {
-  // alfombras bajo el escritorio y bajo la mesa de rol
-  g.rect(30, 167, 52, 3).fill(0x323d58).rect(200, 167, 90, 3).fill(0x553b38);
-  for (let x = 32; x < 80; x += 4) g.rect(x, 168, 2, 1);
-  g.fill(0x4b5776);
-  for (let x = 202; x < 288; x += 4) g.rect(x, 168, 2, 1);
-  g.fill(0x76584a);
+  // alfombras bajo el escritorio y bajo la mesa de rol: color liso, borde arriba y flecos en las puntas
+  g.rect(30, 167, 52, 3).fill(0x263049).rect(30, 167, 52, 1).fill(0x3a4663);
+  g.rect(200, 167, 90, 3).fill(0x46292a).rect(200, 167, 90, 1).fill(0x613c37);
+  g.rect(29, 168, 1, 2).rect(82, 168, 1, 2).rect(199, 168, 1, 2).rect(290, 168, 1, 2).fill(0x7d776a);
   // lámparas colgantes: cordón y pantalla
   for (const [x, techo, largo] of LAMPARAS) {
     const y = techo + largo;
@@ -171,18 +170,13 @@ function dibujarNoche(luz: Graphics, g: Graphics): void {
   for (const [x, techo, largo, suelo] of LAMPARAS) {
     let y = techo + largo + 3;
     g.rect(x - 1, y, 3, 1).fill(CALIDO);
-    // cono en franjas de 4 px que se abren y se apagan, con un núcleo más claro y un charco en el piso
-    let k = 0;
-    for (y += 1; y < suelo; y += 4, k++) {
-      const m = 3 + 2 * k;
-      const a = 0.36 * 0.8 ** k;
-      const h = Math.min(4, suelo - y);
-      luz.rect(x - m, y, 2 * m + 1, h).fill({ color: ACENTO, alpha: a });
-      luz.rect(x - (m >> 1), y, 2 * (m >> 1) + 1, h).fill({ color: ACENTO, alpha: a / 2 });
+    // cono tenue en franjas de 4 px que se apaga a media pared, y un charco chico en el piso
+    const fin = y + Math.floor((suelo - y) / 2);
+    for (let k = 0, top = y + 1; top < fin; top += 4, k++) {
+      const m = 1 + Math.floor(1.5 * k);
+      luz.rect(x - m, top, 2 * m + 1, Math.min(4, fin - top)).fill({ color: LUZ, alpha: 0.2 * 0.6 ** k });
     }
-    const m = 6 + 2 * k;
-    luz.rect(x - m, suelo, 2 * m + 1, 4).fill({ color: ACENTO, alpha: 0.14 });
-    luz.rect(x - (m >> 1), suelo, 2 * (m >> 1) + 1, 4).fill({ color: ACENTO, alpha: 0.1 });
+    luz.rect(x - 8, suelo, 17, 4).fill({ color: LUZ, alpha: 0.2 });
   }
   g.rect(51, 139, 13, 9).fill(CIAN).rect(53, 141, 6, 1).rect(53, 143, 8, 1).rect(53, 145, 4, 1).fill(0x5f9fb2);
   // ciudad de noche en el televisor
@@ -255,9 +249,9 @@ function montar(
   const world = new Container();
   const casa = new Graphics();
   const muebles = new Graphics();
-  // halo del monitor en la pared, en tres escalones que se suman hacia el centro
+  // halo del monitor en la pared: dos escalones pegados a la pantalla, sin bajar del borde del monitor
   const brillo = new Graphics();
-  for (const m of [10, 7, 4]) brillo.rect(51 - m, 139 - m, 13 + 2 * m, 9 + 2 * m).fill({ color: CIAN, alpha: 0.07 });
+  for (const m of [4, 2]) brillo.rect(50 - m, 138 - m, 15 + 2 * m, 11 + m).fill({ color: CIAN, alpha: 0.1 });
   const luz = new Graphics();
   luz.blendMode = 'add';
   const pantallas = new Graphics();
