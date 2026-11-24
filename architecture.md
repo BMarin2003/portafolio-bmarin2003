@@ -11,7 +11,7 @@ parent: portfolio
 - **Sitio Astro estático**, desplegado en Cloudflare Pages. Las dos páginas, `/` y `/casa`, y su versión en inglés bajo `/en/`, salen como HTML al compilar.
 - **Contenido como datos:** proyectos, oficios y gustos viven en archivos de datos del sitio, no dentro del marcado. Cambiar un texto no toca componentes.
 - **Muñequitos:** `Sprite.astro` lee `art/sprites` al compilar y anima con CSS; `/` anima con CSS y solo suma el script chico de la obra.
-- **Scripts de cliente chicos, solo en `/casa`:**
+- **Scripts de cliente chicos:** en `/`, el de la obra (recordar la visita, reacción al clic, pausa fuera de pantalla); en `/casa`:
   - La rotación de la PC, la TV y el parlante.
   - La consulta periódica de "qué suena ahora".
 - **Paso de build de sprites:** un script de Node convierte los módulos de `art/sprites/` en hojas PNG y su JSON en `public/sprites/`, antes de compilar y antes de `dev`. Contrato en `module-art`.

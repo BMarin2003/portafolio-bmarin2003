@@ -21,6 +21,6 @@ export function initObra(root: HTMLElement, opts: Opts = {}): void {
 
   const observe =
     opts.observe ??
-    ((cb) => new IntersectionObserver(([e]) => cb(e.isIntersecting)).observe(root));
+    ((cb) => new IntersectionObserver((es) => cb(es[es.length - 1].isIntersecting)).observe(root));
   observe((visible) => root.classList.toggle('pausada', !visible));
 }

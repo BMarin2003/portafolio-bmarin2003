@@ -34,7 +34,7 @@ function vars(m: Monigote) {
 // cerca de los bordes el rótulo se apoya hacia adentro para no salirse de la escena
 const lado = (m: Monigote) => (m.x < ESCENA.ancho / 4 ? 'rotulo-izq' : m.x + spriteMeta(m.sprite, m.anim).width * ESCALA > (ESCENA.ancho * 3) / 4 ? 'rotulo-der' : null);
 const ritmo = { action: 'act', idle: 'slow', walk: '' } as const;
-const monigotes = cuadrilla.map((m) => ({
+const monigotes = [...cuadrilla].sort((a, b) => pies(a) - pies(b) || a.x - b.x).map((m) => ({
   m,
   ...rotulo(m),
   style: vars(m),

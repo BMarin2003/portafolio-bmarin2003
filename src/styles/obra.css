@@ -90,6 +90,10 @@
 @media (max-width: 560px) {
   .obra-escena { zoom: 0.5; --z: 0.5; }
 }
+/* con zoom 0,5 el ancla derecha deja al archivista a medias fuera de la pantalla: se ancla por la izquierda (-52px = -26px reales) */
+@media (max-width: 400px) {
+  .obra-escena { left: -52px; right: auto; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .obra-viva *, .obra-viva *::after { animation: none !important; transition: none !important; }

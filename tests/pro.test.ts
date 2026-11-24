@@ -111,6 +111,7 @@ describe('/ · página', () => {
   it('solo carga el script de la obra', () => {
     expect((indexHtml.match(/<script/gi) ?? []).length).toBeLessThanOrEqual(2);
     expect(indexHtml).not.toMatch(/pixi/i);
+    expect(indexHtml).toContain("sessionStorage.getItem('obra-armada')");
   });
   it('todo sprite es decorativo', () => {
     const sprites = [...index.querySelectorAll('.spr')];
