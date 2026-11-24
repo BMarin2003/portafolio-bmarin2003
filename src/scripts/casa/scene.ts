@@ -24,12 +24,38 @@ const CIELO = { noche: 0x0b1022, dia: 0x9cc3e0 };
 const SOL = 0xf2c94c;
 const LUNA = 0xe6e3dd;
 const PANTALLA = 0x7c93b8;
+const CIAN = 0x8ad0e0;
+const CALIDO = 0xf2d79a;
+const PISO = 0x3b3027;
+const JUNTA = 0x2a221b;
+const CIUDAD = { noche: 0x141b2c, dia: 0x86a0b6 };
+const SUELO = { noche: OSCURO, dia: 0x4a5048 };
+/** Edificios lejanos a los costados de la casa: [x, ancho, techo]; llegan hasta la vereda (y=172). */
+const EDIFICIOS = [
+  [-64, 14, 126], [-50, 12, 140], [-38, 15, 116], [-23, 10, 132], [-13, 13, 122], [0, 11, 140], [11, 9, 150],
+  [301, 10, 146], [311, 13, 124], [324, 10, 138], [334, 15, 114], [349, 12, 130], [361, 14, 120], [375, 12, 138],
+];
+const VENTANAS_CIUDAD = [
+  [-60, 132], [-35, 122], [-33, 130], [-19, 140], [-9, 128], [3, 146], [14, 156],
+  [304, 152], [315, 130], [318, 140], [338, 120], [341, 134], [353, 138], [365, 128], [368, 146],
+];
+const ESTRELLAS = [
+  [-30, 52], [-20, 10], [-8, 34], [5, 18], [12, 60], [-16, 86], [2, 98], [30, 6], [48, 2], [66, 10], [92, 4], [118, 1],
+  [202, 2], [226, 7], [250, 4], [270, 14], [290, 8], [306, 36], [318, 16], [330, 62], [312, 88], [342, 40], [356, 10], [372, 74],
+];
+/** Lámparas colgantes, una por habitación: [x del cordón, techo, largo del cordón, suelo]. */
+const LAMPARAS = [
+  [118, 29, 7, 93],
+  [231, 29, 7, 93],
+  [57, 102, 10, 166],
+  [245, 102, 12, 166],
+];
 /** Cuadros por tick a 60 fps (0.1 ≈ 6 cuadros por segundo). */
 const VELOCIDAD: Record<Actor['anim'], number> = { walk: 0.1, action: 0.05, roll: 0.04, idle: 0.03, sit: 0 };
 
 function colores(f: Fase) {
   const paleta = esDeNoche(f) ? 'noche' : 'dia';
-  return { pared: PARED[paleta], cielo: CIELO[paleta], sol: !esDeNoche(f) };
+  return { pared: PARED[paleta], cielo: CIELO[paleta], ciudad: CIUDAD[paleta], suelo: SUELO[paleta], sol: !esDeNoche(f) };
 }
 
 /** Borde de 1 px por fuera del rectángulo, con rectángulos llenos para que quede nítido. */
@@ -38,14 +64,34 @@ function marco(g: Graphics, r: Rect, color: number): void {
 }
 
 function dibujarCasa(g: Graphics, f: Fase): void {
-  const { pared, cielo, sol } = colores(f);
+  const { pared, cielo, ciudad, suelo, sol } = colores(f);
   g.clear();
+  // exterior: pasa del borde del mundo para cubrir el margen que deja la escala entera
+  g.rect(-400, -400, 1120, 572).fill(cielo);
+  for (const [x, w, y] of EDIFICIOS) g.rect(x, y, w, 172 - y);
+  g.fill(ciudad);
+  if (!sol) {
+    for (const [x, y] of VENTANAS_CIUDAD) g.rect(x, y, 1, 1);
+    g.fill(0xb08d55);
+    for (const [x, y] of ESTRELLAS) g.rect(x, y, 1, 1);
+    g.fill(0x8f97a3);
+  }
+  g.rect(-400, 172, 1120, 408).fill(suelo);
   g.poly([20, 26, 160, 3, 300, 26]).fill(LINEA); // techo
   g.rect(20, 25, 280, 147).fill(LINEA); // marco
   g.rect(22, 27, 276, 143).fill(pared);
+  // pisos de tablas: dos hileras con las juntas trabadas
+  for (const y of [93, 166]) {
+    g.rect(22, y, 276, 4).fill(PISO);
+    g.rect(22, y + 2, 276, 1);
+    for (let x = 30; x <= 286; x += 16) g.rect(x, y, 1, 2).rect(x + 8, y + 3, 1, 1);
+    g.fill(JUNTA);
+  }
+  g.rect(22, 27, 276, 2).rect(22, 100, 276, 2).fill(MADERA); // vigas del techo
   g.rect(22, 97, 276, 3).fill(LINEA); // entrepiso
   g.rect(159, 27, 2, 70).fill(LINEA); // biblioteca | música
   g.rect(181, 100, 2, 70).fill(LINEA); // cuarto | mesa de rol
+  g.rect(158, 29, 1, 64).rect(161, 29, 1, 64).rect(180, 102, 1, 64).rect(183, 102, 1, 64).fill(MADERA); // postes
   g.rect(12, 172, 296, 3).fill(LINEA); // vereda
   g.rect(262, 35, 26, 20).fill(LINEA); // ventana
   g.rect(264, 37, 22, 16).fill(cielo);
@@ -55,9 +101,32 @@ function dibujarCasa(g: Graphics, f: Fase): void {
     g.circle(275, 45, 3).fill(LUNA);
     g.circle(273, 44, 3).fill(cielo); // luna menguante
   }
+  // ventana del cuarto, con cortinas
+  g.rect(144, 110, 22, 18).fill(LINEA).rect(146, 112, 18, 14).fill(cielo).rect(154, 112, 1, 14).rect(146, 118, 18, 1).fill(LINEA);
+  if (sol) {
+    g.rect(148, 115, 5, 1).rect(149, 114, 3, 1).rect(157, 121, 6, 1).fill(0xdfe8ef); // nubes
+  } else {
+    g.rect(159, 113, 2, 1).rect(158, 114, 4, 2).rect(159, 116, 2, 1).fill(LUNA);
+    g.rect(148, 114, 1, 1).rect(151, 123, 1, 1).rect(157, 124, 1, 1).rect(162, 121, 1, 1).fill(0x8f97a3);
+  }
+  g.rect(140, 108, 30, 1).fill(MADERA); // barral
+  g.rect(141, 109, 4, 21).rect(165, 109, 4, 21).fill(0x3d4866);
+  g.rect(142, 110, 1, 19).rect(167, 110, 1, 19).fill(0x2e3750);
 }
 
 function dibujarMuebles(g: Graphics): void {
+  // alfombras bajo el escritorio y bajo la mesa de rol
+  g.rect(30, 167, 52, 3).fill(0x323d58).rect(200, 167, 90, 3).fill(0x553b38);
+  for (let x = 32; x < 80; x += 4) g.rect(x, 168, 2, 1);
+  g.fill(0x4b5776);
+  for (let x = 202; x < 288; x += 4) g.rect(x, 168, 2, 1);
+  g.fill(0x76584a);
+  // lámparas colgantes: cordón y pantalla
+  for (const [x, techo, largo] of LAMPARAS) {
+    const y = techo + largo;
+    g.rect(x, techo, 1, largo).fill(LINEA);
+    g.rect(x - 2, y, 5, 1).rect(x - 3, y + 1, 7, 1).rect(x - 4, y + 2, 9, 1).fill(0x4a5244);
+  }
   // estante de la biblioteca, dos repisas de libros
   g.rect(34, 44, 50, 45).fill(MADERA).rect(35, 45, 48, 43).fill(0x2a221b).rect(35, 66, 48, 1).fill(MADERA);
   const repisa = (y: number, libros: [number, number, number][]) => {
@@ -79,10 +148,49 @@ function dibujarMuebles(g: Graphics): void {
   // PC: monitor y escritorio
   g.rect(50, 138, 15, 11).fill(LINEA).rect(51, 139, 13, 9).fill(PANTALLA).rect(56, 149, 3, 3).fill(LINEA);
   g.rect(44, 152, 22, 2).fill(MADERA).rect(45, 154, 2, 16).fill(MADERA).rect(63, 154, 2, 16).fill(MADERA);
-  // mesa de rol con su d20
+  // sillas en las cabeceras, detrás de quien juega: respaldo de dos travesaños, asiento y pata delantera
+  for (const [respaldo, asiento, pata] of [[200, 200, 209], [286, 279, 280]]) {
+    g.rect(respaldo, 142, 1, 28).rect(respaldo + 3, 142, 1, 28).rect(respaldo, 143, 4, 1).rect(respaldo, 147, 4, 1);
+    g.rect(asiento, 157, 11, 2).rect(pata, 159, 2, 11);
+  }
+  g.fill(0x4a3b2e);
+  // mesa de rol: tablero visto desde arriba, faldón, mapa, el d20 y tres dados
   g.rect(213, 139, 65, 20).fill(LINEA).rect(214, 140, 63, 18).fill(MADERA);
+  g.rect(214, 140, 63, 8).fill(0x6b5844).rect(214, 148, 63, 1).fill(LINEA);
+  g.rect(238, 141, 24, 6).fill(LINEA).rect(239, 142, 22, 4).fill(0x8c8466);
+  g.rect(240, 142, 5, 2).rect(251, 144, 6, 2).fill(0x6c7a55).rect(247, 142, 1, 4).fill(0x5f7894);
+  g.rect(256, 143, 1, 1).fill(0xb0564b).rect(243, 145, 1, 1).fill(PANTALLA);
   g.rect(216, 159, 3, 11).fill(LINEA).rect(272, 159, 3, 11).fill(LINEA);
   g.poly([251, 132, 254, 134, 254, 137, 251, 138, 248, 137, 248, 134]).fill(0xb0564b);
+  g.rect(243, 136, 3, 3).fill(0x958ac0).rect(257, 136, 3, 3).fill(PANTALLA).rect(261, 136, 3, 3).fill(0x8fa86b);
+  g.rect(244, 137, 1, 1).rect(258, 137, 1, 1).rect(262, 137, 1, 1).fill(LUNA);
+}
+
+/** Lo que se enciende de noche: la luz de las lámparas (se suma a lo que ilumina), el monitor y la ciudad en el televisor. */
+function dibujarNoche(luz: Graphics, g: Graphics): void {
+  for (const [x, techo, largo, suelo] of LAMPARAS) {
+    let y = techo + largo + 3;
+    g.rect(x - 1, y, 3, 1).fill(CALIDO);
+    // cono en franjas de 4 px que se abren y se apagan, con un núcleo más claro y un charco en el piso
+    let k = 0;
+    for (y += 1; y < suelo; y += 4, k++) {
+      const m = 3 + 2 * k;
+      const a = 0.36 * 0.8 ** k;
+      const h = Math.min(4, suelo - y);
+      luz.rect(x - m, y, 2 * m + 1, h).fill({ color: ACENTO, alpha: a });
+      luz.rect(x - (m >> 1), y, 2 * (m >> 1) + 1, h).fill({ color: ACENTO, alpha: a / 2 });
+    }
+    const m = 6 + 2 * k;
+    luz.rect(x - m, suelo, 2 * m + 1, 4).fill({ color: ACENTO, alpha: 0.14 });
+    luz.rect(x - (m >> 1), suelo, 2 * (m >> 1) + 1, 4).fill({ color: ACENTO, alpha: 0.1 });
+  }
+  g.rect(51, 139, 13, 9).fill(CIAN).rect(53, 141, 6, 1).rect(53, 143, 8, 1).rect(53, 145, 4, 1).fill(0x5f9fb2);
+  // ciudad de noche en el televisor
+  g.rect(91, 113, 40, 18).fill(0x1b2742);
+  for (const [x, w, y] of [[91, 6, 122], [97, 5, 118], [102, 7, 124], [109, 4, 116], [113, 8, 121], [121, 5, 119], [126, 5, 125]]) g.rect(x, y, w, 131 - y);
+  g.fill(0x0d1322);
+  g.rect(99, 120, 1, 1).rect(104, 126, 1, 1).rect(110, 118, 1, 1).rect(116, 123, 1, 1).rect(118, 127, 1, 1).rect(123, 121, 1, 1).fill(ACENTO);
+  g.rect(94, 115, 1, 1).rect(119, 114, 1, 1).rect(128, 116, 1, 1).fill(0x8f97a3);
 }
 
 async function cargarHoja(nombre: string): Promise<Hoja> {
@@ -147,12 +255,20 @@ function montar(
   const world = new Container();
   const casa = new Graphics();
   const muebles = new Graphics();
-  const brillo = new Graphics().rect(46, 134, 24, 20).fill({ color: PANTALLA, alpha: 0.18 });
+  // halo del monitor en la pared, en tres escalones que se suman hacia el centro
+  const brillo = new Graphics();
+  for (const m of [10, 7, 4]) brillo.rect(51 - m, 139 - m, 13 + 2 * m, 9 + 2 * m).fill({ color: CIAN, alpha: 0.07 });
+  const luz = new Graphics();
+  luz.blendMode = 'add';
+  const pantallas = new Graphics();
+  const nocturno = new Container();
+  nocturno.addChild(luz, pantallas);
   const actores = new Container();
   const hover = new Graphics();
   const zonas = new Container();
   dibujarMuebles(muebles);
-  world.addChild(casa, muebles, brillo, actores, hover, zonas);
+  dibujarNoche(luz, pantallas);
+  world.addChild(casa, brillo, muebles, nocturno, actores, hover, zonas);
 
   for (const o of objetos) {
     const z = new Container();
@@ -194,6 +310,7 @@ function montar(
     dibujarCasa(casa, f);
     noche = esDeNoche(f);
     brillo.visible = noche;
+    nocturno.visible = noche;
     actores.removeChildren().forEach((c) => c.destroy());
     sprites = actoresPorFase(f).map((a) => {
       const hoja = hojas[a.sprite];
