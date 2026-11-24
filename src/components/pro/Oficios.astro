@@ -1,11 +1,16 @@
 ---
 import Sprite from '../Sprite.astro';
-import { oficios } from '../../data/site';
+import { contenido, t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].pro;
+const { oficios } = contenido(lang);
 ---
 <section id="oficios" class="seccion" aria-labelledby="oficios-h">
-  <p class="mono kicker">02 · LA CUADRILLA</p>
-  <h2 id="oficios-h" class="tight">Un oficio por área</h2>
-  <p class="seccion-lede">Cada oficio junta lo que he usado en trabajo real. Las etiquetas crecen a medida que la obra crece.</p>
+  <p class="mono kicker">{x.oficiosKicker}</p>
+  <h2 id="oficios-h" class="tight">{x.oficiosH2}</h2>
+  <p class="seccion-lede">{x.oficiosLede}</p>
   <div class="grid">
     {oficios.map((o) => (
       <article class="panel oficio">

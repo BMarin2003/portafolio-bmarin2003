@@ -1,6 +1,11 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+---
 <footer class="mono site-footer">
   <div class="wrap site-footer-in">
-    <span>Bryan Marin Yupanqui · Trujillo, Perú</span>
-    <span>Construido junto a Claude (Anthropic) · pixel art original</span>
+    {t[lang].pie.map((linea) => <span>{linea}</span>)}
   </div>
 </footer>

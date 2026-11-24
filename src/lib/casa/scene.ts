@@ -7,24 +7,24 @@ export const HEIGHT = 180;
 export type Rect = { x: number; y: number; w: number; h: number };
 export type Point = { x: number; y: number };
 export type ObjetoId = 'pc' | 'tv' | 'parlante' | 'mesa' | 'estante';
-export type Objeto = { id: ObjetoId; label: string; rect: Rect };
-export type Habitacion = { id: 'biblioteca' | 'musica' | 'cuarto' | 'rol'; label: string; rect: Rect };
+export type Objeto = { id: ObjetoId; rect: Rect };
+export type Habitacion = { id: 'biblioteca' | 'musica' | 'cuarto' | 'rol'; rect: Rect };
 export type Actor = { sprite: string; route: Point[]; anim: 'walk' | 'action' | 'sit' | 'roll' | 'idle'; speed: number };
 
 // Arriba y abajo se separan en y=97..100 (suelo del piso alto: 97; suelo de la planta baja: 170).
 export const habitaciones: Habitacion[] = [
-  { id: 'biblioteca', label: 'BIBLIOTECA', rect: { x: 22, y: 27, w: 138, h: 70 } },
-  { id: 'musica', label: 'MÚSICA', rect: { x: 160, y: 27, w: 138, h: 70 } },
-  { id: 'cuarto', label: 'CUARTO', rect: { x: 22, y: 100, w: 160, h: 70 } },
-  { id: 'rol', label: 'MESA DE ROL', rect: { x: 182, y: 100, w: 116, h: 70 } },
+  { id: 'biblioteca', rect: { x: 22, y: 27, w: 138, h: 70 } },
+  { id: 'musica', rect: { x: 160, y: 27, w: 138, h: 70 } },
+  { id: 'cuarto', rect: { x: 22, y: 100, w: 160, h: 70 } },
+  { id: 'rol', rect: { x: 182, y: 100, w: 116, h: 70 } },
 ];
 
 export const objetos: Objeto[] = [
-  { id: 'pc', label: 'PC', rect: { x: 31, y: 137, w: 35, h: 31 } },
-  { id: 'tv', label: 'Televisor', rect: { x: 89, y: 111, w: 44, h: 27 } },
-  { id: 'parlante', label: 'Parlante', rect: { x: 180, y: 52, w: 20, h: 37 } },
-  { id: 'mesa', label: 'Mesa de rol', rect: { x: 213, y: 139, w: 65, h: 20 } },
-  { id: 'estante', label: 'Estante', rect: { x: 34, y: 44, w: 50, h: 45 } },
+  { id: 'pc', rect: { x: 31, y: 137, w: 35, h: 31 } },
+  { id: 'tv', rect: { x: 89, y: 111, w: 44, h: 27 } },
+  { id: 'parlante', rect: { x: 180, y: 52, w: 20, h: 37 } },
+  { id: 'mesa', rect: { x: 213, y: 139, w: 65, h: 20 } },
+  { id: 'estante', rect: { x: 34, y: 44, w: 50, h: 45 } },
 ];
 
 // Las rutas son la esquina superior izquierda del sprite: y = suelo − alto (Bryan 24, oficios 16).

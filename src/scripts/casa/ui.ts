@@ -1,14 +1,9 @@
 import { faseAt, formatClock, msUntilNextMinute, trujilloHour } from '../../lib/casa/time';
 import type { Fase } from '../../lib/casa/time';
 import type { ObjetoId } from '../../lib/casa/scene';
+import { langOf, subtituloCasa, tituloCasa } from '../../lib/casa/textos';
 
 const ADELANTO = 10;
-const subtitulos: Record<Fase, string> = {
-  noche: 'Bryan en la PC; la cuadrilla llegó para la partida de rol.',
-  tarde: 'Bryan en la PC; la cuadrilla llegó para la partida de rol.',
-  dia: 'La cuadrilla está en la obra; Bryan pasea por la biblioteca.',
-  amanecer: 'La cuadrilla está en la obra; Bryan pasea por la biblioteca.',
-};
 
 /** Reloj, fase, botones de objeto y panel de /casa. La escena (canvas) se monta aparte y escucha onFase. */
 export function initCasaUI(
@@ -29,6 +24,7 @@ export function initCasaUI(
   const subtitulo = root.querySelector<HTMLElement>('[data-subtitulo]');
   const botones = [...root.querySelectorAll<HTMLButtonElement>('button[data-objeto]')];
   const paneles = [...root.querySelectorAll<HTMLElement>('[data-panel]')];
+  const lang = langOf(doc);
   const reducido = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let offset = 0;
@@ -45,8 +41,8 @@ export function initCasaUI(
     fase = nueva;
     root.dataset.fase = fase;
     if (cambio) {
-      if (titulo) titulo.textContent = fase === 'noche' || fase === 'tarde' ? 'La casa, después de las 6' : 'La casa, de día';
-      if (subtitulo) subtitulo.textContent = subtitulos[fase];
+      if (titulo) titulo.textContent = tituloCasa(lang, fase);
+      if (subtitulo) subtitulo.textContent = subtituloCasa(lang, fase);
       oyentes.forEach((cb) => cb(fase));
     }
   };

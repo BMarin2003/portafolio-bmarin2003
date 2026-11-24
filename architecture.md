@@ -8,7 +8,7 @@ parent: portfolio
 
 ## Topología
 
-- **Sitio Astro estático**, desplegado en Cloudflare Pages. Las dos páginas, `/` y `/casa`, salen como HTML al compilar.
+- **Sitio Astro estático**, desplegado en Cloudflare Pages. Las dos páginas, `/` y `/casa`, y su versión en inglés bajo `/en/`, salen como HTML al compilar.
 - **Contenido como datos:** proyectos, oficios y gustos viven en archivos de datos del sitio, no dentro del marcado. Cambiar un texto no toca componentes.
 - **Muñequitos:** `Sprite.astro` lee `art/sprites` al compilar y anima con CSS; `/` no carga JavaScript propio.
 - **Scripts de cliente chicos, solo en `/casa`:**
@@ -23,7 +23,7 @@ parent: portfolio
 - **Cloudflare Pages, no Vercel.** Bryan ya usa Cloudflare, el plan gratuito alcanza y Pages Functions resuelve Spotify sin otro servicio.
 - **Spotify directo, con rotación de respaldo.** Si la API falla o no suena nada, el parlante rota las bandas fijas; nunca queda vacío. Last.fm queda como plan B si la API de Spotify complica el acceso (sin confirmar).
 - **CSS para animar los sprites, sin librerías.** En `/` son pocos movimientos (reposo, trabajar) y `steps()` los cubre sin peso extra.
-- **Español primero, con rutas de idioma listas.** El sistema de idiomas de Astro se configura desde el inicio, así sumar el inglés solo agrega textos y no obliga a reestructurar.
+- **Español primero; el inglés solo reemplaza textos.** Las páginas son vistas con un `lang`, y el inglés toma de los datos en español todo lo que no es texto (personas, oficios, enlaces), así los dos idiomas no se desfasan. Los textos que usa el cliente de `/casa` (título por fase, rótulos de la escena) van aparte y chicos, porque viajan en el bundle; el cliente elige idioma por `<html lang>`.
 - **Portadas y pósters como archivos propios del sitio, optimizados al compilar.** Cargar las imágenes desde la CDN de Steam u otros sitios deja la página a merced de terceros. Decisión mía: Bryan puede cambiarla.
 - **Dos páginas, y el motor de juego solo en `/casa`.** La profesional debe ser liviana y legible; la escena viva de la casa (PixiJS) se carga únicamente allí.
 - **Escena en capas: lógica pura, DOM accesible y PixiJS decorativo.** Las reglas (fase del día, rutas, qué actor está dónde) son funciones puras y con tests; el DOM trae todo el contenido y la interacción; PixiJS solo dibuja y delega los clics al DOM. Así lo importante nunca depende del canvas ni de WebGL. PixiJS va fijado en versión exacta, porque su API cambia entre menores.

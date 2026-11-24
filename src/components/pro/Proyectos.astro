@@ -1,12 +1,17 @@
 ---
 import Sprite from '../Sprite.astro';
 import People from '../People.astro';
-import { corall } from '../../data/site';
 import { peopleGroups } from '../../lib/text';
+import { contenido, t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].pro;
+const { corall } = contenido(lang);
 ---
 <section id="proyectos" class="seccion" aria-labelledby="proyectos-h">
-  <p class="mono kicker">01 · PROYECTOS EN LOS QUE FORMÉ PARTE</p>
-  <h2 id="proyectos-h">La obra en CorAll D&amp;R</h2>
+  <p class="mono kicker">{x.proyectosKicker}</p>
+  <h2 id="proyectos-h">{x.proyectosH2}</h2>
   <div class="grid">
     {corall.map((p) => (
       <article class="panel proyecto">
@@ -18,8 +23,8 @@ import { peopleGroups } from '../../lib/text';
           <Sprite name={p.sprite} anim="action" scale={3} class="act" />
         </div>
         <p>{p.did}</p>
-        {peopleGroups(p.people).length > 0 && <p><People people={p.people} /></p>}
-        {p.challenge && <p data-challenge><strong>El reto:</strong> {p.challenge}</p>}
+        {peopleGroups(p.people).length > 0 && <p><People people={p.people} lang={lang} /></p>}
+        {p.challenge && <p data-challenge><strong>{x.reto}</strong> {p.challenge}</p>}
       </article>
     ))}
   </div>

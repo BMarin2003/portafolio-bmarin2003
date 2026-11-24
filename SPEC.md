@@ -46,7 +46,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
   - Estante: «Leo sobre historia».
   - El parlante muestra lo que Bryan escucha en Spotify en ese momento. Si no suena nada, rota entre Enjambre, Los Bunkers, Rio, Enanitos Verdes y Jamiroquai. Es lo único que rota.
 - **Enlaces** a GitHub y LinkedIn.
-- **En español.** El inglés se suma antes de que Bryan empiece a postular.
+- **En español y en inglés.** El español va en `/` y `/casa`; el inglés, con el mismo contenido, en `/en/` y `/en/casa`. Cada página enlaza a su par en el otro idioma.
 
 ## No-objetivos
 

@@ -1,10 +1,12 @@
 ---
 import type { People } from '../data/site';
+import type { Lang } from '../i18n';
 import { opening, peopleGroups, separator } from '../lib/text';
 
-interface Props { people: People }
-const groups = peopleGroups(Astro.props.people);
+interface Props { people: People; lang?: Lang }
+const { people, lang = 'es' } = Astro.props;
+const groups = peopleGroups(people, lang);
 ---
 {groups.length > 0 && (
-  <span class="people">{opening(groups)} {groups.map((g, gi) => (<Fragment>{g.label}{' '}{g.people.map((p, i) => (<Fragment>{p.url ? <a href={p.url}>{p.name}</a> : p.name}{separator(i, g.people.length)}</Fragment>))}{separator(gi, groups.length)}</Fragment>))}.</span>
+  <span class="people">{opening(groups, lang)} {groups.map((g, gi) => (<Fragment>{g.label}{' '}{g.people.map((p, i) => (<Fragment>{p.url ? <a href={p.url}>{p.name}</a> : p.name}{separator(i, g.people.length, lang)}</Fragment>))}{separator(gi, groups.length, lang)}</Fragment>))}.</span>
 )}

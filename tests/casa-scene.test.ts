@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { HEIGHT, WIDTH, actoresPorFase, habitaciones, objetos, type Rect } from '../src/lib/casa/scene';
 import { positionAt } from '../src/lib/casa/route';
 import { spriteMeta } from '../src/lib/sprite-meta';
+import { textosCasa } from '../src/lib/casa/textos';
 import type { Fase } from '../src/lib/casa/time';
 
 const dentro = (a: Rect, b: Rect) =>
@@ -12,8 +13,9 @@ const fases: Fase[] = ['noche', 'amanecer', 'dia', 'tarde'];
 describe('escena', () => {
   it('mide 320x180 con las etiquetas pedidas', () => {
     expect([WIDTH, HEIGHT]).toEqual([320, 180]);
-    expect(habitaciones.map((h) => h.label)).toEqual(['BIBLIOTECA', 'MÚSICA', 'CUARTO', 'MESA DE ROL']);
-    expect(objetos.map((o) => o.label)).toEqual(['PC', 'Televisor', 'Parlante', 'Mesa de rol', 'Estante']);
+    expect(habitaciones.map((h) => textosCasa.es.habitaciones[h.id])).toEqual(['BIBLIOTECA', 'MÚSICA', 'CUARTO', 'MESA DE ROL']);
+    expect(objetos.map((o) => textosCasa.es.objetos[o.id])).toEqual(['PC', 'Televisor', 'Parlante', 'Mesa de rol', 'Estante']);
+    expect(habitaciones.map((h) => textosCasa.en.habitaciones[h.id])).toEqual(['LIBRARY', 'MUSIC', 'BEDROOM', 'RPG TABLE']);
   });
 
   it('cada objeto cae en el mundo y dentro de su habitación', () => {

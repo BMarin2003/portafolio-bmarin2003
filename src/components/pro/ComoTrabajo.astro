@@ -1,11 +1,16 @@
 ---
 import Sprite from '../Sprite.astro';
-import { comoTrabajo } from '../../data/site';
+import { contenido, t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].pro;
+const { comoTrabajo } = contenido(lang);
 ---
 <section id="ia" class="seccion ia" aria-labelledby="ia-h">
   <div class="ia-text">
-    <p class="mono kicker">03 · CÓMO TRABAJO</p>
-    <h2 id="ia-h">Con IA, sin dejar de aprender</h2>
+    <p class="mono kicker">{x.iaKicker}</p>
+    <h2 id="ia-h">{x.iaH2}</h2>
     <p class="seccion-lede">{comoTrabajo}</p>
   </div>
   <div class="ia-sprites">

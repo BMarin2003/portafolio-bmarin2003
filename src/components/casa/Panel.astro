@@ -1,11 +1,16 @@
 ---
 import { Image } from 'astro:assets';
-import { bands, games, rol, screens } from '../../data/site';
+import { bands, rol } from '../../data/site';
+import { contenido, t, type Lang } from '../../i18n';
 import type { Credit } from '../../data/site';
 
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].casa;
+const { games, screens } = contenido(lang);
 const lista: { id: 'pc' | 'tv'; kicker: string; titulo: string; items: Credit[] }[] = [
-  { id: 'pc', kicker: 'LA PC · LO QUE JUEGO', titulo: 'Juegos', items: games },
-  { id: 'tv', kicker: 'LA TELE · SERIES Y PELIS', titulo: 'En pantalla', items: screens },
+  { id: 'pc', kicker: x.pc[0], titulo: x.pc[1], items: games },
+  { id: 'tv', kicker: x.tv[0], titulo: x.tv[1], items: screens },
 ];
 ---
 <aside class="casa-panel" aria-live="polite">
@@ -17,26 +22,26 @@ const lista: { id: 'pc' | 'tv'; kicker: string; titulo: string; items: Credit[] 
         {l.items.map((it) => (
           <li>
             <span class="casa-item">{it.cover ? <Image src={it.cover} alt={it.title} width={160} /> : it.title}</span>
-            <a class="credit mono" href={it.sourceUrl} aria-label={`${it.title} vía ${it.source}`}>vía {it.source}</a>
+            <a class="credit mono" href={it.sourceUrl} aria-label={`${it.title} ${x.via} ${it.source}`}>{x.via} {it.source}</a>
           </li>
         ))}
       </ul>
     </section>
   ))}
   <section class="casa-seccion" data-panel="parlante">
-    <p class="mono kind accent-k">EL PARLANTE · EN VIVO DESDE SPOTIFY</p>
-    <h2 tabindex="-1">Lo que suena</h2>
-    <p class="casa-nota">Lo que suena ahora aparece en la leyenda de la escena. Si no suena nada, esto es lo que escucho:</p>
+    <p class="mono kind accent-k">{x.parlante[0]}</p>
+    <h2 tabindex="-1">{x.parlante[1]}</h2>
+    <p class="casa-nota">{x.parlanteNota}</p>
     <ul class="casa-lista">
       {bands.map((b) => <li><span class="casa-item">{b}</span></li>)}
     </ul>
   </section>
   <section class="casa-seccion" data-panel="mesa">
-    <p class="mono kind accent-k">LA MESA</p>
-    <h2 tabindex="-1">{rol[0]}, luego {rol[1]}</h2>
+    <p class="mono kind accent-k">{x.mesa[0]}</p>
+    <h2 tabindex="-1">{rol[0]}, {x.mesa[1]} {rol[1]}</h2>
   </section>
   <section class="casa-seccion" data-panel="estante">
-    <p class="mono kind accent-k">EL ESTANTE · HISTORIA</p>
-    <h2 tabindex="-1">Leo sobre historia</h2>
+    <p class="mono kind accent-k">{x.estante[0]}</p>
+    <h2 tabindex="-1">{x.estante[1]}</h2>
   </section>
 </aside>

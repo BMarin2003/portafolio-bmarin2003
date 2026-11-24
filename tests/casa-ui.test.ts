@@ -36,6 +36,16 @@ describe('initCasaUI', () => {
   it('por defecto muestra el parlante', () => {
     expect(visible()).toEqual(['parlante']);
   });
+  it('en una página en inglés, el título cambia en inglés', () => {
+    ui.destroy();
+    document.documentElement.lang = 'en';
+    ui = initCasaUI(mount(), { now });
+    expect(document.querySelector('h1')!.textContent).toBe('The house, after 6');
+    ui.setOffset(10);
+    expect(document.querySelector('h1')!.textContent).toBe('The house, by day');
+    expect(document.querySelector('[data-subtitulo]')!.textContent).toBe('The crew is at the site; Bryan wanders through the library.');
+    document.documentElement.lang = '';
+  });
   it('setOffset(10) adelanta a amanecer 07:30', () => {
     ui.setOffset(10);
     expect(root.dataset.fase).toBe('amanecer');

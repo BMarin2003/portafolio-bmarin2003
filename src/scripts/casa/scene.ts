@@ -4,6 +4,7 @@ import { HEIGHT, WIDTH, actoresPorFase, habitaciones, objetos } from '../../lib/
 import type { Actor, ObjetoId, Rect } from '../../lib/casa/scene';
 import { positionAt } from '../../lib/casa/route';
 import { esDeNoche } from '../../lib/casa/time';
+import { langOf, textosCasa } from '../../lib/casa/textos';
 import type { Fase } from '../../lib/casa/time';
 
 export type MountScene = (
@@ -268,8 +269,9 @@ function montar(
   }
 
   // Las etiquetas van a resolución de pantalla, fuera del mundo escalado, para que el texto no se pixele.
+  const rotulos = textosCasa[langOf(doc)].habitaciones;
   const etiquetas = habitaciones.map(
-    (h) => new Text({ text: h.label, style: { fontFamily: "'DM Mono', monospace", fontSize: 11, fill: 0x8f97a3, letterSpacing: 0.5 } }),
+    (h) => new Text({ text: rotulos[h.id], style: { fontFamily: "'DM Mono', monospace", fontSize: 11, fill: 0x8f97a3, letterSpacing: 0.5 } }),
   );
   app.stage.addChild(world, ...etiquetas);
 

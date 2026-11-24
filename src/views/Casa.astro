@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Pie from '../components/Pie.astro';
+import Reloj from '../components/casa/Reloj.astro';
+import Objetos from '../components/casa/Objetos.astro';
+import Panel from '../components/casa/Panel.astro';
+import { bands } from '../data/site';
+import { href, otraRuta, t, type Lang } from '../i18n';
+import { textosCasa } from '../lib/casa/textos';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const x = t[lang].casa;
+const otra = otraRuta(Astro.url.pathname);
+---
+<Base title={x.title} description={x.description} lang={lang} ogImage="/og-casa.png" ogImageAlt={x.ogAlt}>
+  <div class="page casa-page" data-casa>
+    <header class="wrap site-header">
+      <nav class="mono" aria-label={t[lang].pro.navAria}>
+        <a href={href(lang, '/')}>{x.volver}</a>
+        <a href={otra.path} hreflang={otra.lang} lang={otra.lang}>{t[lang].otroIdioma}</a>
+      </nav>
+      <Reloj lang={lang} />
+    </header>
+
+    <main class="wrap casa-main">
+      <h1 data-titulo>{textosCasa[lang].noche}</h1>
+      <p class="casa-sub" data-subtitulo>{textosCasa[lang].subtitulo.noche}</p>
+
+      <div class="casa-escena" data-scene aria-hidden="true">
+        <img src="/casa-estatica.png" alt="" width="1100" height="619" />
+      </div>
+
+      <p class="mono casa-parlante" data-speaker>
+        <span aria-hidden="true">♪ </span>
+        <span data-rotate>
+          {bands.map((b, i) => <span hidden={i > 0}>{b}</span>)}
+        </span>
+        <span data-live hidden></span>
+      </p>
+
+      <div class="casa-bajo">
+        <Objetos lang={lang} />
+        <Panel lang={lang} />
+      </div>
+    </main>
+
+    <Pie lang={lang} />
+  </div>
+</Base>
+
+<script>
+  import { startRotation } from '../scripts/rotate';
+  import { startNowPlaying } from '../scripts/now-playing';
+  import { initCasaUI } from '../scripts/casa/ui';
+  import { bootCasa } from '../scripts/casa/boot';
+
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  startRotation(document, { intervalMs: 3200, reducedMotion });
+  startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
+  const root = document.querySelector<HTMLElement>('[data-casa]')!;
+  const ui = initCasaUI(root);
+  // La escena es decoración: se monta cuando la página ya cargó y el navegador está libre, para no bloquear la interacción.
+  const alTerminar = () =>
+    void bootCasa(root, { reducedMotion, ui, loadScene: () => import('../scripts/casa/scene') });
+  const cuandoLibre = () => ('requestIdleCallback' in window ? requestIdleCallback(alTerminar, { timeout: 3000 }) : setTimeout(alTerminar, 1000));
+  if (document.readyState === 'complete') cuandoLibre();
+  else addEventListener('load', cuandoLibre, { once: true });
+</script>

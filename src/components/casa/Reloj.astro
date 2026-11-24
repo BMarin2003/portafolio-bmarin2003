@@ -1,7 +1,11 @@
 ---
 // Sin JS no hay hora que mostrar (la página es estática): el reloj y el botón los activa ui.ts.
+import { t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
 ---
 <div class="casa-reloj">
   <span class="mono" data-reloj>TRUJILLO</span>
-  <button type="button" class="mono casa-adelantar" data-adelantar aria-pressed="false" hidden>adelantar reloj</button>
+  <button type="button" class="mono casa-adelantar" data-adelantar aria-pressed="false" hidden>{t[lang].casa.adelantar}</button>
 </div>

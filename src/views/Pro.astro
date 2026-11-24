@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Sprite from '../components/Sprite.astro';
+import Hero from '../components/pro/Hero.astro';
+import Proyectos from '../components/pro/Proyectos.astro';
+import Oficios from '../components/pro/Oficios.astro';
+import ComoTrabajo from '../components/pro/ComoTrabajo.astro';
+import PuertaCasa from '../components/pro/PuertaCasa.astro';
+import Pie from '../components/Pie.astro';
+import { links } from '../data/site';
+import { href, otraRuta, t, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const x = t[lang].pro;
+const otra = otraRuta(Astro.url.pathname);
+---
+<Base title={x.title} description={x.description} lang={lang}>
+  <div class="page">
+    <header class="wrap site-header">
+      <a href="#top" class="brand"><Sprite name="bryan" anim="idle" scale={2} paused />Bryan Marin</a>
+      <nav class="mono" aria-label={x.navAria}>
+        <a href="#proyectos">{x.nav.proyectos}</a>
+        <a href="#oficios">{x.nav.oficios}</a>
+        <a href="#ia">{x.nav.ia}</a>
+        <a href={links.github}>github</a>
+        <a href={links.linkedin}>linkedin</a>
+        <a href={otra.path} hreflang={otra.lang} lang={otra.lang}>{t[lang].otroIdioma}</a>
+        <a href={href(lang, '/casa')} class="nav-casa">{x.nav.casa}</a>
+      </nav>
+    </header>
+
+    <main>
+      <Hero lang={lang} />
+      <Proyectos lang={lang} />
+      <Oficios lang={lang} />
+      <ComoTrabajo lang={lang} />
+      <PuertaCasa lang={lang} />
+    </main>
+
+    <Pie lang={lang} />
+  </div>
+</Base>

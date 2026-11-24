@@ -11,22 +11,20 @@ import mono400 from '@fontsource/dm-mono/files/dm-mono-latin-400-normal.woff2?ur
 import mono500 from '@fontsource/dm-mono/files/dm-mono-latin-500-normal.woff2?url';
 import '../styles/global.css';
 import '../styles/sprites.css';
+import { otraRuta, t, type Lang } from '../i18n';
 
 interface Props {
   title: string;
   description: string;
+  lang?: Lang;
   ogImage?: string;
   ogImageAlt?: string;
 }
-const {
-  title,
-  description,
-  ogImage = '/og.png',
-  ogImageAlt = 'Bryan Marin y su cuadrilla de oficios pixel art trabajando en la obra',
-} = Astro.props;
+const { title, description, lang = 'es', ogImage = '/og.png', ogImageAlt = t[lang].ogAlt } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const otra = otraRuta(Astro.url.pathname);
 ---
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,8 +35,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang} href={canonical} />
+    <link rel="alternate" hreflang={otra.lang} href={new URL(otra.path, Astro.site)} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_PE" />
+    <meta property="og:locale" content={t[lang].ogLocale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

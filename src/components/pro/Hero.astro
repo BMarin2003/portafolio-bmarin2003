@@ -1,5 +1,10 @@
 ---
 import Sprite from '../Sprite.astro';
+import { t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].pro;
 
 // La escena de la obra: cada sprite se ubica por el centro (--x) para que reparta igual a cualquier ancho.
 const arriba = [
@@ -15,17 +20,17 @@ const abajo = [
 ---
 <section id="top" class="hero">
   <div class="hero-text">
-    <span class="mono hero-tag"><span class="hero-dot" aria-hidden="true"></span>INGENIERO DE SISTEMAS JUNIOR · CORALL D&amp;R · TRUJILLO</span>
-    <h1>Construyo sistemas con una cuadrilla de oficios.</h1>
-    <p class="hero-lede">Método, backend, diseño, infraestructura, pruebas y documentación: cada área es un oficio de la obra. Trabajo junto a Claude, y la cuadrilla crece con cada proyecto.</p>
+    <span class="mono hero-tag"><span class="hero-dot" aria-hidden="true"></span>{x.heroTag}</span>
+    <h1>{x.h1}</h1>
+    <p class="hero-lede">{x.lede}</p>
     <div class="hero-ctas">
-      <a href="#proyectos" class="btn btn-main">Ver la obra</a>
-      <a href="#oficios" class="btn btn-line mono">conocer la cuadrilla</a>
+      <a href="#proyectos" class="btn btn-main">{x.verObra}</a>
+      <a href="#oficios" class="btn btn-line mono">{x.conocer}</a>
     </div>
   </div>
 
   <div class="obra-window">
-    <div class="mono obra-bar"><span>LA OBRA · EN VIVO</span><span>6 oficios trabajando</span></div>
+    <div class="mono obra-bar"><span>{x.obraBar[0]}</span><span>{x.obraBar[1]}</span></div>
     <div class="obra" data-obra aria-hidden="true">
       <div class="obra-andamio"></div>
       <div class="obra-tablon"></div>
