@@ -1,43 +1,22 @@
 ---
-import Sprite from '../Sprite.astro';
+import Obra from './Obra.astro';
 import { t, type Lang } from '../../i18n';
 
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
-
-// La escena de la obra: cada sprite se ubica por el centro (--x) para que reparta igual a cualquier ancho.
-const arriba = [
-  { name: 'capataz', x: '18%' },
-  { name: 'electricista', x: '47%' },
-  { name: 'decorador', x: '82%' },
-];
-const abajo = [
-  { name: 'maestro', x: '14%' },
-  { name: 'doble', x: '32%', slow: true },
-  { name: 'archivista', x: '84%' },
-];
 ---
 <section id="top" class="hero">
-  <div class="hero-text">
-    <span class="mono hero-tag"><span class="hero-dot" aria-hidden="true"></span>{x.heroTag}</span>
-    <h1>{x.h1}</h1>
-    <p class="hero-lede">{x.lede}</p>
-    <div class="hero-ctas">
-      <a href="#proyectos" class="btn btn-main">{x.verObra}</a>
-      <a href="#oficios" class="btn btn-line mono">{x.conocer}</a>
+  <div class="hero-in">
+    <div class="hero-text">
+      <span class="mono hero-tag"><span class="hero-dot" aria-hidden="true"></span>{x.heroTag}</span>
+      <h1>{x.h1}</h1>
+      <p class="hero-lede">{x.lede}</p>
+      <div class="hero-ctas">
+        <a href="#proyectos" class="btn btn-main">{x.verObra}</a>
+        <a href="#oficios" class="btn btn-line mono">{x.conocer}</a>
+      </div>
     </div>
   </div>
-
-  <div class="obra-window">
-    <div class="mono obra-bar"><span>{x.obraBar[0]}</span><span>{x.obraBar[1]}</span></div>
-    <div class="obra" data-obra aria-hidden="true">
-      <div class="obra-andamio"></div>
-      <div class="obra-tablon"></div>
-      <div class="obra-suelo"></div>
-      {arriba.map((s) => <Sprite name={s.name} anim="action" scale={4} class="act arriba" style={`--x:${s.x}`} />)}
-      {abajo.map((s) => <Sprite name={s.name} anim="action" scale={4} class={s.slow ? 'act abajo slow' : 'act abajo'} style={`--x:${s.x}`} />)}
-      <Sprite name="bryan" anim="idle" scale={4} paused class="abajo" style="--x:50%" />
-    </div>
-  </div>
+  <Obra lang={lang} />
 </section>

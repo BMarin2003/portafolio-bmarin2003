@@ -1,0 +1,79 @@
+---
+import Sprite from '../Sprite.astro';
+import { contenido, type Lang } from '../../i18n';
+import { ENTRADA, ESCENA, cuadrilla, pies, type Monigote } from '../../lib/obra';
+import { spriteMeta } from '../../lib/sprite-meta';
+import '../../styles/obra.css';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const oficios = contenido(lang).oficios;
+
+const ESCALA = 4;
+const { suelo, pisos } = ESCENA;
+const [c0, c1] = ENTRADA.columnas;
+const columnas = [120, 300, 470, 640].map((left, i, all) => ({ left, delay: c0 + ((c1 - c0) * i) / (all.length - 1) }));
+const tablones = ([1, 2, 3] as const).map((p) => ({ top: pisos[p], delay: ENTRADA.pisos[p] }));
+// cada riostra cuelga bajo el tablón de su piso y aparece con él
+const riostras = ([[128, 3], [308, 2], [478, 3], [128, 1]] as const).map(([left, p]) => ({ left, top: pisos[p] + 10, delay: ENTRADA.pisos[p] }));
+
+function rotulo(m: Monigote) {
+  const o = oficios.find((x) => x.sprite === m.sprite);
+  return o ? { aria: `${o.oficio}: ${o.area}`, ver: `${o.oficio}\n${o.area}` } : { aria: 'Bryan Marin', ver: 'Bryan Marin' };
+}
+
+function vars(m: Monigote) {
+  const r = m.recorrido;
+  const fh = spriteMeta(m.sprite, m.anim).height;
+  const base = `left:${m.x}px;top:${pies(m) - fh * ESCALA}px`;
+  if (r?.tipo === 'ida') return `${base};--dx:${r.dx}px;--s:${r.s}s`;
+  if (r?.tipo === 'sube') return `${base};--alto:${r.alto}px;--s:${r.s}s`;
+  return base;
+}
+
+// cerca de los bordes el rótulo se apoya hacia adentro para no salirse de la escena
+const lado = (m: Monigote) => (m.x < ESCENA.ancho / 4 ? 'rotulo-izq' : m.x + spriteMeta(m.sprite, m.anim).width * ESCALA > (ESCENA.ancho * 3) / 4 ? 'rotulo-der' : null);
+const ritmo = { action: 'act', idle: 'slow', walk: '' } as const;
+const monigotes = cuadrilla.map((m) => ({
+  m,
+  ...rotulo(m),
+  style: vars(m),
+  clase: ['quien', m.recorrido?.tipo, lado(m)],
+  sprClase: [ritmo[m.anim], m.recorrido?.tipo === 'salto' && 'slow'].filter(Boolean).join(' '),
+  n0: spriteMeta(m.sprite, 'idle').frames,
+}));
+---
+<div class="obra-viva" data-obra style={`--entrada:${ENTRADA.total}s`}>
+  <div class="obra-escena">
+    <div class="obra-piezas" aria-hidden="true">
+      <div class="pieza obra-suelo" style={`top:${suelo}px`}></div>
+      {/* grúa */}
+      <div class="pieza obra-mastil" style={`height:${suelo - 40}px`}></div>
+      <div class="pieza obra-cable"><div class="obra-gancho"><div></div><div></div></div></div>
+      <div class="pieza obra-brazo"></div>
+      {/* esqueleto: columnas que crecen, riostras y pisos que caen de la grúa, de abajo hacia arriba */}
+      {columnas.map((c) => <div class="pieza obra-columna crece" style={`left:${c.left}px;height:${suelo - 120}px;animation-delay:${c.delay}s`}></div>)}
+      {riostras.map((r) => <div class="pieza obra-riostra asoma" style={`left:${r.left}px;top:${r.top}px;animation-delay:${r.delay}s`}></div>)}
+      {tablones.map((t) => <div class="pieza obra-tablon cae" style={`top:${t.top}px;animation-delay:${t.delay}s`}></div>)}
+      <div class="pieza obra-escalera asoma" style={`top:${pisos[3]}px;height:${suelo - pisos[3]}px;animation-delay:${ENTRADA.pisos[3] + 0.4}s`}></div>
+      {/* la pared que se pinta, ladrillos y cajas */}
+      <div class="pieza obra-pared asoma" style={`animation-delay:${ENTRADA.pisos[2]}s`}><div class="obra-pintura"></div></div>
+      <div class="pieza obra-ladrillos asoma" style={`top:${pisos[2] - 18}px;animation-delay:${ENTRADA.pisos[2]}s`}></div>
+      <div class="pieza obra-cajas" style={`top:${suelo - 36}px`}></div>
+      {/* chispas del electricista y polvo */}
+      <div class="pieza obra-chispa"></div>
+      <div class="pieza obra-polvo"></div>
+    </div>
+
+    {monigotes.map((q) => (
+      <button type="button" class:list={q.clase} data-oficio={q.ver} aria-label={q.aria} style={q.style}>
+        <span class="llega" style={`animation-delay:${q.m.llegada}s`}>
+          <span class="cara">
+            <Sprite name={q.m.sprite} anim={q.m.anim} scale={ESCALA} class={q.sprClase} style={`--n0:${q.n0}`} />
+          </span>
+        </span>
+      </button>
+    ))}
+  </div>
+  <div class="obra-velo" aria-hidden="true"></div>
+</div>

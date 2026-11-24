@@ -1,0 +1,90 @@
+/* La obra de fondo del hero de /. Por qué y cómo: docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md */
+
+/* raíz: su propio contexto de apilamiento, para que el velo y los rótulos se ordenen entre sí */
+.obra-viva { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.obra-escena { --z: 1; position: absolute; right: -40px; bottom: 0; width: 860px; height: 700px; }
+.obra-piezas { position: absolute; inset: 0; }
+.pieza { position: absolute; }
+
+/* piezas (colores de material, como la escena de /casa) */
+.obra-suelo { left: -1600px; right: -40px; bottom: 0; background: #1b212b; border-top: 4px solid var(--line-2); }
+.obra-mastil { left: 730px; top: 40px; width: 16px; background: repeating-linear-gradient(45deg, var(--line-2) 0 2px, transparent 2px 12px), repeating-linear-gradient(-45deg, var(--line-2) 0 2px, transparent 2px 12px); border-left: 2px solid var(--line-2); border-right: 2px solid var(--line-2); }
+.obra-cable { left: 474px; top: 48px; width: 4px; height: 220px; overflow: hidden; }
+.obra-gancho { position: absolute; left: 0; top: -170px; width: 4px; }
+.obra-gancho > :first-child { width: 2px; height: 300px; margin-left: 1px; background: #5c6574; }
+.obra-gancho > :last-child { width: 30px; height: 22px; margin-left: -13px; background: #8a6a45; box-shadow: inset 0 -4px 0 #5a4a3a; }
+.obra-brazo { left: 380px; top: 36px; width: 380px; height: 10px; transform-origin: 100% 50%; background: repeating-linear-gradient(90deg, var(--line-2) 0 3px, transparent 3px 14px); border-top: 2px solid #4a5362; border-bottom: 2px solid #4a5362; }
+.obra-columna { top: 120px; width: 8px; background: #2e3644; transform-origin: 50% 100%; }
+.obra-riostra { width: 205px; height: 2px; background: var(--line); transform: rotate(38deg); transform-origin: 0 0; }
+.obra-tablon { left: 112px; width: 540px; height: 10px; background: #6b5844; box-shadow: inset 0 -3px 0 #4a3b2e; }
+.obra-escalera { left: 652px; width: 26px; border-left: 3px solid #5a4a3a; border-right: 3px solid #5a4a3a; background: repeating-linear-gradient(180deg, transparent 0 18px, #5a4a3a 18px 21px); }
+.obra-pared { left: 308px; top: 362px; width: 162px; height: 118px; background: #1b212b; }
+.obra-pintura { width: 100%; height: 100%; background: #2c3b4e; transform-origin: 0 50%; }
+.obra-ladrillos { left: 140px; width: 40px; height: 18px; background: repeating-linear-gradient(90deg, #8a5a45 0 12px, #6b4434 12px 14px); }
+.obra-cajas { left: 20px; width: 34px; height: 36px; background: #5a4a3a; box-shadow: inset 0 -12px 0 #4a3b2e, 38px 12px 0 -6px #6b5844; }
+.obra-chispa { left: 640px; top: 150px; width: 6px; height: 6px; background: #f2d49b; box-shadow: 10px -6px 0 var(--accent), -8px -10px 0 #f2d49b; }
+.obra-polvo { left: 230px; top: 300px; width: 4px; height: 4px; background: #5c6574; box-shadow: 14px 6px 0 #4a5362, 28px -2px 0 #5c6574; }
+
+/* para leer el texto: la escena se apaga hacia la izquierda, medido desde el borde del texto (560 px desde el margen de .hero-in) */
+.obra-velo { --borde: calc(max(32px, 50% - 568px) + 560px); position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--bg) calc(var(--borde) - 240px), rgb(17 21 27 / 0.78) var(--borde), rgb(17 21 27 / 0.15) calc(var(--borde) + 380px), rgb(17 21 27 / 0) calc(var(--borde) + 560px)); }
+
+/* un monigote: botón con su oficio. El recorrido va en translate (la reacción al clic puede usar transform),
+   la llegada en .llega y el giro al volver en .cara, para que ninguna animación pise a otra */
+.quien { position: absolute; display: block; padding: 0; border: 0; background: none; line-height: 0; cursor: pointer; pointer-events: auto; }
+.quien .llega, .quien .cara { display: block; transform-origin: 50% 100%; }
+/* el rótulo y el foco se dividen por --z para medir lo mismo aunque la escena esté reducida (zoom) */
+.quien::after { --lx: -50%; content: attr(data-oficio); position: absolute; left: 50%; bottom: calc(100% + 8px / var(--z)); transform: translate(var(--lx), 4px); white-space: pre; text-align: center; padding: calc(4px / var(--z)) calc(8px / var(--z)); border-radius: calc(6px / var(--z)); background: var(--text); color: var(--bg); font: 500 calc(12px / var(--z))/1.4 var(--mono); letter-spacing: 0.04em; opacity: 0; transition: opacity 0.12s, transform 0.12s; pointer-events: none; }
+.quien.rotulo-izq::after { --lx: 0; left: 0; text-align: left; }
+.quien.rotulo-der::after { --lx: 0; left: auto; right: 0; text-align: right; }
+.quien:is(:hover, :focus-visible) { z-index: 2; }
+.quien:is(:hover, :focus-visible)::after { opacity: 1; transform: translate(var(--lx), 0); }
+.quien:focus-visible { outline: calc(2px / var(--z)) solid var(--accent); outline-offset: calc(4px / var(--z)); }
+/* se detiene y queda en reposo mientras se le mira */
+.quien:is(:hover, :focus-visible), .quien:is(:hover, :focus-visible) .cara { animation-play-state: paused; }
+.quien:is(:hover, :focus-visible) .spr { --row: 0 !important; --n: var(--n0) !important; --d: 1.6s; }
+
+/* trabajo en bucle */
+@keyframes obra-ida { 0% { translate: 0 0; } 48%, 50% { translate: var(--dx) 0; } 98%, 100% { translate: 0 0; } }
+@keyframes obra-vuelta { 0% { scale: 1 1; } 50%, 100% { scale: -1 1; } }
+@keyframes obra-sube { 0%, 8% { translate: 0 0; } 46%, 58% { translate: 0 calc(var(--alto) * -1); } 96%, 100% { translate: 0 0; } }
+@keyframes obra-salto { 0%, 70%, 100% { translate: 0 0; } 78% { translate: 0 -34px; } 86% { translate: 0 0; } 90% { translate: 0 -8px; } }
+@keyframes obra-pintura { 0% { transform: scaleX(0); } 70%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+@keyframes obra-gancho { 0%, 12% { transform: translateY(0); } 50%, 62% { transform: translateY(170px); } 100% { transform: translateY(0); } }
+@keyframes obra-brazo { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+@keyframes obra-chispa { 0%, 60%, 100% { opacity: 0; } 64%, 72% { opacity: 1; } }
+@keyframes obra-polvo { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 0.6; } 100% { transform: translateY(-60px); opacity: 0; } }
+.quien.ida { animation: obra-ida var(--s) linear infinite; }
+.quien.ida .cara { animation: obra-vuelta var(--s) step-end infinite; }
+.quien.sube { animation: obra-sube var(--s) ease-in-out infinite; }
+.quien.salto { animation: obra-salto 4.2s steps(14) infinite; }
+.obra-pintura { animation: obra-pintura 9s steps(18) infinite; }
+.obra-gancho { animation: obra-gancho 8s ease-in-out infinite; }
+.obra-brazo { animation: obra-brazo 8s ease-in-out infinite; }
+.obra-chispa { animation: obra-chispa 1.9s steps(2) infinite backwards; }
+.obra-polvo { animation: obra-polvo 6s linear infinite backwards; }
+
+/* la entrada: columnas que crecen, pisos que caen de la grúa, la cuadrilla que llega.
+   Los retrasos van en el style de cada pieza; .armada (visita repetida) la salta */
+@keyframes obra-crece { from { transform: scaleY(0); } }
+@keyframes obra-cae { 0% { transform: translateY(-260px); opacity: 0; } 10% { opacity: 1; } 80% { transform: translateY(4px); } 100% { transform: none; opacity: 1; } }
+@keyframes obra-asoma { from { opacity: 0; } }
+@keyframes obra-llega { 0% { transform: scale(0); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+.obra-viva:not(.armada) .crece { animation: obra-crece 0.7s steps(8) both; }
+.obra-viva:not(.armada) .cae { animation: obra-cae 0.8s steps(10) both; }
+.obra-viva:not(.armada) .asoma { animation: obra-asoma 0.4s steps(4) both; }
+.obra-viva:not(.armada) .llega { animation: obra-llega 0.4s steps(4) both; }
+.obra-viva:not(.armada) :is(.obra-chispa, .obra-polvo) { animation-delay: var(--entrada); }
+
+/* en pantallas chicas la obra queda detrás del texto, más chica y apagada, pero entera:
+   así el foco nunca cae en un monigote fuera de la pantalla. zoom 0,75 y 0,5 dejan el píxel en 3 y 2 px */
+@media (max-width: 900px) {
+  .obra-escena { zoom: 0.75; --z: 0.75; }
+  .obra-velo { background: rgb(17 21 27 / 0.8); }
+}
+@media (max-width: 560px) {
+  .obra-escena { zoom: 0.5; --z: 0.5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obra-viva *, .obra-viva *::after { animation: none !important; transition: none !important; }
+}

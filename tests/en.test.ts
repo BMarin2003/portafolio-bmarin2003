@@ -87,6 +87,11 @@ describe('/en/', () => {
     });
     expect([...en.querySelectorAll('#oficios h3')].map(text)).toEqual(oficiosEn.map((o) => o.oficio));
   });
+  it('la obra dice los oficios en inglés', () => {
+    const nombres = [...en.querySelectorAll('#top [data-obra] button.quien')].map((b) => b.getAttribute('aria-label'));
+    expect(nombres).toContain('Foreman: Planning and method');
+    expect(nombres).toContain('Bryan Marin');
+  });
   it('enlaza a la casa en inglés y al español', () => {
     expect(en.querySelectorAll('a[href="/en/casa"]').length).toBe(2);
     expect(en.querySelector('header a[hreflang="es"]')?.getAttribute('href')).toBe('/');

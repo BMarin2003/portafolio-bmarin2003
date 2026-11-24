@@ -81,6 +81,14 @@ describe('/ · cómo trabajo', () => {
 });
 
 describe('/ · página', () => {
+  it('el título del hero no cambia', () => {
+    expect(text(index.querySelector('#top h1'))).toBe('Construyo sistemas con una cuadrilla de oficios.');
+  });
+  it('los monigotes de la obra son botones con su oficio', () => {
+    const nombres = [...index.querySelectorAll('#top [data-obra] button.quien')].map((b) => b.getAttribute('aria-label'));
+    expect(nombres).toContain('Capataz: Planificación y método');
+    expect(nombres).toContain('Bryan Marin');
+  });
   it('la escena de la obra tiene a los 6 oficios y a Bryan', () => {
     const urls = [...index.querySelectorAll('[data-obra] .spr')].map((s) => s.getAttribute('style') ?? '');
     for (const o of oficios) expect(urls.some((u) => u.includes(`url(/sprites/${o.sprite}.png)`)), o.sprite).toBe(true);
