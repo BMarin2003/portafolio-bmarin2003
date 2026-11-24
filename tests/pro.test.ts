@@ -108,8 +108,9 @@ describe('/ · página', () => {
       expect(hrefs).toContain(h);
     }
   });
-  it('no carga JavaScript propio', () => {
-    expect(indexHtml).not.toMatch(/<script/i);
+  it('solo carga el script de la obra', () => {
+    expect((indexHtml.match(/<script/gi) ?? []).length).toBeLessThanOrEqual(2);
+    expect(indexHtml).not.toMatch(/pixi/i);
   });
   it('todo sprite es decorativo', () => {
     const sprites = [...index.querySelectorAll('.spr')];

@@ -63,6 +63,12 @@
 .obra-chispa { animation: obra-chispa 1.9s steps(2) infinite backwards; }
 .obra-polvo { animation: obra-polvo 6s linear infinite backwards; }
 
+/* reacción al clic: un saltito del sprite (translate: el recorrido va en .quien y la llegada en transform) */
+@keyframes obra-reacciona { 0%, 100% { translate: 0 0; } 40% { translate: 0 -28px; } }
+.quien.reacciona .spr { animation: spr-play var(--d) steps(var(--n)) infinite, obra-reacciona 0.6s steps(6); }
+/* fuera de pantalla todo se detiene (también los cuadros de los sprites y los rótulos) */
+.obra-viva.pausada *, .obra-viva.pausada *::after, .obra-viva.pausada *::before { animation-play-state: paused; }
+
 /* la entrada: columnas que crecen, pisos que caen de la grúa, la cuadrilla que llega.
    Los retrasos van en el style de cada pieza; .armada (visita repetida) la salta */
 @keyframes obra-crece { from { transform: scaleY(0); } }

@@ -77,3 +77,12 @@ const monigotes = cuadrilla.map((m) => ({
   </div>
   <div class="obra-velo" aria-hidden="true"></div>
 </div>
+{/* visita repetida: salta la entrada antes del primer pintado */}
+<script is:inline>
+  try { if (sessionStorage.getItem('obra-armada')) document.querySelector('[data-obra]').classList.add('armada'); } catch (e) {}
+</script>
+<script>
+  import { initObra } from '../../scripts/obra';
+  const root = document.querySelector<HTMLElement>('[data-obra]');
+  if (root) initObra(root);
+</script>

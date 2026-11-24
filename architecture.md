@@ -10,7 +10,7 @@ parent: portfolio
 
 - **Sitio Astro estático**, desplegado en Cloudflare Pages. Las dos páginas, `/` y `/casa`, y su versión en inglés bajo `/en/`, salen como HTML al compilar.
 - **Contenido como datos:** proyectos, oficios y gustos viven en archivos de datos del sitio, no dentro del marcado. Cambiar un texto no toca componentes.
-- **Muñequitos:** `Sprite.astro` lee `art/sprites` al compilar y anima con CSS; `/` no carga JavaScript propio.
+- **Muñequitos:** `Sprite.astro` lee `art/sprites` al compilar y anima con CSS; `/` anima con CSS y solo suma el script chico de la obra.
 - **Scripts de cliente chicos, solo en `/casa`:**
   - La rotación de la PC, la TV y el parlante.
   - La consulta periódica de "qué suena ahora".
@@ -33,7 +33,7 @@ parent: portfolio
 ## Invariantes
 
 - **El token de Spotify nunca llega al navegador.** Vive como secreto de Cloudflare y solo lo lee la función.
-- **`/` no carga motor de juego ni scripts de cliente propios.**
+- **`/` no carga motor de juego; solo un script chico y diferido para la obra, y sin él la página se ve igual.**
 - **Las dos páginas funcionan sin JavaScript.** `/` se ve completa. `/casa` muestra la imagen de la casa de noche, los cinco paneles con sus listas completas y la primera banda en el parlante.
 - **Se respeta `prefers-reduced-motion`.** Si el visitante lo pide, se detienen las animaciones y la rotación; con ello la escena de `/casa` no se monta y queda la imagen estática.
 - **El canvas siempre tiene su equivalente accesible en el DOM.** El canvas va oculto a lectores de pantalla (`aria-hidden`); todo objeto de la escena existe como botón y panel.

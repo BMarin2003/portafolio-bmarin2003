@@ -97,8 +97,9 @@ describe('/en/', () => {
     expect(en.querySelector('header a[hreflang="es"]')?.getAttribute('href')).toBe('/');
     expect(es.querySelector('header a[hreflang="en"]')?.getAttribute('href')).toBe('/en/');
   });
-  it('no carga JavaScript propio ni deja corchetes', () => {
-    expect(enHtml).not.toMatch(/<script/i);
+  it('solo carga el script de la obra ni deja corchetes', () => {
+    expect((enHtml.match(/<script/gi) ?? []).length).toBeLessThanOrEqual(2);
+    expect(enHtml).not.toMatch(/pixi/i);
     expect(findPlaceholders(enHtml)).toEqual([]);
   });
 });
