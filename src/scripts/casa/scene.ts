@@ -25,12 +25,11 @@ const SOL = 0xf2c94c;
 const LUNA = 0xe6e3dd;
 const PANTALLA = 0x7c93b8;
 const CIAN = 0x8ad0e0;
-const CALIDO = 0xf2d79a;
+const CALIDO = 0xf2d49b;
 const PISO = 0x3b3027;
 const JUNTA = 0x2a221b;
 const CIUDAD = { noche: 0x141b2c, dia: 0x2c3747 };
 const SUELO = { noche: OSCURO, dia: 0x22262a };
-const LUZ = 0xf08a20;
 /** Edificios lejanos a los costados de la casa: [x, ancho, techo]; llegan hasta la vereda (y=172). */
 const EDIFICIOS = [
   [-64, 14, 126], [-50, 12, 140], [-38, 15, 116], [-23, 10, 132], [-13, 13, 122], [0, 11, 140], [11, 9, 150],
@@ -165,18 +164,14 @@ function dibujarMuebles(g: Graphics): void {
   g.rect(244, 137, 1, 1).rect(258, 137, 1, 1).rect(262, 137, 1, 1).fill(LUNA);
 }
 
-/** Lo que se enciende de noche: la luz de las lámparas (se suma a lo que ilumina), el monitor y la ciudad en el televisor. */
-function dibujarNoche(luz: Graphics, g: Graphics): void {
+/** Lo que se enciende de noche: las lámparas (aureola detrás de la pantalla, foco y reflejo en las tablas), el monitor y la ciudad en el televisor. */
+function dibujarNoche(aureolas: Graphics, g: Graphics): void {
   for (const [x, techo, largo, suelo] of LAMPARAS) {
-    let y = techo + largo + 3;
-    g.rect(x - 1, y, 3, 1).fill(CALIDO);
-    // cono tenue en franjas de 4 px que se apaga a media pared, y un charco chico en el piso
-    const fin = y + Math.floor((suelo - y) / 2);
-    for (let k = 0, top = y + 1; top < fin; top += 4, k++) {
-      const m = 1 + Math.floor(1.5 * k);
-      luz.rect(x - m, top, 2 * m + 1, Math.min(4, fin - top)).fill({ color: LUZ, alpha: 0.2 * 0.6 ** k });
-    }
-    luz.rect(x - 8, suelo, 17, 4).fill({ color: LUZ, alpha: 0.2 });
+    const y = techo + largo;
+    aureolas.rect(x - 4, y, 9, 1).rect(x - 5, y + 1, 11, 1).rect(x - 6, y + 2, 13, 3).rect(x - 5, y + 5, 11, 1).rect(x - 3, y + 6, 7, 1).fill(0x302e34);
+    aureolas.rect(x - 3, y, 7, 1).rect(x - 4, y + 1, 9, 1).rect(x - 5, y + 2, 11, 3).rect(x - 3, y + 5, 7, 1).fill(0x4d4237);
+    g.rect(x - 1, y + 3, 3, 1).rect(x, y + 4, 1, 1).fill(CALIDO);
+    g.rect(x - 9, suelo, 19, 1).fill(0x6e5539);
   }
   g.rect(51, 139, 13, 9).fill(CIAN).rect(53, 141, 6, 1).rect(53, 143, 8, 1).rect(53, 145, 4, 1).fill(0x5f9fb2);
   // ciudad de noche en el televisor
@@ -252,17 +247,14 @@ function montar(
   // halo del monitor en la pared: dos escalones pegados a la pantalla, sin bajar del borde del monitor
   const brillo = new Graphics();
   for (const m of [4, 2]) brillo.rect(50 - m, 138 - m, 15 + 2 * m, 11 + m).fill({ color: CIAN, alpha: 0.1 });
-  const luz = new Graphics();
-  luz.blendMode = 'add';
-  const pantallas = new Graphics();
-  const nocturno = new Container();
-  nocturno.addChild(luz, pantallas);
+  const aureolas = new Graphics();
+  const nocturno = new Graphics();
   const actores = new Container();
   const hover = new Graphics();
   const zonas = new Container();
   dibujarMuebles(muebles);
-  dibujarNoche(luz, pantallas);
-  world.addChild(casa, brillo, muebles, nocturno, actores, hover, zonas);
+  dibujarNoche(aureolas, nocturno);
+  world.addChild(casa, brillo, aureolas, muebles, nocturno, actores, hover, zonas);
 
   for (const o of objetos) {
     const z = new Container();
@@ -304,6 +296,7 @@ function montar(
     dibujarCasa(casa, f);
     noche = esDeNoche(f);
     brillo.visible = noche;
+    aureolas.visible = noche;
     nocturno.visible = noche;
     actores.removeChildren().forEach((c) => c.destroy());
     sprites = actoresPorFase(f).map((a) => {
