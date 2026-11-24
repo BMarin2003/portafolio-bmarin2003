@@ -72,7 +72,7 @@
 .obra-viva:not(.armada) .crece { animation: obra-crece 0.7s steps(8) both; }
 .obra-viva:not(.armada) .cae { animation: obra-cae 0.8s steps(10) both; }
 .obra-viva:not(.armada) .asoma { animation: obra-asoma 0.4s steps(4) both; }
-.obra-viva:not(.armada) .llega { animation: obra-llega 0.4s steps(4) both; }
+.obra-viva:not(.armada) .llega { animation: obra-llega var(--llega) steps(4) both; }
 .obra-viva:not(.armada) :is(.obra-chispa, .obra-polvo) { animation-delay: var(--entrada); }
 
 /* en pantallas chicas la obra queda detrás del texto, más chica y apagada, pero entera:

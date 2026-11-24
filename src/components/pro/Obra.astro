@@ -1,7 +1,7 @@
 ---
 import Sprite from '../Sprite.astro';
 import { contenido, type Lang } from '../../i18n';
-import { ENTRADA, ESCENA, cuadrilla, pies, type Monigote } from '../../lib/obra';
+import { ENTRADA, ESCENA, LLEGA, cuadrilla, pies, type Monigote } from '../../lib/obra';
 import { spriteMeta } from '../../lib/sprite-meta';
 import '../../styles/obra.css';
 
@@ -43,7 +43,7 @@ const monigotes = cuadrilla.map((m) => ({
   n0: spriteMeta(m.sprite, 'idle').frames,
 }));
 ---
-<div class="obra-viva" data-obra style={`--entrada:${ENTRADA.total}s`}>
+<div class="obra-viva" data-obra style={`--entrada:${ENTRADA.total}s;--llega:${LLEGA}s`}>
   <div class="obra-escena">
     <div class="obra-piezas" aria-hidden="true">
       <div class="pieza obra-suelo" style={`top:${suelo}px`}></div>

@@ -7,13 +7,13 @@ export type Monigote = { sprite: string; anim: 'walk' | 'action' | 'idle'; x: nu
 
 // llegada: segundos de retraso de su aparición en la entrada (pisos bajos primero, suelo al final).
 export const cuadrilla: Monigote[] = [
-  { sprite: 'decorador', anim: 'action', x: 350, piso: 1, recorrido: null, llegada: 2.5 },
-  { sprite: 'maestro', anim: 'action', x: 190, piso: 2, recorrido: null, llegada: 2.8 },
-  { sprite: 'doble', anim: 'action', x: 530, piso: 2, recorrido: { tipo: 'salto' }, llegada: 3.0 },
-  { sprite: 'capataz', anim: 'walk', x: 150, piso: 3, recorrido: { tipo: 'ida', dx: 260, s: 12 }, llegada: 3.2 },
-  { sprite: 'electricista', anim: 'walk', x: 634, piso: 'suelo', recorrido: { tipo: 'sube', alto: ESCENA.suelo - ESCENA.pisos[3], s: 11 }, llegada: 3.4 },
-  { sprite: 'archivista', anim: 'walk', x: 60, piso: 'suelo', recorrido: { tipo: 'ida', dx: 150, s: 9 }, llegada: 3.6 },
-  { sprite: 'bryan', anim: 'idle', x: 470, piso: 'suelo', recorrido: null, llegada: 3.9 },
+  { sprite: 'decorador', anim: 'action', x: 350, piso: 1, recorrido: null, llegada: 2.4 },
+  { sprite: 'maestro', anim: 'action', x: 190, piso: 2, recorrido: null, llegada: 2.6 },
+  { sprite: 'doble', anim: 'action', x: 530, piso: 2, recorrido: { tipo: 'salto' }, llegada: 2.8 },
+  { sprite: 'capataz', anim: 'walk', x: 150, piso: 3, recorrido: { tipo: 'ida', dx: 260, s: 12 }, llegada: 3.0 },
+  { sprite: 'electricista', anim: 'walk', x: 634, piso: 'suelo', recorrido: { tipo: 'sube', alto: ESCENA.suelo - ESCENA.pisos[3], s: 11 }, llegada: 3.2 },
+  { sprite: 'archivista', anim: 'walk', x: 60, piso: 'suelo', recorrido: { tipo: 'ida', dx: 150, s: 9 }, llegada: 3.4 },
+  { sprite: 'bryan', anim: 'idle', x: 470, piso: 'suelo', recorrido: null, llegada: 3.6 },
 ];
 
 export function pies(m: Monigote): number {
@@ -21,3 +21,6 @@ export function pies(m: Monigote): number {
 }
 
 export const ENTRADA = { columnas: [0.3, 0.6], pisos: { 1: 1.0, 2: 1.5, 3: 2.0 }, total: 4 } as const;
+
+/** Segundos que dura la aparición de cada monigote (animación `llega`). */
+export const LLEGA = 0.4;

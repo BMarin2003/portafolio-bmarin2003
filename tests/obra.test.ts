@@ -4,7 +4,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import Obra from '../src/components/pro/Obra.astro';
 import { oficios } from '../src/data/site';
 import { contenido, type Lang } from '../src/i18n';
-import { ENTRADA, ESCENA, cuadrilla, pies } from '../src/lib/obra';
+import { ENTRADA, ESCENA, LLEGA, cuadrilla, pies } from '../src/lib/obra';
 import { spriteMeta } from '../src/lib/sprite-meta';
 
 const ANCHO_MONIGOTE = 64;
@@ -36,6 +36,10 @@ describe('datos de la escena de la obra', () => {
       expect(m.llegada).toBeLessThanOrEqual(ENTRADA.total);
       if (m.piso !== 'suelo') expect(m.llegada).toBeGreaterThan(ENTRADA.pisos[m.piso]);
     }
+  });
+
+  it('el último en llegar termina de aparecer dentro de la entrada', () => {
+    expect(Math.max(...cuadrilla.map((m) => m.llegada)) + LLEGA).toBeLessThanOrEqual(ENTRADA.total);
   });
 
   it('pies devuelve la y del tablón o del suelo', () => {
