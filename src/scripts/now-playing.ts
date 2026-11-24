@@ -30,4 +30,6 @@ export function startNowPlaying(speakers: HTMLElement[], intervalMs = 30000): vo
   };
   void tick();
   setInterval(tick, intervalMs);
+  // Si la página cargó en segundo plano, el primer tick se saltó: al volver se consulta sin esperar el ciclo.
+  document.addEventListener('visibilitychange', () => void tick());
 }

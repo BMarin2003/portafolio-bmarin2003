@@ -67,4 +67,19 @@ describe('startNowPlaying con la pestaña oculta', () => {
     await vi.advanceTimersByTimeAsync(30000);
     expect(f).toHaveBeenCalledTimes(1);
   });
+  it('al volver a la pestaña consulta enseguida, sin esperar el ciclo', async () => {
+    const a = speaker();
+    const f = vi.fn().mockResolvedValue(Response.json({ playing: false }));
+    vi.stubGlobal('fetch', f);
+    let hidden = true;
+    vi.spyOn(document, 'hidden', 'get').mockImplementation(() => hidden);
+    vi.useFakeTimers();
+    startNowPlaying([a], 30000);
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(f).not.toHaveBeenCalled();
+    hidden = false;
+    document.dispatchEvent(new Event('visibilitychange'));
+    await vi.advanceTimersByTimeAsync(0);
+    expect(f).toHaveBeenCalledTimes(1);
+  });
 });
