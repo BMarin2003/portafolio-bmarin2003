@@ -9,7 +9,7 @@ export type Monigote = { sprite: string; anim: 'walk' | 'action' | 'idle'; x: nu
 export const cuadrilla: Monigote[] = [
   { sprite: 'decorador', anim: 'action', x: 350, piso: 1, recorrido: null, llegada: 2.5 },
   { sprite: 'maestro', anim: 'action', x: 190, piso: 2, recorrido: null, llegada: 2.8 },
-  { sprite: 'doble', anim: 'idle', x: 530, piso: 2, recorrido: { tipo: 'salto' }, llegada: 3.0 },
+  { sprite: 'doble', anim: 'action', x: 530, piso: 2, recorrido: { tipo: 'salto' }, llegada: 3.0 },
   { sprite: 'capataz', anim: 'walk', x: 150, piso: 3, recorrido: { tipo: 'ida', dx: 260, s: 12 }, llegada: 3.2 },
   { sprite: 'electricista', anim: 'walk', x: 634, piso: 'suelo', recorrido: { tipo: 'sube', alto: ESCENA.suelo - ESCENA.pisos[3], s: 11 }, llegada: 3.4 },
   { sprite: 'archivista', anim: 'walk', x: 60, piso: 'suelo', recorrido: { tipo: 'ida', dx: 150, s: 9 }, llegada: 3.6 },
