@@ -24,8 +24,8 @@
 
 .tarjeta summary { cursor: pointer; list-style: none; min-height: 32px; display: flex; align-items: center; font-size: 13px; color: var(--accent); }
 .tarjeta summary::-webkit-details-marker { display: none; }
-.tarjeta summary::after { content: "\00a0+"; }
-.tarjeta details[open] summary::after { content: "\00a0−"; }
+.tarjeta summary::after { content: "\00a0+"; content: "\00a0+" / ""; }
+.tarjeta details[open] summary::after { content: "\00a0−"; content: "\00a0−" / ""; }
 .tarjeta summary:hover { color: var(--accent-hover); }
 .tarjeta summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .detalle { padding-top: 8px; }
