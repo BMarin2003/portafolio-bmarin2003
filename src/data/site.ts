@@ -2,7 +2,7 @@ import type { ImageMetadata } from 'astro';
 
 export type Person = { name: string; url?: string };
 export type People = { companeros: Person[]; supervisores: Person[]; gerentes: Person[] };
-export type CorallProject = { name: string; sprite: string; area: string; did: string; challenge?: string; people: People };
+export type CorallProject = { name: string; sprite: string; area: string; did: string; challenge?: string; people: People; desde: string; hasta?: string; commits: number; resumen: string; stack: string[] };
 export type Oficio = { sprite: string; oficio: string; area: string; tags: string[] };
 export type Credit = { title: string; cover?: ImageMetadata; source: string; sourceUrl: string };
 
@@ -13,6 +13,11 @@ const gerentes = [p('Diego Cieza'), p('Alonso Gil')];
 export const corall: CorallProject[] = [
   {
     name: 'Totem Multimedia',
+    desde: '2026-02',
+    hasta: '2026-04',
+    commits: 259,
+    resumen: 'Mi primer proyecto en CorAll: construí funcionalidades y presenté cada avance al cliente.',
+    stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL'],
     sprite: 'maestro',
     area: 'PRIMER PROYECTO',
     did: 'Mi primer proyecto en CorAll, recién llegado al equipo. Mi labor fue la de desarrollador: construir las funcionalidades que se me asignaban y presentar cada avance al cliente, explicándole con claridad qué cambiaba y por qué. Fue la etapa en que aprendí el oficio dentro de un producto real, con revisión constante y entregas que otras personas iban a usar.',
@@ -25,6 +30,11 @@ export const corall: CorallProject[] = [
   },
   {
     name: 'CCAE',
+    desde: '2026-03',
+    hasta: '2026-03',
+    commits: 9,
+    resumen: 'Diseñé un par de interfaces de la extranet de un sistema de arbitrajes.',
+    stack: ['React', 'Ant Design'],
     sprite: 'decorador',
     area: 'APORTE PUNTUAL',
     did: 'Sistema de gestión de arbitrajes para una cámara de comercio: solicitudes, partes involucradas, pagos, documentos y el seguimiento de cada trámite. Mi aporte fue acotado y puntual: el diseño de un par de interfaces de su extranet.',
@@ -32,6 +42,10 @@ export const corall: CorallProject[] = [
   },
   {
     name: 'MaqinPro',
+    desde: '2026-08',
+    commits: 1493,
+    resumen: 'La plataforma de un taller de maquinaria y el portal de sus clientes. A mitad de camino quedó a mi cargo.',
+    stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL', 'Drizzle', 'Playwright'],
     sprite: 'capataz',
     area: 'PLATAFORMA · A MI CARGO',
     did: 'Plataforma de gestión para Maqinpro, empresa de maquinaria industrial y profesional: un panel interno para su taller y un portal desde el que sus clientes siguen sus equipos, aprueban cotizaciones y consultan sus documentos. Fue el proyecto con más personas involucradas y, a mitad de camino, quedó bajo mi responsabilidad. Desde entonces lo llevo adelante, con el apoyo de Luis Hume en el portal del cliente.',
@@ -44,6 +58,11 @@ export const corall: CorallProject[] = [
   },
   {
     name: 'Comphill',
+    desde: '2026-09',
+    hasta: '2026-10',
+    commits: 136,
+    resumen: 'Con Luis Mostacero cerramos el sistema de operaciones de un mercado mayorista que había construido otra persona.',
+    stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL'],
     sprite: 'electricista',
     area: 'CIERRE DE PROYECTO',
     did: 'Sistema integrado de operaciones para el Mercado Mayorista Pesquero COMPHILL: transporte y pesaje, puestos, almacenes, cobros y calidad sanitaria en una sola plataforma. El grueso lo construyó Cristian Ventura; a Luis Mostacero y a mí se nos encargó darle cierre, completando los módulos pendientes: el panel operativo con datos reales, la separación de la información financiera según el rol de cada usuario, el control de acceso en garita con lectores de DNI y QR, y la adaptación del sistema a celulares y tabletas.',
@@ -52,6 +71,10 @@ export const corall: CorallProject[] = [
   },
   {
     name: 'Corall-ERP',
+    desde: '2026-04',
+    commits: 581,
+    resumen: 'El ERP con el que CorAll organiza su trabajo; levanté los procesos de cada área antes de convertirlos en módulos.',
+    stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL', 'Drizzle'],
     sprite: 'archivista',
     area: 'ERP INTERNO',
     did: 'El sistema con el que CorAll automatiza y optimiza su propio trabajo, de marketing y finanzas a proyectos e inventario, reunido en una sola plataforma. Aquí el trabajo fue más allá del código: conversé con las personas de cada área para entender sus procesos antes de convertirlos en módulos. Empecé bajo la supervisión de Cristian Ventura y continué con Luis Mostacero tras su ascenso; con la llegada del nuevo equipo de practicantes, el desarrollo ganó un ritmo notable.',

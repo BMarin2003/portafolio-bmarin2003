@@ -116,3 +116,13 @@ describe('/en/casa', () => {
     expect(findPlaceholders(casaHtml)).toEqual([]);
   });
 });
+
+describe('datos del recorrido en inglés', () => {
+  it('conserva período, commits y stack; el resumen se traduce', () => {
+    corallEn.forEach((p, i) => {
+      const o = corall[i];
+      expect({ desde: p.desde, hasta: p.hasta, commits: p.commits, stack: p.stack }).toEqual({ desde: o.desde, hasta: o.hasta, commits: o.commits, stack: o.stack });
+      expect(p.resumen).not.toBe(o.resumen);
+    });
+  });
+});
