@@ -158,7 +158,8 @@ describe('/ · página', () => {
     expect(urls.some((u) => u.includes('url(/sprites/bryan.png)'))).toBe(true);
   });
   it('no nombra herramientas', () => {
-    expect(indexHtml).not.toMatch(/hallmark|ponytail|superpowers|safety-net/i);
+    // los enlaces del ciclo apuntan a docs/superpowers del repo: se mira lo que se lee, no el href
+    expect(indexHtml.replace(/href="[^"]*"/g, '')).not.toMatch(/hallmark|ponytail|superpowers|safety-net/i);
   });
   it('enlaza a /casa desde el encabezado y desde la puerta', () => {
     const toCasa = [...index.querySelectorAll('a[href="/casa"]')].map(text);
@@ -202,5 +203,33 @@ describe('/casa', () => {
   });
   it('tiene el mismo pie que /', () => {
     expect(text(casa.querySelector('footer'))).toBe(text(index.querySelector('footer')));
+  });
+});
+
+describe('/ · ciclo de cómo trabajo', () => {
+  const pasos: [string, string, string, string][] = [
+    ['Entender', 'Antes de escribir código: qué se necesita, para quién y con qué datos reales.', 'En el hero: la referencia fue runkiri.com', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
+    ['Decidir', 'Bocetos para comparar y un diseño escrito que apruebo antes de construir.', 'En el hero: 2 bocetos, elegí la mezcla y aprobé el diseño', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
+    ['Construir junto a Claude', 'Un plan por tareas chicas, cada una con sus tests escritos antes del código.', 'En el hero: plan de 4 tareas', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md'],
+    ['Revisar', 'Revisión de cada tarea y de todo el cambio, medición y verificación en vivo.', 'En el hero: 184 tests y Lighthouse móvil 100', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
+  ];
+  it('tiene 4 pasos con su frase y su prueba enlazada', () => {
+    const arts = [...index.querySelectorAll('#ia article')];
+    expect(arts.map((a) => text(a.querySelector('h3')))).toEqual(pasos.map((p) => p[0]));
+    pasos.forEach(([, frase, prueba, href], i) => {
+      expect(text(arts[i])).toContain(frase);
+      const a = arts[i].querySelector('a');
+      expect(text(a)).toBe(prueba);
+      expect(a?.getAttribute('href')).toBe(href);
+    });
+  });
+  it('cierra enlazando a la carpeta de diseños y planes', () => {
+    const a = index.querySelector('#ia .ciclo-cierre a');
+    expect(text(a?.parentElement)).toBe('El diseño y el plan de cada parte de este sitio están en su repositorio: ver el proceso en GitHub →');
+    expect(a?.getAttribute('href')).toBe('https://github.com/BMarin2003/portafolio-bmarin2003/tree/main/docs/superpowers');
+  });
+  it('la cinta y el bloque son decorativos', () => {
+    expect(index.querySelector('#ia .cinta')?.getAttribute('aria-hidden')).toBe('true');
+    expect(index.querySelector('#ia .bloque')?.getAttribute('aria-hidden')).toBe('true');
   });
 });

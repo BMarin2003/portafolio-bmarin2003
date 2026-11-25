@@ -1,0 +1,36 @@
+/* Cómo trabajo de / como ciclo. Por qué y cómo: docs/superpowers/specs/2026-11-25-como-trabajo-ciclo-design.md */
+
+.ia .seccion-lede { max-width: 68ch; margin-bottom: 48px; }
+.ia h2 { margin-bottom: 16px; }
+
+.ciclo { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); container-type: inline-size; }
+.paso { display: flex; flex-direction: column; gap: 12px; padding-right: 20px; min-width: 0; }
+.estacion { height: 96px; display: flex; align-items: flex-end; justify-content: center; }
+.num { margin-top: 14px; font-size: 12px; color: var(--accent); }
+.paso h3 { margin: 0; font-size: 22px; font-weight: 700; }
+.paso p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text-2); }
+.prueba { display: block; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); font-size: 13px; line-height: 1.5; font-weight: 500; color: var(--text); text-decoration: none; transition: border-color 0.15s; }
+.prueba:hover { border-color: var(--accent); color: var(--text); }
+.ciclo-cierre { margin: 40px 0 0; font-size: 13px; color: var(--muted); }
+
+/* la cinta: un bloque viaja de un paso al siguiente */
+.cinta { position: absolute; left: 0; right: 0; top: 96px; height: 8px; background: #6b5844; box-shadow: inset 0 -3px 0 #4a3b2e; }
+.cinta::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 22px, #4a3b2e 22px 24px); animation: avanza 0.8s linear infinite; }
+@keyframes avanza { to { background-position-x: 24px; } }
+.bloque { position: absolute; top: 76px; left: 0; width: 22px; height: 18px; background: #8a6a45; box-shadow: inset 0 -4px 0 #5a4a3a; animation: viaja 8s steps(64) infinite; }
+@keyframes viaja {
+  0% { transform: translateX(8px); }
+  22%, 28% { transform: translateX(calc(12.5cqw - 21px)); }
+  47%, 53% { transform: translateX(calc(37.5cqw - 21px)); }
+  72%, 78% { transform: translateX(calc(62.5cqw - 21px)); }
+  100% { transform: translateX(calc(87.5cqw - 21px)); }
+}
+
+@media (max-width: 860px) {
+  .ciclo { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .cinta, .bloque { display: none; }
+  .paso { padding-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinta::before, .bloque { animation: none; }
+}

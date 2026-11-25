@@ -1,20 +1,30 @@
 ---
 import Sprite from '../Sprite.astro';
 import { contenido, t, type Lang } from '../../i18n';
+import '../../styles/ciclo.css';
 
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
 const { comoTrabajo } = contenido(lang);
+const { pasos, cierre, cierreEnlace, cierreHref } = x.ciclo;
 ---
 <section id="ia" class="seccion ia" aria-labelledby="ia-h">
-  <div class="ia-text">
-    <p class="mono kicker">{x.iaKicker}</p>
-    <h2 id="ia-h">{x.iaH2}</h2>
-    <p class="seccion-lede">{comoTrabajo}</p>
+  <p class="mono kicker">{x.iaKicker}</p>
+  <h2 id="ia-h">{x.iaH2}</h2>
+  <p class="seccion-lede">{comoTrabajo}</p>
+  <div class="ciclo">
+    <div class="cinta" aria-hidden="true"></div>
+    <div class="bloque" aria-hidden="true"></div>
+    {pasos.map((p, i) => (
+      <article class="paso">
+        <div class="estacion"><Sprite name={p.sprite} anim="action" scale={4} class="act" /></div>
+        <span class="mono num">{String(i + 1).padStart(2, '0')}</span>
+        <h3>{p.titulo}</h3>
+        <p>{p.frase}</p>
+        <a class="mono prueba" href={p.href}>{p.prueba}</a>
+      </article>
+    ))}
   </div>
-  <div class="ia-sprites">
-    <Sprite name="doble" anim="action" scale={5} class="act slow" />
-    <Sprite name="bryan" anim="roll" scale={5} class="roll" />
-  </div>
+  <p class="mono ciclo-cierre">{cierre}<a href={cierreHref}>{cierreEnlace}</a></p>
 </section>
