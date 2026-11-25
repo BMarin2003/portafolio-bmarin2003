@@ -74,12 +74,13 @@ describe.each(['es', 'en'] as const)('Obra.astro (%s)', (lang) => {
     }
   });
 
-  it('los rótulos salen de los oficios del idioma', () => {
+  it('los rótulos son las áreas del idioma', () => {
     const doc = docs[lang];
-    const capataz = contenido(lang).oficios.find((o) => o.sprite === 'capataz')!;
-    expect(boton(doc, 'capataz')?.getAttribute('aria-label')).toBe(`${capataz.oficio}: ${capataz.area}`);
     expect(boton(doc, 'bryan')?.getAttribute('aria-label')).toBe('Bryan Marin');
-    for (const o of contenido(lang).oficios) expect(boton(doc, o.sprite)?.getAttribute('data-oficio')).toContain(o.oficio);
+    for (const o of contenido(lang).oficios) {
+      expect(boton(doc, o.sprite)?.getAttribute('aria-label')).toBe(o.area);
+      expect(boton(doc, o.sprite)?.getAttribute('data-oficio')).toBe(o.area);
+    }
   });
 
   it('las piezas son decorativas', () => {

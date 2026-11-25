@@ -12,8 +12,8 @@ describe('oficios', () => {
       expect(() => spriteMeta(name, 'idle')).not.toThrow();
     }
   });
-  it('ningún oficio ni area nombra herramientas', () => {
-    const texto = [...oficios.map((o) => o.oficio), ...oficios.map((o) => o.area), ...corall.map((p) => p.area)].join(' ');
+  it('ningún área nombra herramientas', () => {
+    const texto = [...oficios.map((o) => o.area), ...corall.map((p) => p.area)].join(' ');
     expect(texto).not.toMatch(/hallmark|ponytail|superpowers|safety|obsidian/i);
   });
   it('cada proyecto trae su area', () => {

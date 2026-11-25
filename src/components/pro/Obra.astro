@@ -19,7 +19,8 @@ const riostras = ([[128, 3], [308, 2], [478, 3], [128, 1]] as const).map(([left,
 
 function rotulo(m: Monigote) {
   const o = oficios.find((x) => x.sprite === m.sprite);
-  return o ? { aria: `${o.oficio}: ${o.area}`, ver: `${o.oficio}\n${o.area}` } : { aria: 'Bryan Marin', ver: 'Bryan Marin' };
+  const nombre = o ? o.area : 'Bryan Marin';
+  return { aria: nombre, ver: nombre };
 }
 
 function vars(m: Monigote) {

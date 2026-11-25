@@ -31,7 +31,7 @@ Define el formato de sprite, lo valida y lo convierte en hojas PNG con su metada
 
 - **Arte como código, no PNG a mano.** El diff muestra el dibujo y no hay binarios que revisar. Ver `architecture`.
 - **Los PNG se generan en el build.** `build`, `build:draft` y `dev` corren `npm run sprites` primero.
-- **La cuadrilla son oficios de obra, nunca herramientas.** Ni publicidad ni un stack fijo en los nombres ni en las URLs. Comparten la silueta de bloque y los ojos; cada oficio se reconoce por su color, su indumentaria y su acción.
+- **Cada monigote es un área de trabajo, sin nombre propio ni de herramienta.** Ni publicidad ni un stack fijo en los nombres ni en las URLs. Comparten la silueta de bloque y los ojos; cada oficio se reconoce por su color, su indumentaria y su acción.
 - **El build es todo o nada.** Si un sprite es inválido no se escribe ninguna hoja y el comando sale con error.
 
 ## Invariantes

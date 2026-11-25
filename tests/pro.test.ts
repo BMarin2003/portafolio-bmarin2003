@@ -83,16 +83,26 @@ describe('/ · proyectos', () => {
   });
 });
 
-describe('/ · oficios', () => {
-  it('un article por oficio, en el orden de oficios', () => {
+describe('/ · áreas', () => {
+  it('un article por área, titulado con el área y sin nombres de oficio', () => {
     const titles = [...index.querySelectorAll('#oficios article h3')].map(text);
-    expect(titles).toEqual(oficios.map((o) => o.oficio));
+    expect(titles).toEqual(['Planificación y método', 'Backend y datos', 'Frontend y diseño', 'Infraestructura y despliegue', 'Calidad y seguridad', 'Documentación y conocimiento']);
+    expect(indexHtml).not.toMatch(/Capataz|Maestro de obra|Decorador|Electricista|Doble de riesgo|Archivista/);
   });
-  it('cada oficio lleva su sprite, su área y sus etiquetas', () => {
+  it('las etiquetas son herramientas, no prácticas', () => {
+    const calidad = oficios.find((o) => o.sprite === 'doble')!;
+    expect(calidad.tags).toEqual(['Playwright', 'Vitest', 'Testing Library', 'ESLint', 'axe', 'Lighthouse', 'Sentry', 'Postman']);
+    expect(oficios.flatMap((o) => o.tags)).not.toContain('Caja negra');
+  });
+  it('Planificación muestra el programa de Metodologías Ágiles, sin datos personales', () => {
+    const plan = [...index.querySelectorAll('#oficios article')][0];
+    expect(text(plan)).toContain('Programa de especialización en Metodologías Ágiles · IED Stratton · 120 h · 19/20');
+    expect(indexHtml).not.toMatch(/72539291/);
+  });
+  it('cada área lleva su sprite y sus etiquetas', () => {
     const articles = [...index.querySelectorAll('#oficios article')];
     oficios.forEach((o, i) => {
       expect(articles[i].querySelector('.spr')?.getAttribute('style')).toContain(`url(/sprites/${o.sprite}.png)`);
-      expect(text(articles[i])).toContain(o.area);
       expect([...articles[i].querySelectorAll('li')].map(text)).toEqual(o.tags);
     });
   });
@@ -107,12 +117,12 @@ describe('/ · cómo trabajo', () => {
 });
 
 describe('/ · página', () => {
-  it('el título del hero no cambia', () => {
-    expect(text(index.querySelector('#top h1'))).toBe('Construyo sistemas con una cuadrilla de oficios.');
+  it('el título del hero habla de punta a punta, junto a Claude', () => {
+    expect(text(index.querySelector('#top h1'))).toBe('Construyo sistemas de punta a punta, junto a Claude.');
   });
-  it('los monigotes de la obra son botones con su oficio', () => {
+  it('los monigotes de la obra son botones con su área', () => {
     const nombres = [...index.querySelectorAll('#top [data-obra] button.quien')].map((b) => b.getAttribute('aria-label'));
-    expect(nombres).toContain('Capataz: Planificación y método');
+    expect(nombres).toContain('Planificación y método');
     expect(nombres).toContain('Bryan Marin');
   });
   it('la escena de la obra tiene a los 6 oficios y a Bryan', () => {

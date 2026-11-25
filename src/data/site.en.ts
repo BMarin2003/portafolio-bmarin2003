@@ -34,15 +34,14 @@ const proyectos: Record<string, Pick<CorallProject, 'area' | 'did' | 'challenge'
   },
 };
 
-const oficiosTexto: Record<string, Pick<Oficio, 'oficio' | 'area'>> = {
-  capataz: { oficio: 'Foreman', area: 'Planning and method' },
-  maestro: { oficio: 'Master builder', area: 'Backend and data' },
-  decorador: { oficio: 'Decorator', area: 'Frontend and design' },
-  electricista: { oficio: 'Electrician', area: 'Infrastructure and deployment' },
-  doble: { oficio: 'Stunt double', area: 'Quality and security' },
-  archivista: { oficio: 'Archivist', area: 'Documentation and knowledge' },
+const oficiosTexto: Record<string, Pick<Oficio, 'area' | 'cert'>> = {
+  capataz: { area: 'Planning and method', cert: 'Agile Methodologies specialization program · IED Stratton · 120 h · 19/20' },
+  maestro: { area: 'Backend and data' },
+  decorador: { area: 'Frontend and design' },
+  electricista: { area: 'Infrastructure and deployment' },
+  doble: { area: 'Quality and security' },
+  archivista: { area: 'Documentation and knowledge' },
 };
-const tagsEn: Record<string, string> = { 'Pruebas e2e': 'E2E testing', 'Caja negra': 'Black-box testing', 'Caja blanca': 'White-box testing' };
 
 const titulosEn: Record<string, string> = {
   'Django sin cadenas': 'Django Unchained',
@@ -51,7 +50,7 @@ const titulosEn: Record<string, string> = {
 };
 
 export const corallEn: CorallProject[] = corall.map((p) => ({ ...p, ...proyectos[p.name] }));
-export const oficiosEn: Oficio[] = oficios.map((o) => ({ ...o, ...oficiosTexto[o.sprite], tags: o.tags.map((t) => tagsEn[t] ?? t) }));
+export const oficiosEn: Oficio[] = oficios.map((o) => ({ ...o, ...oficiosTexto[o.sprite] }));
 export const screensEn: Credit[] = screens.map((s) => ({ ...s, title: titulosEn[s.title] ?? s.title }));
 
 export const comoTrabajoEn =

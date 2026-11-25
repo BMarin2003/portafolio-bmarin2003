@@ -54,8 +54,8 @@ describe('datos en inglés', () => {
     });
     oficios.forEach((o, i) => {
       expect(oficiosEn[i].sprite).toBe(o.sprite);
-      expect(oficiosEn[i].oficio).not.toBe(o.oficio);
-      expect(oficiosEn[i].tags.length).toBe(o.tags.length);
+      expect(oficiosEn[i].area).not.toBe(o.area);
+      expect(oficiosEn[i].tags).toEqual(o.tags);
     });
     expect(screensEn.map((s) => s.sourceUrl)).toEqual(screens.map((s) => s.sourceUrl));
     expect(screensEn.map((s) => s.title)).toContain('Django Unchained');
@@ -79,7 +79,7 @@ describe('/en/', () => {
     expect(es.querySelector('link[rel="alternate"][hreflang="en"]')?.getAttribute('href')).toBe('https://example.com/en/');
   });
   it('muestra los proyectos y oficios en inglés', () => {
-    expect(text(en.querySelector('h1'))).toBe('I build systems with a crew of trades.');
+    expect(text(en.querySelector('h1'))).toBe('I build systems end to end, alongside Claude.');
     expect(text(en.querySelector('#proyectos > p.seccion-lede'))).toBe('Since I joined CorAll, in order: what I did on each project and with whom.');
     const articles = [...en.querySelectorAll('#proyectos article')];
     const orden = cronologico(corallEn);
@@ -97,11 +97,13 @@ describe('/en/', () => {
     });
     const maqinpro = articles.find((a) => text(a.querySelector('h3')) === 'MaqinPro');
     expect(text(maqinpro?.querySelector('.periodo'))).toBe('Aug 2026 – present');
-    expect([...en.querySelectorAll('#oficios h3')].map(text)).toEqual(oficiosEn.map((o) => o.oficio));
+    expect([...en.querySelectorAll('#oficios h3')].map(text)).toEqual(oficiosEn.map((o) => o.area));
+    expect(text(en.querySelector('#top h1'))).toBe('I build systems end to end, alongside Claude.');
+    expect(enHtml).not.toMatch(/Foreman|Master builder|Stunt double|Archivist/);
   });
-  it('la obra dice los oficios en inglés', () => {
+  it('la obra dice las áreas en inglés', () => {
     const nombres = [...en.querySelectorAll('#top [data-obra] button.quien')].map((b) => b.getAttribute('aria-label'));
-    expect(nombres).toContain('Foreman: Planning and method');
+    expect(nombres).toContain('Planning and method');
     expect(nombres).toContain('Bryan Marin');
   });
   it('enlaza a la casa en inglés y al español', () => {

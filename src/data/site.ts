@@ -3,7 +3,8 @@ import type { ImageMetadata } from 'astro';
 export type Person = { name: string; url?: string };
 export type People = { companeros: Person[]; supervisores: Person[]; gerentes: Person[] };
 export type CorallProject = { name: string; sprite: string; area: string; did: string; challenge?: string; people: People; desde: string; hasta?: string; commits: number; resumen: string; stack: string[] };
-export type Oficio = { sprite: string; oficio: string; area: string; tags: string[] };
+/** Un área de trabajo de Bryan: el monigote no lleva nombre propio, solo su área. `cert`: formación verificable del área. */
+export type Oficio = { sprite: string; area: string; tags: string[]; cert?: string };
 export type Credit = { title: string; cover?: ImageMetadata; source: string; sourceUrl: string };
 
 
@@ -88,12 +89,21 @@ export const corall: CorallProject[] = [
 ];
 
 export const oficios: Oficio[] = [
-  { sprite: 'capataz', oficio: 'Capataz', area: 'Planificación y método', tags: ['PMBOK', 'ITIL', 'Scrum', 'Jira', 'Trello'] },
-  { sprite: 'maestro', oficio: 'Maestro de obra', area: 'Backend y datos', tags: ['Java / Spring', 'Bun / Elysia', 'Node.js', 'FastAPI', 'PostgreSQL', 'MySQL'] },
-  { sprite: 'decorador', oficio: 'Decorador', area: 'Frontend y diseño', tags: ['React', 'Angular', 'Astro', 'Ant Design', 'Tailwind'] },
-  { sprite: 'electricista', oficio: 'Electricista', area: 'Infraestructura y despliegue', tags: ['Docker', 'Cloudflare', 'AWS', 'Nginx', 'Terraform', 'Jenkins'] },
-  { sprite: 'doble', oficio: 'Doble de riesgo', area: 'Calidad y seguridad', tags: ['Pruebas e2e', 'Caja negra', 'Caja blanca', 'Postman'] },
-  { sprite: 'archivista', oficio: 'Archivista', area: 'Documentación y conocimiento', tags: ['Obsidian', 'Notion', 'Markdown'] },
+  {
+    sprite: 'capataz',
+    area: 'Planificación y método',
+    tags: ['PMBOK', 'ITIL', 'Scrum', 'Kanban', 'Jira', 'Trello'],
+    cert: 'Programa de especialización en Metodologías Ágiles · IED Stratton · 120 h · 19/20',
+  },
+  { sprite: 'maestro', area: 'Backend y datos', tags: ['Bun / Elysia', 'PostgreSQL', 'Drizzle', 'OpenAPI', 'Node.js', 'Java / Spring', 'FastAPI', 'MySQL'] },
+  { sprite: 'decorador', area: 'Frontend y diseño', tags: ['React', 'Vite', 'Ant Design', 'Astro', 'Angular', 'Tailwind'] },
+  {
+    sprite: 'electricista',
+    area: 'Infraestructura y despliegue',
+    tags: ['Docker', 'Cloudflare', 'GitHub Actions', 'Turborepo', 'Infisical', 'Tailscale', 'AWS', 'Nginx', 'Terraform', 'Jenkins'],
+  },
+  { sprite: 'doble', area: 'Calidad y seguridad', tags: ['Playwright', 'Vitest', 'Testing Library', 'ESLint', 'axe', 'Lighthouse', 'Sentry', 'Postman'] },
+  { sprite: 'archivista', area: 'Documentación y conocimiento', tags: ['Obsidian', 'Notion', 'Markdown'] },
 ];
 
 export const comoTrabajo = 'Claude es hoy una herramienta fundamental para cualquier desarrollador, y en mi trabajo la uso como tal. Pero mi función no cambia: soy ingeniero de software, y las herramientas están para hacer software. La IA escribe código rápido; lo que no hace por mí es entender qué necesita el taller de Maqinpro o cómo funcionan las detracciones de una PYME. Esa parte (preguntar, entender, decidir y revisar lo que se construye) sigue siendo el trabajo, y es donde más aprendo.';
