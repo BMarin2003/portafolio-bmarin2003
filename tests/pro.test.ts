@@ -211,7 +211,7 @@ describe('/ · ciclo de cómo trabajo', () => {
     ['Entender', 'Antes de escribir código: qué se necesita, para quién y con qué datos reales.', 'En el hero: la referencia fue runkiri.com', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
     ['Decidir', 'Bocetos para comparar y un diseño escrito que apruebo antes de construir.', 'En el hero: 2 bocetos, elegí la mezcla y aprobé el diseño', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
     ['Construir junto a Claude', 'Un plan por tareas chicas, cada una con sus tests escritos antes del código.', 'En el hero: plan de 4 tareas', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md'],
-    ['Revisar', 'Revisión de cada tarea y de todo el cambio, medición y verificación en vivo.', 'En el hero: 184 tests y Lighthouse móvil 100', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
+    ['Revisar', 'Revisión de cada tarea y de todo el cambio, medición y verificación en vivo.', 'En el hero: 184 tests en cada deploy', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
   ];
   it('tiene 4 pasos con su frase y su prueba enlazada', () => {
     const arts = [...index.querySelectorAll('#ia article')];

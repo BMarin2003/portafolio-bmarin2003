@@ -25,14 +25,14 @@ El párrafo de Bryan dice que la IA no entiende, decide ni revisa por él. La se
 | Entender | Antes de escribir código: qué se necesita, para quién y con qué datos reales. | En el hero: la referencia fue runkiri.com | diseño del hero |
 | Decidir | Bocetos para comparar y un diseño escrito que apruebo antes de construir. | En el hero: 2 bocetos, elegí la mezcla y aprobé el diseño | diseño del hero |
 | Construir junto a Claude | Un plan por tareas chicas, cada una con sus tests escritos antes del código. | En el hero: plan de 4 tareas | plan del hero |
-| Revisar | Revisión de cada tarea y de todo el cambio, medición y verificación en vivo. | En el hero: 184 tests y Lighthouse móvil 100 | ejecuciones de GitHub Actions |
+| Revisar | Revisión de cada tarea y de todo el cambio, medición y verificación en vivo. | En el hero: 184 tests en cada deploy | ejecuciones de GitHub Actions |
 
 | Step | Sentence (en) | Evidence (en) |
 |---|---|---|
 | Understand | Before writing code: what is needed, for whom and with what real data. | In the hero: the reference was runkiri.com |
 | Decide | Sketches to compare and a written design I approve before building. | In the hero: 2 sketches, I picked the mix and approved the design |
 | Build alongside Claude | A plan of small tasks, each with its tests written before the code. | In the hero: a 4-task plan |
-| Review | A review of each task and of the whole change, measurement and live verification. | In the hero: 184 tests and mobile Lighthouse 100 |
+| Review | A review of each task and of the whole change, measurement and live verification. | In the hero: 184 tests on every deploy |
 
 Cierre: «El diseño y el plan de cada parte de este sitio están en su repositorio: ver el proceso en GitHub →» / «The design and plan of every part of this site are in its repository: see the process on GitHub →».
 
