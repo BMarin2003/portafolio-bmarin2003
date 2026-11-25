@@ -16,7 +16,8 @@
 
 /* paneles: solo el elegido se ve; los demás quedan fuera del árbol de accesibilidad */
 .paneles { min-height: 220px; padding: 28px 32px 32px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 14px 14px; background: var(--panel); }
-.panel-area { display: none; flex-direction: column; gap: 16px; }
+.panel-area { display: flex; flex-direction: column; gap: 16px; }
+.mesa:has(.tab:checked) .panel-area { display: none; }
 .mesa:has(#area-0:checked) .panel-area:nth-child(1),
 .mesa:has(#area-1:checked) .panel-area:nth-child(2),
 .mesa:has(#area-2:checked) .panel-area:nth-child(3),
