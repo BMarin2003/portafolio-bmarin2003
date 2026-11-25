@@ -49,6 +49,11 @@ export const t = {
       puertaH2: 'La obra cierra. La casa se enciende.',
       puertaP: 'Rol, juegos, series y lo que suena ahora en Spotify.',
       puertaCta: 'entrar a la casa →',
+      areas: {
+        enLaObra: 'En la obra:',
+        numero: 'El número es en cuántos proyectos la usé.',
+        sinProyectos: 'Herramientas de trabajo diario; todavía sin un proyecto de CorAll asociado en el recorrido.',
+      },
     },
     casa: {
       title: 'La casa de Bryan',
@@ -97,6 +102,11 @@ export const t = {
       puertaH2: 'The site closes. The house lights up.',
       puertaP: 'Role-playing, games, shows and what is playing on Spotify right now.',
       puertaCta: 'enter the house →',
+      areas: {
+        enLaObra: 'Used on:',
+        numero: 'The number is how many projects I used it on.',
+        sinProyectos: 'Everyday tools; not yet tied to a CorAll project on the timeline.',
+      },
     },
     casa: {
       title: 'Bryan’s house',
