@@ -2,29 +2,45 @@
 import Sprite from '../Sprite.astro';
 import People from '../People.astro';
 import { peopleGroups } from '../../lib/text';
+import { cronologico, periodo } from '../../lib/periodo';
 import { contenido, t, type Lang } from '../../i18n';
+import '../../styles/proyectos.css';
 
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
-const { corall } = contenido(lang);
+const proyectos = cronologico(contenido(lang).corall);
 ---
 <section id="proyectos" class="seccion" aria-labelledby="proyectos-h">
   <p class="mono kicker">{x.proyectosKicker}</p>
-  <h2 id="proyectos-h">{x.proyectosH2}</h2>
-  <div class="grid">
-    {corall.map((p) => (
-      <article class="panel proyecto">
-        <div class="proyecto-head">
-          <div>
-            <span class="mono area">{p.area}</span>
-            <h3>{p.name}</h3>
-          </div>
-          <Sprite name={p.sprite} anim="action" scale={3} class="act" />
+  <h2 id="proyectos-h" class="tight">{x.proyectosH2}</h2>
+  <p class="seccion-lede">{x.proyectosLede}</p>
+  <div class="recorrido">
+    <div class="linea" aria-hidden="true"></div>
+    <div class="caminante" aria-hidden="true"><Sprite name="bryan" anim="walk" scale={2} paused /></div>
+    {proyectos.map((p) => (
+      <article class="hito">
+        <div class="panel tarjeta">
+          <span class="mono area">{p.area}</span>
+          <h3>{p.name}</h3>
+          <p class="resumen">{p.resumen}</p>
+          <ul class="stack">
+            {p.stack.map((s) => <li class="mono">{s}</li>)}
+          </ul>
+          <details>
+            <summary class="mono">{x.detalle}</summary>
+            <div class="detalle">
+              <p>{p.did}</p>
+              {peopleGroups(p.people).length > 0 && <p><People people={p.people} lang={lang} /></p>}
+              {p.challenge && <p data-challenge><strong>{x.reto}</strong> {p.challenge}</p>}
+            </div>
+          </details>
         </div>
-        <p>{p.did}</p>
-        {peopleGroups(p.people).length > 0 && <p><People people={p.people} lang={lang} /></p>}
-        {p.challenge && <p data-challenge><strong>{x.reto}</strong> {p.challenge}</p>}
+        <div class="nodo">
+          <span class="punto" aria-hidden="true"></span>
+          <p class="mono cuando"><span class="periodo">{periodo(p.desde, p.hasta, lang)}</span> <span class="commits">{p.commits} {x.commits}</span></p>
+          <Sprite name={p.sprite} anim="action" scale={2} class="act" />
+        </div>
       </article>
     ))}
   </div>

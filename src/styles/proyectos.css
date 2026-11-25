@@ -1,0 +1,59 @@
+/* Proyectos de / como recorrido. Por qué y cómo: docs/superpowers/specs/2026-11-24-proyectos-recorrido-design.md */
+
+.recorrido { position: relative; display: flex; flex-direction: column; gap: 40px; padding-top: 56px; }
+.linea { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: repeating-linear-gradient(180deg, var(--line-2) 0 12px, transparent 12px 20px); }
+.caminante { position: absolute; z-index: 1; left: 50%; top: 0; margin-left: -16px; line-height: 0; }
+
+/* un proyecto: tarjeta a un lado de la línea, el nodo en el centro; alternan */
+.hito { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 168px minmax(0, 1fr); align-items: start; }
+.hito .tarjeta { grid-row: 1; grid-column: 1; }
+.hito:nth-of-type(even) .tarjeta { grid-column: 3; }
+.nodo { grid-row: 1; grid-column: 2; justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 4px 6px; background: var(--bg); }
+.punto { width: 14px; height: 14px; background: var(--accent); }
+.cuando { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.periodo { font-size: 13px; color: var(--text); white-space: nowrap; }
+.commits { font-size: 11px; color: var(--muted); }
+.nodo .spr { margin-top: 6px; }
+
+.tarjeta { padding: 24px; display: flex; flex-direction: column; gap: 10px; min-width: 0; transition: border-color 0.15s; }
+.tarjeta:is(:hover, :focus-within) { border-color: var(--accent); }
+.tarjeta h3 { margin: 0; font-size: 26px; font-weight: 700; }
+.resumen { margin: 0; font-size: 17px; line-height: 1.55; color: var(--text); max-width: 56ch; }
+.stack { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.stack li { padding: 3px 9px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 12px; color: var(--text-2); }
+
+.tarjeta summary { cursor: pointer; list-style: none; min-height: 32px; display: flex; align-items: center; font-size: 13px; color: var(--accent); }
+.tarjeta summary::-webkit-details-marker { display: none; }
+.tarjeta summary::after { content: "\00a0+"; }
+.tarjeta details[open] summary::after { content: "\00a0−"; }
+.tarjeta summary:hover { color: var(--accent-hover); }
+.tarjeta summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.detalle { padding-top: 8px; }
+.detalle p { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--text-2); }
+.detalle p:last-child { margin-bottom: 0; }
+.detalle strong { color: var(--text); font-weight: 500; }
+
+/* en angosto, una columna: la línea a la izquierda y el período sobre la tarjeta */
+@media (max-width: 860px) {
+  .recorrido { gap: 32px; }
+  .linea, .caminante { left: 28px; }
+  .hito { grid-template-columns: 56px minmax(0, 1fr); row-gap: 8px; }
+  .hito .tarjeta, .hito:nth-of-type(even) .tarjeta { grid-row: 2; grid-column: 2; }
+  .nodo { grid-row: 1; grid-column: 2; justify-self: stretch; flex-direction: row; justify-content: space-between; padding: 0; background: none; }
+  .punto { position: absolute; left: 21px; top: 13px; }
+  .cuando { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; text-align: left; }
+  .nodo .spr { margin-top: 0; }
+}
+
+/* movimiento ligado al scroll; sin soporte o con movimiento reducido, todo queda visible y quieto.
+   Solo longhands: el minificador mete animation-timeline en el shorthand `animation` y Chrome lo descarta entero */
+@keyframes hito-entra { from { opacity: 0; transform: translateY(24px); } }
+@keyframes caminante-baja { from { top: 0; } to { top: calc(100% - 48px); } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .recorrido { view-timeline: --recorrido block; }
+    .hito { animation-name: hito-entra; animation-timing-function: steps(6); animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 200px; }
+    .caminante { animation-name: caminante-baja; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --recorrido; animation-range: contain 0% contain 100%; }
+    .caminante .spr { animation: spr-play var(--d) steps(var(--n)) infinite; }
+  }
+}

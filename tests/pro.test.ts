@@ -4,6 +4,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import Index from '../src/pages/index.astro';
 import Casa from '../src/pages/casa.astro';
 import { comoTrabajo, corall, oficios } from '../src/data/site';
+import { cronologico, periodo } from '../src/lib/periodo';
 
 const parse = (html: string) => {
   const win = new Window();
@@ -26,34 +27,59 @@ beforeAll(async () => {
 });
 
 describe('/ · proyectos', () => {
-  it('un article por proyecto, en el orden de corall', () => {
-    const names = [...index.querySelectorAll('#proyectos article h3')].map(text);
-    expect(names).toEqual(corall.map((p) => p.name));
+  const orden = cronologico(corall);
+  const articles = () => [...index.querySelectorAll('#proyectos article')];
+  it('lleva la entradilla de la sección', () => {
+    expect(text(index.querySelector('#proyectos > p.seccion-lede'))).toBe('Desde que llegué a CorAll, en orden: lo que hice en cada obra y con quién.');
+  });
+  it('un article por proyecto, en orden cronológico', () => {
+    const names = [...index.querySelectorAll('#proyectos .recorrido article.hito h3')].map(text);
+    expect(names).toEqual(orden.map((p) => p.name));
+    expect(names[0]).toBe('Totem Multimedia');
   });
   it('cada proyecto lleva el sprite de su oficio', () => {
-    const articles = [...index.querySelectorAll('#proyectos article')];
-    corall.forEach((p, i) => {
-      const spr = articles[i].querySelector('.spr');
+    orden.forEach((p, i) => {
+      const spr = articles()[i].querySelector('.spr');
       expect(spr?.getAttribute('style'), p.name).toContain(`url(/sprites/${p.sprite}.png)`);
     });
   });
-  it('muestra el área, el texto completo y la frase de personas', () => {
-    const articles = [...index.querySelectorAll('#proyectos article')];
-    corall.forEach((p, i) => {
-      const t = text(articles[i]) ?? '';
+  it('cada proyecto muestra período, commits, resumen y tecnologías', () => {
+    orden.forEach((p, i) => {
+      const a = articles()[i];
+      const t = text(a) ?? '';
+      expect(text(a.querySelector('.periodo')), p.name).toBe(periodo(p.desde, p.hasta, 'es'));
+      expect(text(a.querySelector('.commits')), p.name).toBe(`${p.commits} commits`);
+      expect(text(a.querySelector('.resumen')), p.name).toBe(p.resumen);
       expect(t).toContain(p.area);
+      expect([...a.querySelectorAll('.stack li')].map(text)).toEqual(p.stack);
+    });
+  });
+  it('el detalle está en un details: texto, personas y reto', () => {
+    orden.forEach((p, i) => {
+      const d = articles()[i].querySelector('details');
+      expect(text(d?.querySelector(':scope > summary')), p.name).toBe('qué hice y con quién');
+      const t = text(d) ?? '';
       expect(t).toContain(p.did);
       expect(t).toMatch(/Con mis? estimados? /);
+      if (p.challenge) expect(d?.querySelector('[data-challenge]')).not.toBeNull();
     });
   });
   it('muestra "El reto" solo en los proyectos que lo tienen', () => {
-    const articles = [...index.querySelectorAll('#proyectos article')];
-    corall.forEach((p, i) => {
-      const reto = articles[i].querySelector('[data-challenge]');
+    orden.forEach((p, i) => {
+      const reto = articles()[i].querySelector('[data-challenge]');
       if (p.challenge) expect(text(reto)).toBe(`El reto: ${p.challenge}`);
       else expect(reto).toBeNull();
     });
     expect(corall.find((p) => p.name === 'MaqinPro')?.challenge).toContain('En proceso en el taller');
+  });
+  it('línea y monigotes decorativos', () => {
+    const r = index.querySelector('#proyectos .recorrido');
+    expect(r?.querySelector('.linea')?.getAttribute('aria-hidden')).toBe('true');
+    expect(r?.querySelector('.caminante')?.getAttribute('aria-hidden')).toBe('true');
+    expect(r?.querySelector('.caminante .spr')?.getAttribute('style')).toContain('url(/sprites/bryan.png)');
+    const puntos = [...(r?.querySelectorAll('.hito .punto') ?? [])];
+    expect(puntos.length).toBe(corall.length);
+    for (const n of puntos) expect(n.getAttribute('aria-hidden')).toBe('true');
   });
 });
 

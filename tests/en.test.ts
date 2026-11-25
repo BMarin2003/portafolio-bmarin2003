@@ -8,6 +8,7 @@ import { corall, oficios, screens } from '../src/data/site';
 import { corallEn, oficiosEn, screensEn } from '../src/data/site.en';
 import { href, otraRuta } from '../src/i18n';
 import { opening, peopleGroups, separator } from '../src/lib/text';
+import { cronologico, periodo } from '../src/lib/periodo';
 import { findPlaceholders } from '../scripts/check-placeholders.mjs';
 
 const parse = (html: string) => {
@@ -79,12 +80,23 @@ describe('/en/', () => {
   });
   it('muestra los proyectos y oficios en inglés', () => {
     expect(text(en.querySelector('h1'))).toBe('I build systems with a crew of trades.');
+    expect(text(en.querySelector('#proyectos > p.seccion-lede'))).toBe('Since I joined CorAll, in order: what I did on each project and with whom.');
     const articles = [...en.querySelectorAll('#proyectos article')];
-    corallEn.forEach((p, i) => {
-      expect(text(articles[i])).toContain(p.did);
-      expect(text(articles[i])).toContain('With my esteemed');
-      if (p.challenge) expect(text(articles[i].querySelector('[data-challenge]'))).toBe(`The challenge: ${p.challenge}`);
+    const orden = cronologico(corallEn);
+    expect(articles.map((a) => text(a.querySelector('h3')))).toEqual(orden.map((p) => p.name));
+    orden.forEach((p, i) => {
+      const d = articles[i].querySelector('details');
+      expect(text(d?.querySelector(':scope > summary'))).toBe('what I did and with whom');
+      expect(text(articles[i].querySelector('.periodo'))).toBe(periodo(p.desde, p.hasta, 'en'));
+      expect(text(articles[i].querySelector('.commits'))).toBe(`${p.commits} commits`);
+      expect(text(articles[i].querySelector('.resumen'))).toBe(p.resumen);
+      expect([...articles[i].querySelectorAll('.stack li')].map(text)).toEqual(p.stack);
+      expect(text(d)).toContain(p.did);
+      expect(text(d)).toContain('With my esteemed');
+      if (p.challenge) expect(text(d?.querySelector('[data-challenge]'))).toBe(`The challenge: ${p.challenge}`);
     });
+    const maqinpro = articles.find((a) => text(a.querySelector('h3')) === 'MaqinPro');
+    expect(text(maqinpro?.querySelector('.periodo'))).toBe('Aug 2026 – present');
     expect([...en.querySelectorAll('#oficios h3')].map(text)).toEqual(oficiosEn.map((o) => o.oficio));
   });
   it('la obra dice los oficios en inglés', () => {
