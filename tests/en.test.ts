@@ -9,6 +9,7 @@ import { corallEn, oficiosEn, screensEn } from '../src/data/site.en';
 import { href, otraRuta } from '../src/i18n';
 import { opening, peopleGroups, separator } from '../src/lib/text';
 import { cronologico, periodo } from '../src/lib/periodo';
+import { proyectosDe } from '../src/lib/uso';
 import { findPlaceholders } from '../scripts/check-placeholders.mjs';
 
 const parse = (html: string) => {
@@ -115,6 +116,35 @@ describe('/en/', () => {
     expect((enHtml.match(/<script/gi) ?? []).length).toBeLessThanOrEqual(2);
     expect(enHtml).not.toMatch(/pixi/i);
     expect(findPlaceholders(enHtml)).toEqual([]);
+  });
+});
+
+describe('/en/ · areas', () => {
+  const paneles = () => [...en.querySelectorAll('#oficios .panel-area')];
+  it('six native tabs labelled with their area, the first one chosen', () => {
+    const radios = [...en.querySelectorAll('#oficios input[type="radio"][name="area"]')];
+    expect(radios.length).toBe(6);
+    radios.forEach((r, i) => expect(text(en.querySelector(`#oficios label[for="${r.id}"]`))).toBe(oficiosEn[i].area));
+    expect(radios[0].hasAttribute('checked')).toBe(true);
+  });
+  it('each panel has its area, tools and usage', () => {
+    expect(paneles().map((p) => text(p.querySelector('h3')))).toEqual(oficiosEn.map((o) => o.area));
+    oficiosEn.forEach((o, i) => {
+      const lis = [...paneles()[i].querySelectorAll('li')];
+      expect(lis.map((li) => text(li.querySelector('.herr')))).toEqual(o.tags);
+      o.tags.forEach((tag, j) => {
+        const usados = proyectosDe(tag, corallEn);
+        const n = lis[j].querySelector('.n');
+        if (usados.length === 0) return expect(n, tag).toBeNull();
+        expect(text(n), tag).toBe(String(usados.length));
+        expect(n?.getAttribute('title'), tag).toBe(usados.join(', '));
+      });
+    });
+  });
+  it('Used on, everyday tools and the credential', () => {
+    expect(text(paneles()[1])).toContain('Used on: Totem Multimedia, Corall-ERP, MaqinPro, Comphill. The number is how many projects I used it on.');
+    expect(text(paneles()[5])).toContain('Everyday tools; not yet tied to a CorAll project on the timeline.');
+    expect(text(paneles()[0])).toContain(oficiosEn[0].cert);
   });
 });
 

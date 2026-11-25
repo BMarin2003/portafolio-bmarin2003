@@ -1,28 +1,59 @@
 ---
 import Sprite from '../Sprite.astro';
 import { contenido, t, type Lang } from '../../i18n';
+import { proyectosDe, proyectosDelArea } from '../../lib/uso';
+import '../../styles/areas.css';
 
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
-const { oficios } = contenido(lang);
+const { oficios, corall } = contenido(lang);
+const areas = oficios.map((o) => ({
+  ...o,
+  herramientas: o.tags.map((tag) => ({ tag, usados: proyectosDe(tag, corall) })),
+  obra: proyectosDelArea(o.tags, corall),
+}));
 ---
 <section id="oficios" class="seccion" aria-labelledby="oficios-h">
   <p class="mono kicker">{x.oficiosKicker}</p>
   <h2 id="oficios-h" class="tight">{x.oficiosH2}</h2>
   <p class="seccion-lede">{x.oficiosLede}</p>
-  <div class="grid">
-    {oficios.map((o) => (
-      <article class="panel oficio">
-        <Sprite name={o.sprite} anim="action" scale={4} class="act" />
-        <div class="oficio-body">
+  <div class="mesa">
+    <div class="taller" role="radiogroup" aria-labelledby="oficios-h">
+      {areas.map((o, i) => (
+        <>
+          <input class="tab" type="radio" name="area" id={`area-${i}`} checked={i === 0} />
+          <label for={`area-${i}`}>
+            <Sprite name={o.sprite} anim="idle" scale={4} class="reposa slow" />
+            <Sprite name={o.sprite} anim="action" scale={4} class="trabaja act" />
+            <span class="mono nombre">{o.area}</span>
+          </label>
+        </>
+      ))}
+    </div>
+    <div class="paneles">
+      {areas.map((o) => (
+        <div class="panel-area">
           <h3>{o.area}</h3>
-          <ul class="tags">
-            {o.tags.map((t) => <li class="mono">{t}</li>)}
+          <ul class="herramientas">
+            {o.herramientas.map(({ tag, usados }) => (
+              <li class="mono">
+                <span class="herr">{tag}</span>
+                {usados.length > 0 && (
+                  <>
+                    <span class="n" title={usados.join(', ')}>{usados.length}</span>
+                    <span class="sr">({usados.join(', ')})</span>
+                  </>
+                )}
+              </li>
+            ))}
           </ul>
+          {o.obra.length > 0
+            ? <p class="donde">{x.areas.enLaObra} <b>{o.obra.join(', ')}</b>. {x.areas.numero}</p>
+            : <p class="donde">{x.areas.sinProyectos}</p>}
           {o.cert && <p class="mono area">{o.cert}</p>}
         </div>
-      </article>
-    ))}
+      ))}
+    </div>
   </div>
 </section>

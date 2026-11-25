@@ -1,0 +1,41 @@
+/* Áreas de / como mesa de trabajo. Por qué y cómo: docs/superpowers/specs/2026-11-25-areas-taller-design.md */
+
+/* pestañas: radios nativos, ocultos a la vista pero enfocables; las flechas cambian de área */
+.taller { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; padding: 0 8px; border-bottom: 10px solid #6b5844; box-shadow: 0 4px 0 #4a3b2e; }
+.tab { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.taller label { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px 6px 14px; cursor: pointer; border: 1px solid transparent; border-bottom: 0; border-radius: 12px 12px 0 0; transition: background 0.15s; }
+.taller label:hover { background: var(--panel); }
+.nombre { max-width: 100%; font-size: 12px; line-height: 1.35; text-align: center; color: var(--muted); hyphens: auto; overflow-wrap: anywhere; }
+.tab:checked + label { background: var(--panel); border-color: var(--line-2); }
+.tab:checked + label .nombre { color: var(--text); }
+.tab:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* el elegido trabaja, los demás reposan (sprites.css los deja quietos con movimiento reducido) */
+.taller .trabaja, .tab:checked + label .reposa { display: none; }
+.tab:checked + label .trabaja { display: inline-block; }
+
+/* paneles: solo el elegido se ve; los demás quedan fuera del árbol de accesibilidad */
+.paneles { min-height: 220px; padding: 28px 32px 32px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 14px 14px; background: var(--panel); }
+.panel-area { display: none; flex-direction: column; gap: 16px; }
+.mesa:has(#area-0:checked) .panel-area:nth-child(1),
+.mesa:has(#area-1:checked) .panel-area:nth-child(2),
+.mesa:has(#area-2:checked) .panel-area:nth-child(3),
+.mesa:has(#area-3:checked) .panel-area:nth-child(4),
+.mesa:has(#area-4:checked) .panel-area:nth-child(5),
+.mesa:has(#area-5:checked) .panel-area:nth-child(6) { display: flex; }
+.panel-area h3 { margin: 0; font-size: 28px; font-weight: 700; }
+.herramientas { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.herramientas li { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--line-2); border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--text); }
+.herramientas .n { padding: 0 6px; border-radius: 999px; background: var(--accent); color: var(--bg); font-size: 11px; cursor: help; }
+.herramientas .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.donde { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-2); max-width: 72ch; }
+.donde b { font-weight: 500; color: var(--text); }
+.panel-area .area { margin: 0; }
+
+@media (max-width: 760px) {
+  .taller { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 0; }
+  .taller label { padding: 14px 2px 12px; }
+  .nombre { font-size: 11px; }
+  .paneles { padding: 22px 20px 24px; }
+  .panel-area h3 { font-size: 24px; }
+}

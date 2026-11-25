@@ -5,6 +5,7 @@ import Index from '../src/pages/index.astro';
 import Casa from '../src/pages/casa.astro';
 import { comoTrabajo, corall, oficios } from '../src/data/site';
 import { cronologico, periodo } from '../src/lib/periodo';
+import { proyectosDe } from '../src/lib/uso';
 
 const parse = (html: string) => {
   const win = new Window();
@@ -84,27 +85,53 @@ describe('/ · proyectos', () => {
 });
 
 describe('/ · áreas', () => {
-  it('un article por área, titulado con el área y sin nombres de oficio', () => {
-    const titles = [...index.querySelectorAll('#oficios article h3')].map(text);
-    expect(titles).toEqual(['Planificación y método', 'Backend y datos', 'Frontend y diseño', 'Infraestructura y despliegue', 'Calidad y seguridad', 'Documentación y conocimiento']);
+  const areas = ['Planificación y método', 'Backend y datos', 'Frontend y diseño', 'Infraestructura y despliegue', 'Calidad y seguridad', 'Documentación y conocimiento'];
+  const paneles = () => [...index.querySelectorAll('#oficios .panel-area')];
+  it('seis pestañas nativas, la primera elegida', () => {
+    const radios = [...index.querySelectorAll('#oficios input[type="radio"][name="area"]')];
+    expect(radios.length).toBe(6);
+    radios.forEach((r, i) => {
+      const label = index.querySelector(`#oficios label[for="${r.id}"]`);
+      expect(text(label), areas[i]).toBe(areas[i]);
+      expect(label?.querySelector('.spr')?.getAttribute('style')).toContain(`url(/sprites/${oficios[i].sprite}.png)`);
+    });
+    expect(radios[0].hasAttribute('checked')).toBe(true);
+    expect(radios.slice(1).some((r) => r.hasAttribute('checked'))).toBe(false);
+    const grupo = index.querySelector('#oficios [role="radiogroup"]');
+    expect(grupo?.getAttribute('aria-labelledby')).toBe('oficios-h');
+    expect(grupo?.querySelectorAll('input[type="radio"]').length).toBe(6);
+  });
+  it('cada panel tiene su área, herramientas y uso, sin nombres de oficio', () => {
+    expect(paneles().map((p) => text(p.querySelector('h3')))).toEqual(areas);
     expect(indexHtml).not.toMatch(/Capataz|Maestro de obra|Decorador|Electricista|Doble de riesgo|Archivista/);
+    oficios.forEach((o, i) => {
+      const lis = [...paneles()[i].querySelectorAll('li')];
+      expect(lis.map((li) => text(li.querySelector('.herr')))).toEqual(o.tags);
+      o.tags.forEach((tag, j) => {
+        const usados = proyectosDe(tag, corall);
+        const n = lis[j].querySelector('.n');
+        if (usados.length === 0) return expect(n, tag).toBeNull();
+        expect(text(n), tag).toBe(String(usados.length));
+        expect(n?.getAttribute('title'), tag).toBe(usados.join(', '));
+        expect(text(lis[j].querySelector('.sr')), tag).toBe(`(${usados.join(', ')})`);
+      });
+    });
+    expect(text(paneles()[1].querySelector('li .n'))).toBe('4');
+  });
+  it('En la obra', () => {
+    expect(text(paneles()[1])).toContain('En la obra: Totem Multimedia, Corall-ERP, MaqinPro, Comphill. El número es en cuántos proyectos la usé.');
+    expect(text(paneles()[5])).toContain('Herramientas de trabajo diario; todavía sin un proyecto de CorAll asociado en el recorrido.');
+    expect(text(paneles()[5])).not.toContain('En la obra');
   });
   it('las etiquetas son herramientas, no prácticas', () => {
     const calidad = oficios.find((o) => o.sprite === 'doble')!;
     expect(calidad.tags).toEqual(['Playwright', 'Vitest', 'Testing Library', 'ESLint', 'axe', 'Lighthouse', 'Sentry', 'Postman']);
     expect(oficios.flatMap((o) => o.tags)).not.toContain('Caja negra');
   });
-  it('Planificación muestra el programa de Metodologías Ágiles, sin datos personales', () => {
-    const plan = [...index.querySelectorAll('#oficios article')][0];
-    expect(text(plan)).toContain('Programa de especialización en Metodologías Ágiles · IED Stratton · 120 h · 19/20');
+  it('el certificado queda en Planificación, sin datos personales', () => {
+    expect(text(paneles()[0])).toContain('Programa de especialización en Metodologías Ágiles · IED Stratton · 120 h · 19/20');
+    expect(paneles().slice(1).some((p) => text(p)?.includes('IED Stratton'))).toBe(false);
     expect(indexHtml).not.toMatch(/72539291/);
-  });
-  it('cada área lleva su sprite y sus etiquetas', () => {
-    const articles = [...index.querySelectorAll('#oficios article')];
-    oficios.forEach((o, i) => {
-      expect(articles[i].querySelector('.spr')?.getAttribute('style')).toContain(`url(/sprites/${o.sprite}.png)`);
-      expect([...articles[i].querySelectorAll('li')].map(text)).toEqual(o.tags);
-    });
   });
 });
 
