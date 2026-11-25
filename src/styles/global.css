@@ -51,7 +51,6 @@ h1 { margin: 0; font-size: clamp(40px, 9vw, 68px); line-height: 1; font-weight: 
 
 /* ritmo de las animaciones (sprites.css trae 0.7 s, el de caminar) */
 .spr.act { --d: 1.1s; }
-.spr.roll { --d: 1.4s; }
 .spr.slow { --d: 1.8s; }
 
 /* secciones */
