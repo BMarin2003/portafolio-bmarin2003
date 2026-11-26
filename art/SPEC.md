@@ -8,7 +8,7 @@ parent: architecture
 
 ## Responsabilidad
 
-Define el formato de sprite, lo valida y lo convierte en hojas PNG con su metadato. No dibuja nada en pantalla: las fases 2 (sprites CSS con `steps()`) y 3 (PixiJS) consumen lo que este módulo produce.
+Define el formato de sprite, lo valida y lo convierte en hojas PNG con su metadato. No dibuja nada en pantalla: la fase 2 (sprites CSS con `steps()`) consume lo que este módulo produce.
 
 ## Frontera
 

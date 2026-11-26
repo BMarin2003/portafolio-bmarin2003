@@ -43,8 +43,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
   - Rol (mesa de rol): D&D primero, después Cyberpunk RED.
   - Juegos (PC): RimWorld, Mount & Blade: Warband, Crusader Kings II y III, Project Zomboid, Fallout 4 y Fallout: New Vegas, como lista con portadas.
   - Series y películas (TV): Django sin cadenas, The Batman, Superman (2025), la trilogía de El Señor de los Anillos, la trilogía de Las Crónicas de Narnia, Andor, Vinland Saga, Power Rangers SPD, The Walking Dead, Game of Thrones y Brooklyn Nine-Nine, como lista con pósters.
-  - Estante: «Leo sobre historia».
-  - El parlante muestra lo que Bryan escucha en Spotify en ese momento. Si no suena nada, rota entre Enjambre, Los Bunkers, Rio, Enanitos Verdes y Jamiroquai. Es lo único que rota.
+  - El parlante muestra lo que Bryan escucha en Spotify en ese momento. Si no suena nada, las cinco bandas (Enjambre, Los Bunkers, Rio, Enanitos Verdes y Jamiroquai) quedan siempre a la vista como tarjetas con su foto y su enlace a Spotify. Lo que se mueve son las tiras de portadas y pósters de la escena, y solo con movimiento permitido.
 - **Enlaces** a GitHub y LinkedIn.
 - **En español y en inglés.** El español va en `/` y `/casa`; el inglés, con el mismo contenido, en `/en/` y `/en/casa`. Cada página enlaza a su par en el otro idioma.
 

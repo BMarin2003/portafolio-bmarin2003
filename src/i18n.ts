@@ -78,7 +78,7 @@ export const t = {
       sala: ['SALA · LO QUE VEO Y LO QUE SUENA', 'Lo que veo'],
       parlante: ['EL PARLANTE · EN VIVO DESDE SPOTIFY', 'Lo que suena', 'Si no suena nada, esto es lo que escucho:'],
       mesa: ['MESA DE ROL · JUEGO Y DIRIJO, EN LÍNEA', 'Rol', 'Juego y dirijo D&D y Cyberpunk RED, en línea.'],
-      creditos: 'Las portadas y los pósters son de sus dueños; se muestran como referencia.',
+      creditos: 'Las portadas, pósters, logos y fotos de bandas son de sus dueños; se muestran como referencia.',
     },
   },
   en: {
@@ -140,7 +140,7 @@ export const t = {
       sala: ['LIVING ROOM · WHAT I WATCH AND WHAT’S PLAYING', 'What I watch'],
       parlante: ['THE SPEAKER · LIVE FROM SPOTIFY', 'What’s playing', 'If nothing is playing, this is what I listen to:'],
       mesa: ['RPG TABLE · I PLAY AND RUN GAMES, ONLINE', 'Role-playing', 'I play and run D&D and Cyberpunk RED, online.'],
-      creditos: 'Covers and posters belong to their owners; shown for reference.',
+      creditos: 'Covers, posters, logos and band photos belong to their owners; shown for reference.',
     },
   },
 } as const;

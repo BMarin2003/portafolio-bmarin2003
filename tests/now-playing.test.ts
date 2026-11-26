@@ -34,6 +34,17 @@ describe('applyNowPlaying', () => {
     expect(img.hidden).toBe(true);
     expect(img.hasAttribute('src')).toBe(false);
   });
+  it('dos aplicaciones iguales no tocan el DOM', async () => {
+    const s = speaker();
+    const data = { playing: true as const, title: 'T', artist: 'A', url: 'u', cover: 'c' };
+    applyNowPlaying(s, data);
+    const obs = new MutationObserver(() => {});
+    obs.observe(s, { subtree: true, childList: true, characterData: true, attributes: true });
+    applyNowPlaying(s, data);
+    await Promise.resolve();
+    expect(obs.takeRecords()).toHaveLength(0);
+    obs.disconnect();
+  });
   it('no suena: vuelve la rotación', () => {
     const s = speaker();
     applyNowPlaying(s, { playing: true, title: 'a', artist: 'b', url: 'u' });

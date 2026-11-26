@@ -59,7 +59,7 @@ describe('/casa accesible', () => {
   it('trae el texto de rol y la nota de créditos', () => {
     const t = text(casa.body)!;
     expect(t).toContain('Juego y dirijo D&D y Cyberpunk RED, en línea.');
-    expect(t).toContain('Las portadas y los pósters son de sus dueños; se muestran como referencia.');
+    expect(t).toContain('Las portadas, pósters, logos y fotos de bandas son de sus dueños; se muestran como referencia.');
   });
   it('ya no queda nada de la escena vieja', () => {
     expect(text(casa.body)).not.toContain('Leo sobre historia');

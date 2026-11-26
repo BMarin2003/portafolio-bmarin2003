@@ -9,13 +9,15 @@ export function applyNowPlaying(speaker: HTMLElement, data: NowPlaying): void {
     list.hidden = true;
     const text = live.querySelector<HTMLElement>('[data-live-text]');
     const img = live.querySelector<HTMLImageElement>('[data-live-cover]');
-    if (text) text.textContent = `${data.title} — ${data.artist}`;
+    const next = `${data.title} — ${data.artist}`;
+    // Solo se escribe si cambió: reescribir el nodo dentro del aria-live haría que el lector repita la canción.
+    if (text && text.textContent !== next) text.textContent = next;
     if (img) {
       if (data.cover) {
-        img.src = data.cover;
+        if (img.getAttribute('src') !== data.cover) img.src = data.cover;
         img.hidden = false;
       } else {
-        img.removeAttribute('src');
+        if (img.hasAttribute('src')) img.removeAttribute('src');
         img.hidden = true;
       }
     }
