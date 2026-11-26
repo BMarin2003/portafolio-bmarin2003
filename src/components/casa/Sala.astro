@@ -28,7 +28,7 @@ const { screens } = contenido(lang);
       </div>
       <p class="hab-nota parlante-nota">{x.parlante[2]}</p>
       <ul class="fichas fichas-bandas" data-rotate>
-        {bands.map((b, i) => <Ficha item={b} lang={lang} ancho={96} oculto={i > 0} />)}
+        {bands.map((b) => <Ficha item={b} lang={lang} ancho={96} />)}
       </ul>
     </div>
   </div>

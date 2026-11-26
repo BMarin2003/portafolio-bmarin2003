@@ -14,7 +14,7 @@ const x = t[lang].casa;
 const otra = otraRuta(Astro.url.pathname);
 ---
 <Base title={x.title} description={x.description} lang={lang} ogImage="/og-casa.png" ogImageAlt={x.ogAlt}>
-  <div class="page casa-page" data-casa>
+  <div class="page">
     <header class="wrap site-header">
       <nav class="mono" aria-label={t[lang].pro.navAria}>
         <a href={href(lang, '/')}>{x.volver}</a>
@@ -39,13 +39,10 @@ const otra = otraRuta(Astro.url.pathname);
 </Base>
 
 <script>
-  import { startRotation } from '../scripts/rotate';
   import { startNowPlaying } from '../scripts/now-playing';
   import { initReloj } from '../scripts/casa/reloj';
 
-  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  startRotation(document, { intervalMs: 3200, reducedMotion: reducido });
   startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
   const reloj = document.querySelector<HTMLElement>('[data-reloj]');
-  if (reloj) initReloj(reloj, { reducido });
+  if (reloj) initReloj(reloj);
 </script>

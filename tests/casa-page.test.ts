@@ -47,7 +47,9 @@ describe('/casa accesible', () => {
   });
   it('el parlante rota las 5 bandas y tiene el bloque en vivo anunciado', () => {
     const sp = casa.querySelector('[data-speaker]')!;
-    expect(sp.querySelectorAll('[data-rotate] > *').length).toBe(5);
+    const bandas = [...sp.querySelectorAll('[data-rotate] > *')];
+    expect(bandas.length).toBe(5);
+    bandas.forEach((b) => expect(b.hasAttribute('hidden')).toBe(false));
     expect(sp.querySelector('[data-live] img[data-live-cover]')).not.toBeNull();
     const txt = sp.querySelector('[data-live-text]');
     expect(txt).not.toBeNull();

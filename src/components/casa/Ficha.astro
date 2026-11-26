@@ -3,10 +3,10 @@ import { Image } from 'astro:assets';
 import { t, type Lang } from '../../i18n';
 import type { Credit } from '../../data/site';
 
-interface Props { item: Credit; lang?: Lang; ancho?: number; eager?: boolean; oculto?: boolean }
-const { item, lang = 'es', ancho = 120, eager = false, oculto = false } = Astro.props;
+interface Props { item: Credit; lang?: Lang; ancho?: number; eager?: boolean }
+const { item, lang = 'es', ancho = 120, eager = false } = Astro.props;
 ---
-<li class="ficha" hidden={oculto}>
+<li class="ficha">
   {item.cover
     ? <Image src={item.cover} alt={item.title} width={ancho} loading={eager ? 'eager' : 'lazy'} />
     : <span class="ficha-titulo">{item.title}</span>}
