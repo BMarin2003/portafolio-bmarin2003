@@ -7,7 +7,18 @@ export function applyNowPlaying(speaker: HTMLElement, data: NowPlaying): void {
   if (data.playing) {
     list.setAttribute('data-paused', '');
     list.hidden = true;
-    live.textContent = `${data.title} — ${data.artist}`;
+    const text = live.querySelector<HTMLElement>('[data-live-text]');
+    const img = live.querySelector<HTMLImageElement>('[data-live-cover]');
+    if (text) text.textContent = `${data.title} — ${data.artist}`;
+    if (img) {
+      if (data.cover) {
+        img.src = data.cover;
+        img.hidden = false;
+      } else {
+        img.removeAttribute('src');
+        img.hidden = true;
+      }
+    }
     live.hidden = false;
   } else {
     list.removeAttribute('data-paused');

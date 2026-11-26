@@ -26,6 +26,21 @@ describe('getNowPlaying', () => {
     expect(calls[1][0]).toBe('https://api.spotify.com/v1/me/player/currently-playing');
   });
   it.each([
+    ['la más chica de al menos 64 px', [{ url: 'a', width: 640 }, { url: 'b', width: 300 }, { url: 'c', width: 64 }], 'c'],
+    ['salta las menores a 64', [{ url: 'b', width: 300 }, { url: 'd', width: 40 }], 'b'],
+    ['width null no cuenta', [{ url: 'n', width: null }, { url: 'b', width: 300 }], 'b'],
+    ['sin imágenes', [], undefined],
+  ])('cover: %s', async (_n, images, cover) => {
+    const body = { ...track, item: { ...track.item, album: { images } } };
+    const r = await getNowPlaying(env, mock(() => Response.json(body)));
+    expect(r).toMatchObject({ playing: true });
+    expect((r as any).cover).toBe(cover);
+  });
+  it('cover: sin album es undefined', async () => {
+    const r = await getNowPlaying(env, mock(() => Response.json(track)));
+    expect((r as any).cover).toBeUndefined();
+  });
+  it.each([
     ['episode', { ...track, currently_playing_type: 'episode' }],
     ['ad', { ...track, currently_playing_type: 'ad' }],
     ['item null', { ...track, item: null }],

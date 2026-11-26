@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { applyNowPlaying, startNowPlaying } from '../src/scripts/now-playing';
 
 function speaker() {
-  document.body.innerHTML = `<div data-speaker><div data-rotate><span>A</span><span hidden>B</span></div><span data-live hidden></span></div>`;
+  document.body.innerHTML = `<div data-speaker><div data-rotate><span>A</span><span hidden>B</span></div><span data-live hidden><img data-live-cover alt="" hidden width="64" height="64" /><span data-live-text></span></span></div>`;
   return document.querySelector<HTMLElement>('[data-speaker]')!;
 }
 
@@ -16,7 +16,23 @@ describe('applyNowPlaying', () => {
     expect(list.hasAttribute('data-paused')).toBe(true);
     expect(list.hidden).toBe(true);
     expect(live.hidden).toBe(false);
-    expect(live.textContent).toBe('Bohemian — Queen');
+    expect(s.querySelector('[data-live-text]')!.textContent).toBe('Bohemian — Queen');
+  });
+  it('con carátula: el img lleva src y se ve', () => {
+    const s = speaker();
+    applyNowPlaying(s, { playing: true, title: 'T', artist: 'A', url: 'u', cover: 'c' });
+    const img = s.querySelector<HTMLImageElement>('[data-live-cover]')!;
+    expect(s.querySelector('[data-live-text]')!.textContent).toBe('T — A');
+    expect(img.getAttribute('src')).toBe('c');
+    expect(img.hidden).toBe(false);
+  });
+  it('sin carátula: el img queda oculto y sin src', () => {
+    const s = speaker();
+    applyNowPlaying(s, { playing: true, title: 'T', artist: 'A', url: 'u', cover: 'c' });
+    applyNowPlaying(s, { playing: true, title: 'T2', artist: 'A', url: 'u' });
+    const img = s.querySelector<HTMLImageElement>('[data-live-cover]')!;
+    expect(img.hidden).toBe(true);
+    expect(img.hasAttribute('src')).toBe(false);
   });
   it('no suena: vuelve la rotación', () => {
     const s = speaker();
@@ -42,8 +58,8 @@ describe('startNowPlaying', () => {
     startNowPlaying([a, b], 30000);
     await vi.advanceTimersByTimeAsync(0);
     expect(f).toHaveBeenCalledTimes(1);
-    expect(a.querySelector('[data-live]')!.textContent).toBe('T — A');
-    expect(b.querySelector('[data-live]')!.textContent).toBe('T — A');
+    expect(a.querySelector('[data-live-text]')!.textContent).toBe('T — A');
+    expect(b.querySelector('[data-live-text]')!.textContent).toBe('T — A');
     await vi.advanceTimersByTimeAsync(30000);
     expect(f).toHaveBeenCalledTimes(2);
     expect(a.querySelector<HTMLElement>('[data-live]')!.hidden).toBe(true);

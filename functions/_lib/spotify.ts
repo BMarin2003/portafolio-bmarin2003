@@ -1,6 +1,6 @@
 export type NowPlaying =
   | { playing: false }
-  | { playing: true; title: string; artist: string; url: string };
+  | { playing: true; title: string; artist: string; url: string; cover?: string };
 
 export interface SpotifyEnv {
   SPOTIFY_CLIENT_ID?: string;
@@ -33,14 +33,24 @@ export async function getNowPlaying(env: SpotifyEnv, fetchFn: typeof fetch = fet
     const data = (await res.json()) as {
       is_playing?: boolean;
       currently_playing_type?: string;
-      item?: { name: string; artists: { name: string }[]; external_urls: { spotify: string } } | null;
+      item?: {
+        name: string;
+        artists: { name: string }[];
+        external_urls: { spotify: string };
+        album?: { images?: { url: string; width: number | null }[] };
+      } | null;
     };
     if (!data.is_playing || data.currently_playing_type !== 'track' || !data.item) return OFF;
+    // la imagen más chica de al menos 64 px (width null no es elegible)
+    const cover = (data.item.album?.images ?? [])
+      .filter((i) => (i.width ?? 0) >= 64)
+      .sort((a, b) => (a.width ?? 0) - (b.width ?? 0))[0]?.url;
     return {
       playing: true,
       title: data.item.name,
       artist: data.item.artists.map((a) => a.name).join(', '),
       url: data.item.external_urls.spotify,
+      cover,
     };
   } catch {
     return OFF;

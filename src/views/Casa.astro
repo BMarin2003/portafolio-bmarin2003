@@ -36,7 +36,10 @@ const otra = otraRuta(Astro.url.pathname);
         <span data-rotate>
           {bands.map((b, i) => <span hidden={i > 0}>{b.title}</span>)}
         </span>
-        <span data-live hidden></span>
+        <span data-live hidden>
+          <img data-live-cover alt="" hidden width="64" height="64" />
+          <span data-live-text></span>
+        </span>
       </p>
 
       <div class="casa-bajo">
