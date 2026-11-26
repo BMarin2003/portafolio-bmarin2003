@@ -4,6 +4,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import Casa from '../src/pages/casa.astro';
 import { bands, games, manuales, screens } from '../src/data/site';
 import { findPlaceholders } from '../scripts/check-placeholders.mjs';
+import { spriteMeta } from '../src/lib/sprite-meta';
 
 const parse = (html: string) => {
   const win = new Window();
@@ -81,5 +82,58 @@ describe('/casa accesible', () => {
   });
   it('no deja corchetes de marcador', () => {
     expect(findPlaceholders(html)).toEqual([]);
+  });
+});
+
+// Un sprite de Sprite.astro se reconoce por su hoja y su fila en el style.
+const esSprite = (el: Element, name: string, anim: string) => {
+  const style = el.getAttribute('style') ?? '';
+  return style.includes(`/sprites/${name}.png`) && style.includes(`--row:${spriteMeta(name, anim).row};`);
+};
+const escena = (hab: string) => casa.querySelector(`.hab[data-hab="${hab}"] .hab-escena`)!;
+const sprites = (el: Element) => [...el.querySelectorAll('.spr')];
+const conAnim = (el: Element, anim: string) =>
+  sprites(el).filter((s) => ['capataz', 'maestro', 'decorador', 'electricista', 'doble', 'archivista'].some((n) => esSprite(s, n, anim)));
+
+describe('/casa escenas', () => {
+  it('el cuarto tiene a Bryan sentado y la tira de los 7 juegos', () => {
+    const e = escena('cuarto');
+    expect(sprites(e).some((s) => esSprite(s, 'bryan', 'sit'))).toBe(true);
+    const tira = e.querySelector('.tira')!;
+    expect(tira.querySelectorAll('img').length).toBe(games.length);
+  });
+  it('la sala tiene la tira de los 11 títulos y un monigote en action', () => {
+    const e = escena('sala');
+    const tiras = [...e.querySelectorAll('.tira')].map((t) => t.children.length);
+    expect(tiras).toContain(screens.length);
+    expect(screens.length).toBe(11);
+    expect(conAnim(e, 'action').length).toBeGreaterThan(0);
+  });
+  it('el cuadro de la sala pasa las fotos de las 5 bandas', () => {
+    const tiras = [...escena('sala').querySelectorAll('.tira')];
+    expect(tiras.some((t) => t.querySelectorAll('img').length === bands.length)).toBe(true);
+  });
+  it('la mesa tiene una llamada con 4 monigotes', () => {
+    const llamada = escena('mesa').querySelector('.llamada')!;
+    expect(sprites(llamada).length).toBe(4);
+  });
+  it('hay 2 pasillos decorativos, cada uno con Bryan caminando', () => {
+    const pasillos = [...casa.querySelectorAll('.pasillo')];
+    expect(pasillos.length).toBe(2);
+    pasillos.forEach((p) => {
+      expect(p.getAttribute('aria-hidden')).toBe('true');
+      expect(sprites(p).some((s) => esSprite(s, 'bryan', 'walk'))).toBe(true);
+    });
+  });
+  it('las imágenes de las tiras son decorativas', () => {
+    const imgs = [...casa.querySelectorAll('.tira img')];
+    expect(imgs.length).toBeGreaterThan(0);
+    imgs.forEach((i) => expect(i.getAttribute('alt')).toBe(''));
+  });
+  it('solo las imágenes de la escena del cuarto cargan de inmediato', () => {
+    [...escena('cuarto').querySelectorAll('img')].forEach((i) => expect(i.getAttribute('loading')).not.toBe('lazy'));
+    const resto = [...escena('sala').querySelectorAll('img'), ...escena('mesa').querySelectorAll('img')];
+    expect(resto.length).toBeGreaterThan(0);
+    resto.forEach((i) => expect(i.getAttribute('loading')).toBe('lazy'));
   });
 });

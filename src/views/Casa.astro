@@ -5,6 +5,7 @@ import Reloj from '../components/casa/Reloj.astro';
 import Cuarto from '../components/casa/Cuarto.astro';
 import Sala from '../components/casa/Sala.astro';
 import MesaRol from '../components/casa/MesaRol.astro';
+import Pasillo from '../components/casa/Pasillo.astro';
 import { href, otraRuta, t, type Lang } from '../i18n';
 import '../styles/casa.css';
 
@@ -28,7 +29,9 @@ const otra = otraRuta(Astro.url.pathname);
       <p class="casa-sub">{x.sub}</p>
 
       <Cuarto lang={lang} />
+      <Pasillo />
       <Sala lang={lang} />
+      <Pasillo />
       <MesaRol lang={lang} />
 
       <p class="casa-creditos">{x.creditos}</p>

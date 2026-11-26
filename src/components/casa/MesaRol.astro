@@ -1,5 +1,6 @@
 ---
 import Ficha from './Ficha.astro';
+import Sprite from '../Sprite.astro';
 import { manuales } from '../../data/site';
 import { t, type Lang } from '../../i18n';
 
@@ -8,7 +9,39 @@ const { lang = 'es' } = Astro.props;
 const x = t[lang].casa;
 ---
 <section class="hab" data-hab="mesa" aria-labelledby="h-mesa">
-  <div class="hab-escena" aria-hidden="true"></div>
+  <div class="hab-escena" aria-hidden="true">
+    <div class="e-marco">
+      <div class="e-dibujo">
+        <span class="e-lampara" style="left:480px"></span>
+        <span class="e-mapa-pared"></span>
+        <span class="e-pantalla">
+          <span class="e-mapa">
+            <i class="e-token" style="left:40px;top:100px;background:#d9a55b"></i>
+            <i class="e-token e-mueve" style="left:80px;top:120px;background:#7fb2ff"></i>
+            <i class="e-token" style="left:170px;top:40px;background:#d97f7f"></i>
+            <i class="e-token" style="left:190px;top:60px;background:#d97f7f"></i>
+          </span>
+          <span class="llamada">
+            {(['capataz', 'maestro', 'doble', 'archivista'] as const).map((n, i) => (
+              <span class="e-cuadro"><Sprite name={n} anim="idle" scale={2} style={`animation-delay:${-0.3 * i}s`} /></span>
+            ))}
+          </span>
+        </span>
+        <span class="e-mesa"></span>
+        <Sprite name="bryan" anim="sit" style="left:376px;top:172px" />
+        <span class="e-auris" style="left:385px;top:168px"></span>
+        <span class="e-biombo"></span>
+        <span class="e-hoja-pj"></span>
+        <span class="e-d20"></span>
+        <span class="e-estante">
+          <i class="e-manual" style="left:8px;height:64px;background:#7a2e2e"></i>
+          <i class="e-manual" style="left:28px;height:60px;background:#b8d93a"></i>
+          <i style="left:52px;height:44px;background:#39414e"></i>
+          <i style="left:66px;height:36px;background:#5a4a3a"></i>
+        </span>
+      </div>
+    </div>
+  </div>
   <div class="hab-info">
     <p class="mono kind">{x.mesa[0]}</p>
     <h2 id="h-mesa">{x.mesa[1]}</h2>

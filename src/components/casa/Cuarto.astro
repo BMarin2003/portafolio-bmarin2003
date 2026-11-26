@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Ficha from './Ficha.astro';
+import Sprite from '../Sprite.astro';
 import { contenido, t, type Lang } from '../../i18n';
 
 interface Props { lang?: Lang }
@@ -8,7 +10,29 @@ const x = t[lang].casa;
 const { games } = contenido(lang);
 ---
 <section class="hab" data-hab="cuarto" aria-labelledby="h-cuarto">
-  <div class="hab-escena" aria-hidden="true"></div>
+  <div class="hab-escena" aria-hidden="true">
+    <div class="e-marco">
+      <div class="e-dibujo">
+        <span class="e-lampara" style="left:330px"></span>
+        <span class="e-ventana"></span>
+        <span class="e-poster"></span>
+        <span class="e-repisa"><i style="left:10px"></i><i style="left:30px;height:12px;background:#d9a55b"></i><i style="left:52px;background:#7a2e2e"></i></span>
+        <span class="e-monitor e-m1">
+          <span class="tira" style={`--items:${games.length}`}>
+            {games.map((g) => g.cover && <Image src={g.cover} alt="" width={200} loading="eager" />)}
+          </span>
+        </span>
+        <span class="e-soporte" style="left:365px"></span>
+        <span class="e-monitor e-m2"><span class="e-lineas"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+        <span class="e-soporte" style="left:514px;top:178px;height:18px"></span>
+        <span class="e-torre"></span>
+        <span class="e-escritorio"></span>
+        <span class="e-silla"></span>
+        <Sprite name="bryan" anim="sit" style="left:355px;top:150px" />
+        <span class="e-auris" style="left:364px;top:146px"></span>
+      </div>
+    </div>
+  </div>
   <div class="hab-info">
     <p class="mono kind">{x.cuarto[0]}</p>
     <h2 id="h-cuarto">{x.cuarto[1]}</h2>

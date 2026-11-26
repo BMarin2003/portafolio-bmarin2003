@@ -1,12 +1,12 @@
-/* /casa: bloques de contenido de cada habitación. Las escenas dibujadas se agregan sobre .hab-escena. */
+/* /casa: cada habitación es una escena dibujada (decorativa) y su bloque de contenido. Por qué y cómo: docs/superpowers/specs/2026-11-26-casa-recorrido-design.md */
 .casa-main { padding-top: 40px; padding-bottom: 64px; }
 .casa-main h1 { font-size: clamp(32px, 7vw, 48px); letter-spacing: -1px; margin-bottom: 8px; }
 .casa-sub { margin: 0 0 28px; font-size: 17px; color: var(--text-2); }
 .casa-reloj { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; font-size: 13px; color: var(--text-2); }
 .casa-creditos { margin: 40px 0 0; font-size: 13px; color: var(--muted); }
 
-.hab { max-width: 1100px; margin: 0 auto 40px; }
-.hab-escena { min-height: 0; }
+.hab { max-width: 1100px; margin: 0 auto; }
+.hab-escena { container-type: inline-size; margin-bottom: 20px; }
 .hab-info { padding: 22px 24px; border: 1px solid var(--line-2); border-radius: 14px; background: var(--panel); }
 .hab-info h2 { margin: 0 0 12px; font-size: 26px; font-weight: 700; }
 .hab-info .kind { margin: 0 0 6px; color: var(--accent); }
@@ -15,6 +15,9 @@
 .fichas { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 14px; }
 .ficha { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .ficha img { display: block; height: auto; max-width: 100%; border-radius: 4px; }
+/* las portadas de Steam son anchas: dos por fila al lado de la escena */
+.fichas-juegos { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.fichas-juegos img { width: 100%; }
 .ficha-titulo { padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 6px; font-size: 15px; }
 
 .parlante { margin-top: 28px; }
@@ -22,3 +25,129 @@
 .parlante-vivo { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 /* Si suena algo, la lista de bandas se oculta y su introducción no tiene sentido. */
 .parlante:has([data-rotate][hidden]) .parlante-nota { display: none; }
+
+/* en ancho, la escena a la izquierda y quieta mientras se lee su contenido; la mesa va a todo el ancho */
+@media (min-width: 1000px) {
+  .hab:not([data-hab="mesa"]) { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: start; }
+  .hab:not([data-hab="mesa"]) .hab-escena { position: sticky; top: 24px; margin-bottom: 0; }
+}
+
+/* cada escena se dibuja en una caja fija (--dw × --dh) y se escala al ancho con transform: los sprites
+   quedan nítidos (pixelated) y nada empuja el ancho de la página. La mesa no baja de la mitad: se recorta al centro */
+.hab[data-hab="cuarto"] { --dw: 660px; --dh: 300px; }
+.hab[data-hab="sala"] { --dw: 440px; --dh: 300px; }
+.hab[data-hab="mesa"] { --dw: 960px; --dh: 280px; --kmin: 0.5; }
+.e-marco { --k: 0.45; position: relative; height: calc(var(--dh) * var(--k) + 8px); overflow: hidden; background: #262c36; border: 4px solid var(--line-2); }
+@supports (width: calc(1px * tan(atan2(1px, 1px)))) {
+  .e-marco { --k: max(var(--kmin, 0), tan(atan2(100cqw - 8px, var(--dw)))); }
+}
+.e-dibujo { position: absolute; top: 0; left: calc((100% - var(--dw) * var(--k)) / 2); width: var(--dw); height: var(--dh); transform: scale(var(--k)); transform-origin: 0 0; }
+.e-dibujo > * { position: absolute; display: block; }
+.e-dibujo::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #3a2f26; border-top: 3px solid #4a3b2e; }
+.e-dibujo i { display: block; }
+.e-lampara { top: 0; width: 2px; height: 34px; background: var(--line-2); }
+.e-lampara::after { content: ""; position: absolute; left: -9px; top: 34px; width: 20px; height: 8px; background: #5a4a3a; border-radius: 10px 10px 0 0; box-shadow: 0 10px 40px 18px #f2d49b22; }
+.e-auris { width: 30px; height: 12px; border: 4px solid #11151b; border-bottom: 0; border-radius: 16px 16px 0 0; }
+.tira { display: flex; width: 100%; height: 100%; }
+.tira > * { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; }
+
+/* cuarto */
+.e-ventana { left: 30px; top: 50px; width: 110px; height: 84px; background: #0b1022 radial-gradient(#8f97a3 1px, transparent 1.5px) 0 0 / 30px 24px; border: 4px solid var(--line-2); }
+.e-ventana::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: var(--line-2); }
+.e-poster { left: 180px; top: 38px; width: 62px; height: 84px; border: 3px solid #4a3b2e; background: linear-gradient(160deg, #6e3b2e, #2a1a16); }
+.e-poster::after { content: ""; position: absolute; left: 12px; right: 12px; top: 14px; height: 30px; border-radius: 50% 50% 0 0; background: #d9a55b66; }
+.e-repisa { left: 30px; top: 170px; width: 120px; height: 6px; background: #6b5844; }
+.e-repisa i { position: absolute; bottom: 6px; width: 10px; height: 18px; background: #8f97a3; }
+.e-monitor { background: #11151b; border: 5px solid #1b212b; box-shadow: 0 0 30px #7fb2ff22; overflow: hidden; }
+.e-m1 { left: 280px; top: 92px; width: 180px; height: 92px; }
+.e-m2 { left: 476px; top: 106px; width: 86px; height: 72px; }
+.e-soporte { top: 184px; width: 10px; height: 12px; background: #1b212b; }
+.e-lineas { display: flex; flex-direction: column; gap: 6px; padding: 8px; }
+.e-lineas i { height: 4px; background: var(--line-2); border-radius: 2px; }
+.e-lineas i:nth-child(odd) { width: 70%; }
+.e-lineas i:nth-child(3n) { width: 50%; background: #d9a55b88; }
+.e-torre { left: 574px; top: 140px; width: 38px; height: 56px; background: #1b212b; border: 3px solid var(--line-2); }
+.e-torre::after { content: ""; position: absolute; left: 6px; right: 6px; top: 8px; height: 4px; background: #7fb2ff; }
+.e-escritorio { left: 190px; right: 70px; top: 196px; height: 10px; background: #6b5844; box-shadow: 0 10px 0 -4px #4a3b2e; }
+.e-escritorio::before, .e-escritorio::after { content: ""; position: absolute; top: 10px; width: 8px; height: 72px; background: #4a3b2e; }
+.e-escritorio::before { left: 10px; }
+.e-escritorio::after { right: 10px; }
+.e-silla { left: 350px; top: 180px; width: 56px; height: 86px; background: #1b212b; border-radius: 8px 8px 0 0; }
+
+/* sala */
+.e-tv { left: 36px; top: 58px; width: 180px; height: 104px; background: #0b0e13; border: 6px solid #1b212b; overflow: hidden; box-shadow: 0 0 40px #7fb2ff22; }
+.e-tv .tira img { object-fit: contain; }
+.e-titulo { display: flex; align-items: center; justify-content: center; padding: 8px; text-align: center; font-size: 15px; font-weight: 700; line-height: 1.2; color: var(--text); background: linear-gradient(160deg, var(--line-2), #11151b); }
+.e-mueble-tv { left: 46px; top: 176px; width: 160px; height: 20px; background: #4a3b2e; }
+.e-sofa { left: 40px; top: 222px; width: 190px; height: 40px; background: #5a3f4a; border-radius: 8px 8px 0 0; box-shadow: inset 0 10px 0 #6b4b57; }
+.e-album { left: 300px; top: 58px; width: 96px; height: 96px; border: 4px solid #6b5844; background: #151e2b; overflow: hidden; }
+.e-tocadiscos { left: 286px; top: 200px; width: 120px; height: 56px; background: #4a3b2e; border-top: 6px solid #6b5844; }
+/* el disco se ve de canto: un círculo aplastado que gira */
+.e-plato { left: 300px; top: 171px; width: 44px; height: 44px; transform: scaleY(0.32); }
+.e-disco { display: block; width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle, #d9a55b 0 5px, transparent 5.5px), conic-gradient(#ffffff1f 0 8%, transparent 0 50%, #ffffff1f 0 58%, transparent 0), repeating-radial-gradient(#111 0 2px, #222 2px 4px); }
+.e-nota { font: 700 16px var(--mono); color: var(--accent); }
+.e-planta { right: 16px; top: 150px; width: 24px; height: 110px; }
+.e-planta::before { content: ""; position: absolute; bottom: 0; left: 2px; width: 20px; height: 22px; background: #5a4a3a; }
+.e-planta::after { content: ""; position: absolute; bottom: 20px; left: -8px; width: 40px; height: 60px; background: #3f5b45; border-radius: 50% 50% 40% 40%; }
+
+/* mesa de rol */
+.e-mapa-pared { left: 30px; top: 60px; width: 130px; height: 90px; border: 4px solid #6b5844; background: linear-gradient(135deg, transparent 45%, #8a6f44 45% 48%, transparent 48%), radial-gradient(circle at 70% 40%, #7a9b6a 0 14px, transparent 15px), #c9b48a; }
+.e-pantalla { left: 190px; top: 34px; width: 400px; height: 170px; display: grid; grid-template-columns: 240px 1fr; background: #11151b; border: 6px solid #1b212b; box-shadow: 0 0 50px #7fb2ff1a; }
+.e-mapa { position: relative; display: block; background: #2b3a2e; background-image: linear-gradient(#0003 1px, transparent 1px), linear-gradient(90deg, #0003 1px, transparent 1px); background-size: 20px 20px; }
+.e-token { position: absolute; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #11151b; }
+.llamada { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: #0e1218; }
+.e-cuadro { position: relative; display: block; overflow: hidden; background: #1e2530; border-radius: 3px; }
+.e-cuadro:first-child { box-shadow: inset 0 0 0 2px #7fd9a5; }
+.e-cuadro .spr { position: absolute; left: 50%; bottom: -4px; margin-left: -16px; }
+.e-mesa { left: 170px; top: 222px; width: 620px; height: 10px; background: #6b5844; }
+/* la pantalla de DM y la hoja de personaje se turnan; quieta, se ve la pantalla */
+.e-biombo { left: 520px; top: 192px; width: 78px; height: 32px; background: #7a2e2e; clip-path: polygon(0 100%, 8% 0, 34% 12%, 66% 0, 92% 12%, 100% 100%); }
+.e-hoja-pj { left: 540px; top: 194px; width: 40px; height: 30px; opacity: 0; background: #e6e3dd; box-shadow: inset 0 6px 0 #d9a55b, inset 0 -18px 0 -14px #8f97a3; }
+.e-d20 { left: 610px; top: 202px; width: 18px; height: 18px; background: var(--accent); clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%); }
+.e-estante { left: 670px; top: 60px; width: 96px; height: 110px; background: #1f242d; border: 4px solid #4a3b2e; border-top: 0; }
+.e-estante i { position: absolute; bottom: 4px; width: 12px; }
+.e-estante .e-manual { width: 18px; box-shadow: inset 0 8px 0 #0004, inset 0 -10px 0 #0004; }
+
+/* pasillo: Bryan baja de una habitación a la siguiente; quieto, ya llegó al otro lado */
+.pasillo { position: relative; max-width: 1100px; height: 72px; margin: 16px auto; border-left: 4px dashed var(--line-2); }
+.pasillo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--line-2); }
+.e-caminante { position: absolute; bottom: 4px; left: calc(100% - 32px); line-height: 0; }
+
+@keyframes casa-tira { to { transform: translateX(calc(var(--items) * -100%)); } }
+@keyframes casa-rgb { 0%, 100% { background: #7fb2ff; } 33% { background: #d97fb2; } 66% { background: #7fd9a5; } }
+@keyframes casa-gira { to { transform: rotate(1turn); } }
+@keyframes casa-nota { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(14px, -46px); } }
+@keyframes casa-mueve { to { transform: translate(60px, -20px); } }
+@keyframes casa-habla { 0%, 24.9% { box-shadow: inset 0 0 0 2px #7fd9a5; } 25%, 100% { box-shadow: none; } }
+@keyframes casa-turno { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes casa-rueda { 0% { transform: translateX(0) rotate(0); } 80%, 100% { transform: translateX(40px) rotate(1turn); } }
+@media (prefers-reduced-motion: no-preference) {
+  .tira { animation: casa-tira calc(var(--items) * 3s) steps(var(--items)) infinite; }
+  .e-torre::after { animation: casa-rgb 3s linear infinite; }
+  .e-disco { animation: casa-gira 1.8s linear infinite; }
+  .e-nota { animation: casa-nota 2.4s linear infinite; }
+  .e-mueve { animation: casa-mueve 6s steps(3) infinite alternate; }
+  .e-cuadro { animation: casa-habla 8s steps(1) infinite; }
+  .e-cuadro:nth-child(2) { animation-delay: -6s; }
+  .e-cuadro:nth-child(3) { animation-delay: -4s; }
+  .e-cuadro:nth-child(4) { animation-delay: -2s; }
+  .e-biombo, .e-hoja-pj { animation: casa-turno 10s steps(1) infinite; }
+  .e-hoja-pj { animation-delay: -5s; }
+  .e-d20 { animation: casa-rueda 2s steps(4) infinite; }
+}
+/* con el cursor encima, la escena se queda quieta; la luz ligada al scroll va en .hab-escena misma y no se pausa */
+.hab-escena:hover *, .hab-escena:hover *::after { animation-play-state: paused; }
+
+/* ligado al scroll; sin soporte o con movimiento reducido, todo encendido y Bryan quieto al final del pasillo.
+   Solo longhands: el minificador mete animation-timeline en el shorthand `animation` y Chrome lo descarta entero */
+@keyframes casa-enciende { from { filter: brightness(0.55); } }
+@keyframes casa-cruza { from { left: 0; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hab-escena { animation-name: casa-enciende; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    .pasillo { view-timeline-name: --pasillo; view-timeline-axis: block; }
+    .e-caminante, .pasillo .spr { animation-timeline: --pasillo; animation-range: contain 0% contain 100%; }
+    .e-caminante { animation-name: casa-cruza; animation-timing-function: linear; animation-fill-mode: both; }
+    .pasillo .spr { animation-name: spr-play; animation-timing-function: steps(var(--n)); animation-iteration-count: 12; }
+  }
+}

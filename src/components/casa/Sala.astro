@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Ficha from './Ficha.astro';
+import Sprite from '../Sprite.astro';
 import { bands } from '../../data/site';
 import { contenido, t, type Lang } from '../../i18n';
 
@@ -9,7 +11,35 @@ const x = t[lang].casa;
 const { screens } = contenido(lang);
 ---
 <section class="hab" data-hab="sala" aria-labelledby="h-sala">
-  <div class="hab-escena" aria-hidden="true"></div>
+  <div class="hab-escena" aria-hidden="true">
+    <div class="e-marco">
+      <div class="e-dibujo">
+        <span class="e-lampara" style="left:220px"></span>
+        <span class="e-tv">
+          <span class="tira" style={`--items:${screens.length}`}>
+            {screens.map((s) => s.cover
+              ? <Image src={s.cover} alt="" width={200} loading="lazy" />
+              : <span class="e-titulo">{s.title}</span>)}
+          </span>
+        </span>
+        <span class="e-mueble-tv"></span>
+        <span class="e-sofa"></span>
+        <Sprite name="decorador" anim="idle" style="left:80px;top:196px" />
+        <Sprite name="archivista" anim="idle" style="left:150px;top:196px;animation-delay:-.4s" />
+        <span class="e-album">
+          <span class="tira" style={`--items:${bands.length}`}>
+            {bands.map((b) => b.cover && <Image src={b.cover} alt="" width={200} loading="lazy" />)}
+          </span>
+        </span>
+        <span class="e-tocadiscos"></span>
+        <span class="e-plato"><span class="e-disco"></span></span>
+        <Sprite name="electricista" anim="action" style="left:350px;top:152px" />
+        <span class="e-nota" style="left:330px;top:170px">♪</span>
+        <span class="e-nota" style="left:380px;top:180px;animation-delay:-1.2s">♫</span>
+        <span class="e-planta"></span>
+      </div>
+    </div>
+  </div>
   <div class="hab-info">
     <p class="mono kind">{x.sala[0]}</p>
     <h2 id="h-sala">{x.sala[1]}</h2>
