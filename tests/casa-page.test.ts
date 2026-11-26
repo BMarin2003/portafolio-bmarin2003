@@ -2,7 +2,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { Window } from 'happy-dom';
 import { beforeAll, describe, expect, it } from 'vitest';
 import Casa from '../src/pages/casa.astro';
-import { bands, games, screens } from '../src/data/site';
+import { bands, games, manuales, screens } from '../src/data/site';
 import { findPlaceholders } from '../scripts/check-placeholders.mjs';
 
 const parse = (html: string) => {
@@ -22,41 +22,60 @@ beforeAll(async () => {
 });
 
 describe('/casa accesible', () => {
-  it('tiene 5 botones de objeto en orden', () => {
-    const ids = [...casa.querySelectorAll('nav[aria-label="Objetos de la casa"] button[data-objeto]')].map((b) => b.getAttribute('data-objeto'));
-    expect(ids).toEqual(['pc', 'tv', 'parlante', 'mesa', 'estante']);
+  it('tiene 3 habitaciones en orden, cada una con su h2', () => {
+    const habs = [...casa.querySelectorAll('section.hab')];
+    expect(habs.map((h) => h.getAttribute('data-hab'))).toEqual(['cuarto', 'sala', 'mesa']);
+    expect(habs.map((h) => text(h.querySelector('h2')))).toEqual(['Juegos', 'Lo que veo', 'Rol']);
   });
-  it('tiene parlante, escena decorativa con imagen y panel en vivo', () => {
-    expect(casa.querySelectorAll('[data-speaker]').length).toBe(1);
-    const scene = casa.querySelector('[data-scene][aria-hidden="true"]');
-    expect(scene?.querySelector('img')?.getAttribute('alt')).toBe('');
-    expect(casa.querySelector('aside[aria-live="polite"]')).not.toBeNull();
-  });
-  it('las 5 secciones de panel están en el HTML, cada una con su h2', () => {
-    const secs = [...casa.querySelectorAll('aside section[data-panel]')];
-    expect(secs.map((s) => s.getAttribute('data-panel'))).toEqual(['pc', 'tv', 'parlante', 'mesa', 'estante']);
-    secs.forEach((s) => expect(s.querySelector('h2')).not.toBeNull());
-  });
-  it('cada juego y serie enlaza a su fuente con nombre accesible', () => {
-    for (const item of [...games, ...screens]) {
+  it('cada juego, serie, banda y manual enlaza a su fuente con nombre accesible', () => {
+    for (const item of [...games, ...screens, ...bands, ...manuales]) {
       const link = [...casa.querySelectorAll('a')].find((a) => a.getAttribute('href') === item.sourceUrl);
       expect(link, item.title).toBeTruthy();
       expect(link!.textContent).toContain(item.source);
       expect(link!.getAttribute('aria-label')).toBe(`${item.title} vía ${item.source}`);
+      if (item.cover) {
+        const img = [...casa.querySelectorAll('img')].find((i) => i.getAttribute('alt') === item.title);
+        expect(img, `img ${item.title}`).toBeTruthy();
+      }
     }
   });
-  it('trae rol, bandas y estante con contenido real', () => {
-    const t = text(casa.body)!;
-    expect(t).toContain('D&D');
-    expect(t).toContain('Cyberpunk RED');
-    bands.forEach((b) => expect(t).toContain(b.title));
-    expect(t).toContain('Leo sobre historia');
+  it('los ítems sin portada son tarjeta de solo título', () => {
+    for (const item of [...screens, ...manuales].filter((i) => !i.cover)) {
+      expect(text(casa.body)).toContain(item.title);
+      expect(casa.querySelector(`img[alt="${item.title}"]`)).toBeNull();
+    }
   });
-  it('vuelve a la obra, tiene reloj y botón de adelantar', () => {
+  it('el parlante rota las 5 bandas y tiene el bloque en vivo anunciado', () => {
+    const sp = casa.querySelector('[data-speaker]')!;
+    expect(sp.querySelectorAll('[data-rotate] > *').length).toBe(5);
+    expect(sp.querySelector('[data-live] img[data-live-cover]')).not.toBeNull();
+    const txt = sp.querySelector('[data-live-text]');
+    expect(txt).not.toBeNull();
+    expect(txt!.closest('[aria-live="polite"]')).not.toBeNull();
+  });
+  it('trae el texto de rol y la nota de créditos', () => {
+    const t = text(casa.body)!;
+    expect(t).toContain('Juego y dirijo D&D y Cyberpunk RED, en línea.');
+    expect(t).toContain('Las portadas y los pósters son de sus dueños; se muestran como referencia.');
+  });
+  it('ya no queda nada de la escena vieja', () => {
+    expect(text(casa.body)).not.toContain('Leo sobre historia');
+    expect(html).not.toContain('data-adelantar');
+    expect(html).not.toContain('data-objeto');
+    expect(html.toLowerCase()).not.toContain('pixi');
+  });
+  it('vuelve a la obra, tiene reloj y h1', () => {
     expect(text(casa.querySelector('a[href="/"]'))).toBe('← volver a la obra');
     expect(casa.querySelector('[data-reloj]')).not.toBeNull();
-    expect(casa.querySelector('button[data-adelantar][aria-pressed="false"]')).not.toBeNull();
-    expect(casa.querySelector('h1')).not.toBeNull();
+    expect(text(casa.querySelector('h1'))).toBe('La casa, después de las 6');
+  });
+  it('las escenas son decorativas y no contienen nada enfocable', () => {
+    const escenas = [...casa.querySelectorAll('.hab-escena')];
+    expect(escenas.length).toBe(3);
+    escenas.forEach((e) => {
+      expect(e.getAttribute('aria-hidden')).toBe('true');
+      expect(e.querySelector('a, button, input, [tabindex]')).toBeNull();
+    });
   });
   it('no deja corchetes de marcador', () => {
     expect(findPlaceholders(html)).toEqual([]);

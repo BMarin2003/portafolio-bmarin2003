@@ -2,11 +2,11 @@
 import Base from '../layouts/Base.astro';
 import Pie from '../components/Pie.astro';
 import Reloj from '../components/casa/Reloj.astro';
-import Objetos from '../components/casa/Objetos.astro';
-import Panel from '../components/casa/Panel.astro';
-import { bands } from '../data/site';
+import Cuarto from '../components/casa/Cuarto.astro';
+import Sala from '../components/casa/Sala.astro';
+import MesaRol from '../components/casa/MesaRol.astro';
 import { href, otraRuta, t, type Lang } from '../i18n';
-import { textosCasa } from '../lib/casa/textos';
+import '../styles/casa.css';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -20,32 +20,18 @@ const otra = otraRuta(Astro.url.pathname);
         <a href={href(lang, '/')}>{x.volver}</a>
         <a href={otra.path} hreflang={otra.lang} lang={otra.lang}>{t[lang].otroIdioma}</a>
       </nav>
-      <Reloj lang={lang} />
+      <Reloj />
     </header>
 
     <main class="wrap casa-main">
-      <h1 data-titulo>{textosCasa[lang].noche}</h1>
-      <p class="casa-sub" data-subtitulo>{textosCasa[lang].subtitulo.noche}</p>
+      <h1>{x.h1}</h1>
+      <p class="casa-sub">{x.sub}</p>
 
-      <div class="casa-escena" data-scene aria-hidden="true">
-        <img src="/casa-estatica.png" alt="" width="1100" height="619" />
-      </div>
+      <Cuarto lang={lang} />
+      <Sala lang={lang} />
+      <MesaRol lang={lang} />
 
-      <p class="mono casa-parlante" data-speaker>
-        <span aria-hidden="true">♪ </span>
-        <span data-rotate>
-          {bands.map((b, i) => <span hidden={i > 0}>{b.title}</span>)}
-        </span>
-        <span data-live hidden>
-          <img data-live-cover alt="" hidden width="64" height="64" />
-          <span data-live-text></span>
-        </span>
-      </p>
-
-      <div class="casa-bajo">
-        <Objetos lang={lang} />
-        <Panel lang={lang} />
-      </div>
+      <p class="casa-creditos">{x.creditos}</p>
     </main>
 
     <Pie lang={lang} />
@@ -55,18 +41,11 @@ const otra = otraRuta(Astro.url.pathname);
 <script>
   import { startRotation } from '../scripts/rotate';
   import { startNowPlaying } from '../scripts/now-playing';
-  import { initCasaUI } from '../scripts/casa/ui';
-  import { bootCasa } from '../scripts/casa/boot';
+  import { initReloj } from '../scripts/casa/reloj';
 
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  startRotation(document, { intervalMs: 3200, reducedMotion });
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  startRotation(document, { intervalMs: 3200, reducedMotion: reducido });
   startNowPlaying([...document.querySelectorAll<HTMLElement>('[data-speaker]')]);
-  const root = document.querySelector<HTMLElement>('[data-casa]')!;
-  const ui = initCasaUI(root);
-  // La escena es decoración: se monta cuando la página ya cargó y el navegador está libre, para no bloquear la interacción.
-  const alTerminar = () =>
-    void bootCasa(root, { reducedMotion, ui, loadScene: () => import('../scripts/casa/scene') });
-  const cuandoLibre = () => ('requestIdleCallback' in window ? requestIdleCallback(alTerminar, { timeout: 3000 }) : setTimeout(alTerminar, 1000));
-  if (document.readyState === 'complete') cuandoLibre();
-  else addEventListener('load', cuandoLibre, { once: true });
+  const reloj = document.querySelector<HTMLElement>('[data-reloj]');
+  if (reloj) initReloj(reloj, { reducido });
 </script>

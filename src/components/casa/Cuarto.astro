@@ -1,0 +1,20 @@
+---
+import Ficha from './Ficha.astro';
+import { contenido, t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].casa;
+const { games } = contenido(lang);
+---
+<section class="hab" data-hab="cuarto" aria-labelledby="h-cuarto">
+  <div class="hab-escena" aria-hidden="true"></div>
+  <div class="hab-info">
+    <p class="mono kind">{x.cuarto[0]}</p>
+    <h2 id="h-cuarto">{x.cuarto[1]}</h2>
+    <p class="hab-nota">{x.cuarto[2]}</p>
+    <ul class="fichas fichas-juegos">
+      {games.map((g) => <Ficha item={g} lang={lang} ancho={240} eager />)}
+    </ul>
+  </div>
+</section>

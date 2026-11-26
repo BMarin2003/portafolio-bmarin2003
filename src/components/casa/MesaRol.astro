@@ -1,0 +1,20 @@
+---
+import Ficha from './Ficha.astro';
+import { manuales } from '../../data/site';
+import { t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].casa;
+---
+<section class="hab" data-hab="mesa" aria-labelledby="h-mesa">
+  <div class="hab-escena" aria-hidden="true"></div>
+  <div class="hab-info">
+    <p class="mono kind">{x.mesa[0]}</p>
+    <h2 id="h-mesa">{x.mesa[1]}</h2>
+    <p class="hab-nota">{x.mesa[2]}</p>
+    <ul class="fichas fichas-manuales">
+      {manuales.map((m) => <Ficha item={m} lang={lang} />)}
+    </ul>
+  </div>
+</section>

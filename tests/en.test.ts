@@ -178,9 +178,9 @@ describe('/en/casa', () => {
     expect(casa.documentElement.getAttribute('lang')).toBe('en');
     expect(text(casa.querySelector('h1'))).toBe('The house, after 6');
     expect(text(casa.querySelector('a[href="/en/"]'))).toBe('← back to the site');
-    expect([...casa.querySelectorAll('nav[aria-label="Objects in the house"] button')].map(text)).toEqual(['PC', 'TV', 'Speaker', 'RPG table', 'Shelf']);
-    expect(casa.querySelectorAll('aside section[data-panel]').length).toBe(5);
-    expect(text(casa.querySelector('[data-panel="mesa"] h2'))).toBe('D&D, then Cyberpunk RED');
+    expect([...casa.querySelectorAll('section.hab h2')].map(text)).toEqual(['Games', 'What I watch', 'Role-playing']);
+    expect(casa.querySelector('a[aria-label="RimWorld via Steam"]')).not.toBeNull();
+    expect(text(casa.body)).toContain('I play and run D&D and Cyberpunk RED, online.');
     expect(casaHtml).toContain('Django Unchained');
     expect(findPlaceholders(casaHtml)).toEqual([]);
   });

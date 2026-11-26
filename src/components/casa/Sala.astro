@@ -1,0 +1,35 @@
+---
+import Ficha from './Ficha.astro';
+import { bands } from '../../data/site';
+import { contenido, t, type Lang } from '../../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'es' } = Astro.props;
+const x = t[lang].casa;
+const { screens } = contenido(lang);
+---
+<section class="hab" data-hab="sala" aria-labelledby="h-sala">
+  <div class="hab-escena" aria-hidden="true"></div>
+  <div class="hab-info">
+    <p class="mono kind">{x.sala[0]}</p>
+    <h2 id="h-sala">{x.sala[1]}</h2>
+    <ul class="fichas fichas-posters">
+      {screens.map((s) => <Ficha item={s} lang={lang} ancho={120} />)}
+    </ul>
+
+    <div class="parlante" data-speaker>
+      <p class="mono kind">{x.parlante[0]}</p>
+      <h3>{x.parlante[1]}</h3>
+      <div aria-live="polite">
+        <div class="parlante-vivo" data-live hidden>
+          <img data-live-cover alt="" hidden width="64" height="64" />
+          <span data-live-text></span>
+        </div>
+      </div>
+      <p class="hab-nota parlante-nota">{x.parlante[2]}</p>
+      <ul class="fichas fichas-bandas" data-rotate>
+        {bands.map((b, i) => <Ficha item={b} lang={lang} ancho={96} oculto={i > 0} />)}
+      </ul>
+    </div>
+  </div>
+</section>
