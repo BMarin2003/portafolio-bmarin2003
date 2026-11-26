@@ -1,5 +1,5 @@
-import { comoTrabajo, corall, games, oficios, screens } from './data/site';
-import { comoTrabajoEn, corallEn, oficiosEn, screensEn } from './data/site.en';
+import { comoTrabajo, corall, esteSitio, games, oficios, screens } from './data/site';
+import { comoTrabajoEn, corallEn, esteSitioEn, oficiosEn, screensEn } from './data/site.en';
 import type { Lang } from './lib/casa/textos';
 
 export type { Lang };
@@ -15,8 +15,8 @@ export const otraRuta = (pathname: string): { lang: Lang; path: string } =>
 
 export const contenido = (lang: Lang) =>
   lang === 'en'
-    ? { corall: corallEn, oficios: oficiosEn, comoTrabajo: comoTrabajoEn, screens: screensEn, games }
-    : { corall, oficios, comoTrabajo, screens, games };
+    ? { corall: corallEn, esteSitio: esteSitioEn, oficios: oficiosEn, comoTrabajo: comoTrabajoEn, screens: screensEn, games }
+    : { corall, esteSitio, oficios, comoTrabajo, screens, games };
 
 export const t = {
   es: {
@@ -25,45 +25,45 @@ export const t = {
     ogLocale: 'es_PE',
     ogAlt: 'Bryan Marin y su cuadrilla pixel art trabajando en la obra',
     pro: {
-      title: 'Bryan Marin · ingeniero de sistemas en Trujillo',
-      description: 'Ingeniero de sistemas junior en CorAll D&R, en Trujillo. Construyo sistemas de punta a punta, junto a Claude; después de las 6, rol, juegos y música.',
+      title: 'Bryan Marin · ingeniero de sistemas junior, Perú',
+      description: 'Ingeniero de sistemas junior en CorAll D&R (Trujillo, Perú). Sistemas web con React, Bun/Elysia y PostgreSQL: un ERP, plataformas de gestión y un portal de clientes.',
       navAria: 'Principal',
-      nav: { proyectos: 'proyectos', oficios: 'áreas', ia: 'cómo trabajo', casa: 'la casa →' },
-      heroTag: 'INGENIERO DE SISTEMAS JUNIOR · CORALL D&R · TRUJILLO',
-      h1: 'Construyo sistemas de punta a punta, junto a Claude.',
-      lede: 'Método, backend, diseño, infraestructura, pruebas y documentación: seis áreas que crecen con cada proyecto.',
-      verObra: 'Ver la obra',
-      conocer: 'conocer la cuadrilla',
-      proyectosKicker: '01 · PROYECTOS EN LOS QUE FORMÉ PARTE',
-      proyectosH2: 'La obra en CorAll D&R',
+      nav: { proyectos: 'proyectos', oficios: 'stack', ia: 'cómo trabajo', casa: 'la casa →' },
+      heroTag: 'INGENIERO DE SISTEMAS JUNIOR · CORALL D&R · TRUJILLO, PERÚ',
+      h1: 'Desarrollo sistemas web de punta a punta.',
+      lede: 'Un ERP, plataformas de gestión y un portal de clientes, con React, Bun/Elysia y PostgreSQL.',
+      verObra: 'Ver proyectos',
+      conocer: 'ver stack',
+      proyectosKicker: '01 · EXPERIENCIA',
+      proyectosH2: 'Proyectos en CorAll D&R',
       reto: 'El reto:',
-      proyectosLede: 'Desde que llegué a CorAll, en orden: lo que hice en cada obra y con quién.',
+      proyectosLede: 'Cinco proyectos desde febrero de 2026: rol, stack, equipo y reto de cada uno.',
       detalle: 'qué hice y con quién',
-      commits: 'commits',
-      oficiosKicker: '02 · LA CUADRILLA',
-      oficiosH2: 'Seis áreas, una sola obra',
-      oficiosLede: 'Cada área junta las herramientas que he usado en trabajo real. Las etiquetas crecen con la obra.',
+      commits: 'commits míos',
+      oficiosKicker: '02 · STACK',
+      oficiosH2: 'Herramientas por área',
+      oficiosLede: 'Herramientas que he usado en trabajo real, agrupadas por área.',
       iaKicker: '03 · CÓMO TRABAJO',
-      iaH2: 'Con IA, sin dejar de aprender',
+      iaH2: 'Proceso de trabajo con IA',
       ciclo: {
         pasos: [
-          { titulo: 'Entender', frase: 'Antes de escribir código: qué se necesita, para quién y con qué datos reales.', prueba: 'En el hero: la referencia fue runkiri.com', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'archivista' },
-          { titulo: 'Decidir', frase: 'Bocetos para comparar y un diseño escrito que apruebo antes de construir.', prueba: 'En el hero: 2 bocetos, elegí la mezcla y aprobé el diseño', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'capataz' },
-          { titulo: 'Construir junto a Claude', frase: 'Un plan por tareas chicas, cada una con sus tests escritos antes del código.', prueba: 'En el hero: plan de 4 tareas', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md', sprite: 'maestro' },
-          { titulo: 'Revisar', frase: 'Revisión de cada tarea y de todo el cambio, medición y verificación en vivo.', prueba: 'En el hero: 184 tests en cada deploy', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/actions', sprite: 'doble' },
+          { titulo: 'Entender', frase: 'Antes de escribir código: qué se necesita, para quién y con qué datos reales.', prueba: 'Portada del sitio: la referencia fue runkiri.com', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'archivista' },
+          { titulo: 'Decidir', frase: 'Bocetos para comparar y un diseño escrito que apruebo antes de construir.', prueba: 'Portada del sitio: 2 bocetos, elegí la mezcla y aprobé el diseño', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'capataz' },
+          { titulo: 'Construir junto a Claude', frase: 'Un plan por tareas chicas, cada una con sus tests escritos antes del código.', prueba: 'Portada del sitio: plan de 4 tareas', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md', sprite: 'maestro' },
+          { titulo: 'Revisar', frase: 'Code review por tarea y del cambio completo; mido y verifico en vivo.', prueba: 'Este sitio: los tests corren en cada deploy', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/actions', sprite: 'doble' },
         ],
         cierre: 'El diseño y el plan de cada parte de este sitio están en su repositorio: ',
         cierreEnlace: 'ver el proceso en GitHub →',
         cierreHref: 'https://github.com/BMarin2003/portafolio-bmarin2003/tree/main/docs/superpowers',
       },
       puertaKicker: 'DESPUÉS DE LAS 6',
-      puertaH2: 'La obra cierra. La casa se enciende.',
+      puertaH2: 'Fuera del trabajo',
       puertaP: 'Rol, juegos, series y lo que suena ahora en Spotify.',
       puertaCta: 'entrar a la casa →',
       areas: {
-        enLaObra: 'En la obra:',
-        numero: 'El número es en cuántos proyectos la usé.',
-        sinProyectos: 'Herramientas de trabajo diario; todavía sin un proyecto de CorAll asociado en el recorrido.',
+        enLaObra: 'En proyectos:',
+        numero: 'El número: en cuántos proyectos (de CorAll y este sitio) la usé.',
+        sinProyectos: 'Herramientas de uso diario; no forman parte del stack de los proyectos listados.',
       },
     },
     casa: {
@@ -89,45 +89,45 @@ export const t = {
     ogLocale: 'en_US',
     ogAlt: 'Bryan Marin and his pixel-art crew at work on the site',
     pro: {
-      title: 'Bryan Marin · systems engineer in Trujillo, Peru',
-      description: 'Junior systems engineer at CorAll D&R in Trujillo, Peru. I build systems end to end, alongside Claude; after 6, role-playing, games and music.',
+      title: 'Bryan Marin · junior systems engineer, Peru',
+      description: 'Junior systems engineer at CorAll D&R (Trujillo, Peru). Web systems with React, Bun/Elysia and PostgreSQL: an ERP, management platforms and a customer portal.',
       navAria: 'Main',
-      nav: { proyectos: 'projects', oficios: 'areas', ia: 'how I work', casa: 'the house →' },
-      heroTag: 'JUNIOR SYSTEMS ENGINEER · CORALL D&R · TRUJILLO',
-      h1: 'I build systems end to end, alongside Claude.',
-      lede: 'Method, backend, design, infrastructure, testing and documentation: six areas that grow with every project.',
-      verObra: 'See the work',
-      conocer: 'meet the crew',
-      proyectosKicker: '01 · PROJECTS I HAVE BEEN PART OF',
-      proyectosH2: 'The work at CorAll D&R',
+      nav: { proyectos: 'projects', oficios: 'stack', ia: 'how I work', casa: 'the house →' },
+      heroTag: 'JUNIOR SYSTEMS ENGINEER · CORALL D&R · TRUJILLO, PERU',
+      h1: 'I build web systems end to end.',
+      lede: 'An ERP, management platforms and a customer portal, built with React, Bun/Elysia and PostgreSQL.',
+      verObra: 'See projects',
+      conocer: 'see the stack',
+      proyectosKicker: '01 · EXPERIENCE',
+      proyectosH2: 'Projects at CorAll D&R',
       reto: 'The challenge:',
-      proyectosLede: 'Since I joined CorAll, in order: what I did on each project and with whom.',
+      proyectosLede: 'Five projects since February 2026: role, stack, team and challenge for each.',
       detalle: 'what I did and with whom',
-      commits: 'commits',
-      oficiosKicker: '02 · THE CREW',
-      oficiosH2: 'Six areas, one build',
-      oficiosLede: 'Each area gathers the tools I have used in real work. The tags grow as the work grows.',
+      commits: 'of my commits',
+      oficiosKicker: '02 · STACK',
+      oficiosH2: 'Tools by area',
+      oficiosLede: 'Tools I have used in real work, grouped by area.',
       iaKicker: '03 · HOW I WORK',
-      iaH2: 'With AI, and still learning',
+      iaH2: 'My AI-assisted process',
       ciclo: {
         pasos: [
-          { titulo: 'Understand', frase: 'Before writing code: what is needed, for whom and with what real data.', prueba: 'In the hero: the reference was runkiri.com', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'archivista' },
-          { titulo: 'Decide', frase: 'Sketches to compare and a written design I approve before building.', prueba: 'In the hero: 2 sketches, I picked the mix and approved the design', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'capataz' },
-          { titulo: 'Build alongside Claude', frase: 'A plan of small tasks, each with its tests written before the code.', prueba: 'In the hero: a 4-task plan', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md', sprite: 'maestro' },
-          { titulo: 'Review', frase: 'A review of each task and of the whole change, measurement and live verification.', prueba: 'In the hero: 184 tests on every deploy', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/actions', sprite: 'doble' },
+          { titulo: 'Understand', frase: 'Before writing code: what is needed, for whom and with what real data.', prueba: 'Site header: the reference was runkiri.com', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'archivista' },
+          { titulo: 'Decide', frase: 'Sketches to compare and a written design I approve before building.', prueba: 'Site header: 2 sketches, I picked the mix and approved the design', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md', sprite: 'capataz' },
+          { titulo: 'Build alongside Claude', frase: 'A plan of small tasks, each with its tests written before the code.', prueba: 'Site header: a 4-task plan', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md', sprite: 'maestro' },
+          { titulo: 'Review', frase: 'Code review per task and of the whole change; I measure and verify live.', prueba: 'This site: tests run on every deploy', href: 'https://github.com/BMarin2003/portafolio-bmarin2003/actions', sprite: 'doble' },
         ],
         cierre: 'The design and plan of every part of this site are in its repository: ',
         cierreEnlace: 'see the process on GitHub →',
         cierreHref: 'https://github.com/BMarin2003/portafolio-bmarin2003/tree/main/docs/superpowers',
       },
       puertaKicker: 'AFTER 6',
-      puertaH2: 'The site closes. The house lights up.',
+      puertaH2: 'Outside work',
       puertaP: 'Role-playing, games, shows and what is playing on Spotify right now.',
       puertaCta: 'enter the house →',
       areas: {
         enLaObra: 'Used on:',
-        numero: 'The number is how many projects I used it on.',
-        sinProyectos: 'Everyday tools; not yet tied to a CorAll project on the timeline.',
+        numero: 'The number: how many projects (CorAll and this site) I used it on.',
+        sinProyectos: 'Everyday tools; not part of the stack of the projects listed.',
       },
     },
     casa: {

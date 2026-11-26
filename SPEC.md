@@ -27,7 +27,7 @@ Ambos deben conocerlo en lo profesional y en lo personal; ninguno de los dos lad
 - **Cada monigote es un área de trabajo de Bryan, sin nombre propio.** La cuadrilla no tiene oficios ni personajes: cada monigote se presenta solo por su área (planificación, backend, frontend, infraestructura, calidad, documentación), las áreas que Bryan trabaja apoyado en Claude con skills y conocimiento. Ningún monigote lleva el nombre de una herramienta ni de una marca.
 - **Material real, siempre.** Nada inventado: ni cifras, ni descripciones, ni personas. Lo que Bryan no ha dado no se publica.
 - **Bryan decide qué proyectos aparecen.** No se lista ninguno sin su confirmación. Quedan fuera Agrotrack (inconcluso y dependía de hardware ajeno), los proyectos de Calradia (primero tienen que existir como paper) y KenshiCoop (no es suyo).
-- **Lo de CorAll se cuenta, no se expone.** Ni código, ni repos, ni capturas internas. De cada proyecto va qué hizo Bryan y con quién. Las personas se nombran solo como "mis estimados compañeros …, supervisores … y gerentes …", con enlace a su portafolio si tienen uno.
+- **Lo de CorAll se cuenta, no se expone.** Ni código, ni repos, ni capturas internas. De cada proyecto va qué hizo Bryan y con quién. Las personas se nombran solo como "Equipo: compañeros …; supervisores …; gerentes …", con enlace a su portafolio si tienen uno.
 - **Claude, dicho abiertamente.** Bryan trabaja junto a Claude y el sitio lo dice, junto a cómo aprende usándolo. Claude no es un integrante de la cuadrilla.
 - **El arte ajeno lleva crédito.** Las portadas de juegos y los pósters de series y películas son de terceros: cada uno lleva su crédito y enlaza a su página oficial.
 

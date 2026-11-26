@@ -5,9 +5,9 @@ import Index from '../src/pages/index.astro';
 import IndexEn from '../src/pages/en/index.astro';
 import CasaEn from '../src/pages/en/casa.astro';
 import { corall, oficios, screens } from '../src/data/site';
-import { corallEn, oficiosEn, screensEn } from '../src/data/site.en';
+import { corallEn, esteSitioEn, oficiosEn, screensEn } from '../src/data/site.en';
 import { href, otraRuta } from '../src/i18n';
-import { opening, peopleGroups, separator } from '../src/lib/text';
+import { groupSeparator, opening, peopleGroups, separator } from '../src/lib/text';
 import { cronologico, periodo } from '../src/lib/periodo';
 import { proyectosDe } from '../src/lib/uso';
 import { findPlaceholders } from '../scripts/check-placeholders.mjs';
@@ -68,7 +68,8 @@ describe('personas en inglés', () => {
     expect(separator(0, 2, 'en')).toBe(' and ');
     const g = peopleGroups({ companeros: [{ name: 'A' }], supervisores: [], gerentes: [{ name: 'B' }, { name: 'C' }] }, 'en');
     expect(g.map((x) => x.label)).toEqual(['teammate', 'managers']);
-    expect(opening(g, 'en')).toBe('With my esteemed');
+    expect(opening('en')).toBe('Team:');
+    expect(groupSeparator(0, 2)).toBe('; ');
   });
 });
 
@@ -80,26 +81,27 @@ describe('/en/', () => {
     expect(es.querySelector('link[rel="alternate"][hreflang="en"]')?.getAttribute('href')).toBe('https://example.com/en/');
   });
   it('muestra los proyectos y oficios en inglés', () => {
-    expect(text(en.querySelector('h1'))).toBe('I build systems end to end, alongside Claude.');
-    expect(text(en.querySelector('#proyectos > p.seccion-lede'))).toBe('Since I joined CorAll, in order: what I did on each project and with whom.');
+    expect(text(en.querySelector('h1'))).toBe('I build web systems end to end.');
+    expect(text(en.querySelector('#proyectos > p.seccion-lede'))).toBe('Five projects since February 2026: role, stack, team and challenge for each.');
     const articles = [...en.querySelectorAll('#proyectos article')];
-    const orden = cronologico(corallEn);
+    const orden = cronologico(corallEn).reverse();
     expect(articles.map((a) => text(a.querySelector('h3')))).toEqual(orden.map((p) => p.name));
     orden.forEach((p, i) => {
       const d = articles[i].querySelector('details');
       expect(text(d?.querySelector(':scope > summary'))).toBe('what I did and with whom');
       expect(text(articles[i].querySelector('.periodo'))).toBe(periodo(p.desde, p.hasta, 'en'));
-      expect(text(articles[i].querySelector('.commits'))).toBe(`${p.commits} commits`);
+      expect(text(articles[i].querySelector('.commits'))).toBe(`${p.commits} of my commits`);
       expect(text(articles[i].querySelector('.resumen'))).toBe(p.resumen);
       expect([...articles[i].querySelectorAll('.stack li')].map(text)).toEqual(p.stack);
       expect(text(d)).toContain(p.did);
-      expect(text(d)).toContain('With my esteemed');
+      expect(text(d)).toContain('Team: ');
+      expect(text(d)).not.toContain('esteemed');
       if (p.challenge) expect(text(d?.querySelector('[data-challenge]'))).toBe(`The challenge: ${p.challenge}`);
     });
     const maqinpro = articles.find((a) => text(a.querySelector('h3')) === 'MaqinPro');
     expect(text(maqinpro?.querySelector('.periodo'))).toBe('Aug 2026 – present');
     expect([...en.querySelectorAll('#oficios h3')].map(text)).toEqual(oficiosEn.map((o) => o.area));
-    expect(text(en.querySelector('#top h1'))).toBe('I build systems end to end, alongside Claude.');
+    expect(text(en.querySelector('#top h1'))).toBe('I build web systems end to end.');
     expect(enHtml).not.toMatch(/Foreman|Master builder|Stunt double|Archivist/);
   });
   it('la obra dice las áreas en inglés', () => {
@@ -133,7 +135,7 @@ describe('/en/ · areas', () => {
       const lis = [...paneles()[i].querySelectorAll('li')];
       expect(lis.map((li) => text(li.querySelector('.herr')))).toEqual(o.tags);
       o.tags.forEach((tag, j) => {
-        const usados = proyectosDe(tag, corallEn);
+        const usados = proyectosDe(tag, [...corallEn, esteSitioEn]);
         const n = lis[j].querySelector('.n');
         if (usados.length === 0) return expect(n, tag).toBeNull();
         expect(text(n), tag).toBe(String(usados.length));
@@ -142,8 +144,9 @@ describe('/en/ · areas', () => {
     });
   });
   it('Used on, everyday tools and the credential', () => {
-    expect(text(paneles()[1])).toContain('Used on: Totem Multimedia, Corall-ERP, MaqinPro, Comphill. The number is how many projects I used it on.');
-    expect(text(paneles()[5])).toContain('Everyday tools; not yet tied to a CorAll project on the timeline.');
+    expect(text(paneles()[1])).toContain('Used on: Totem Multimedia, Corall-ERP, MaqinPro, Comphill. The number: how many projects (CorAll and this site) I used it on.');
+    expect(text(paneles()[3])).toContain('Used on: This site.');
+    expect(text(paneles()[5])).toContain('Everyday tools; not part of the stack of the projects listed.');
     expect(text(paneles()[0])).toContain(oficiosEn[0].cert);
   });
 });
@@ -173,10 +176,10 @@ describe('datos del recorrido en inglés', () => {
 
 describe('/en/ · cycle of how I work', () => {
   const pasos: [string, string, string, string][] = [
-    ['Understand', 'Before writing code: what is needed, for whom and with what real data.', 'In the hero: the reference was runkiri.com', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
-    ['Decide', 'Sketches to compare and a written design I approve before building.', 'In the hero: 2 sketches, I picked the mix and approved the design', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
-    ['Build alongside Claude', 'A plan of small tasks, each with its tests written before the code.', 'In the hero: a 4-task plan', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md'],
-    ['Review', 'A review of each task and of the whole change, measurement and live verification.', 'In the hero: 184 tests on every deploy', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
+    ['Understand', 'Before writing code: what is needed, for whom and with what real data.', 'Site header: the reference was runkiri.com', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
+    ['Decide', 'Sketches to compare and a written design I approve before building.', 'Site header: 2 sketches, I picked the mix and approved the design', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
+    ['Build alongside Claude', 'A plan of small tasks, each with its tests written before the code.', 'Site header: a 4-task plan', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md'],
+    ['Review', 'Code review per task and of the whole change; I measure and verify live.', 'This site: tests run on every deploy', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
   ];
   it('tiene 4 pasos con su frase y su prueba enlazada', () => {
     const arts = [...en.querySelectorAll('#ia article')];

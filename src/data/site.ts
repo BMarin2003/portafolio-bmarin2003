@@ -20,9 +20,9 @@ export const corall: CorallProject[] = [
     resumen: 'Mi primer proyecto en CorAll: construí funcionalidades y presenté cada avance al cliente.',
     stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL'],
     sprite: 'maestro',
-    area: 'PRIMER PROYECTO',
-    did: 'Mi primer proyecto en CorAll, recién llegado al equipo. Mi labor fue la de desarrollador: construir las funcionalidades que se me asignaban y presentar cada avance al cliente, explicándole con claridad qué cambiaba y por qué. Fue la etapa en que aprendí el oficio dentro de un producto real, con revisión constante y entregas que otras personas iban a usar.',
-    challenge: 'adaptarme, recién llegado, a una forma de trabajar muy distinta a la de la universidad: nuevos frameworks y tecnologías, herramientas como Tailscale e Infisical, y aprender a usar bien la IA como herramienta de trabajo. Pasar de un flujo más manual y clásico a este fue mi primer gran aprendizaje en CorAll.',
+    area: 'DESARROLLADOR',
+    did: 'Mi rol fue de desarrollador: construir las funcionalidades asignadas y presentar cada avance al cliente, explicando qué cambiaba y por qué. Fue mi primer producto real, con revisión constante y entregas para usuarios finales.',
+    challenge: 'adaptarme a una forma de trabajar muy distinta a la de la universidad: frameworks y tecnologías nuevas, herramientas como Tailscale e Infisical y la IA bien usada como herramienta de trabajo.',
     people: {
       companeros: [p('Hugo Marquez'), p('Luis Mostacero')],
       supervisores: [p('Kevin Lora'), p('Cristian Ventura')],
@@ -37,7 +37,7 @@ export const corall: CorallProject[] = [
     resumen: 'Diseñé un par de interfaces de la extranet de un sistema de arbitrajes.',
     stack: ['React', 'Ant Design'],
     sprite: 'decorador',
-    area: 'APORTE PUNTUAL',
+    area: 'DISEÑO DE UI',
     did: 'Sistema de gestión de arbitrajes para una cámara de comercio: solicitudes, partes involucradas, pagos, documentos y el seguimiento de cada trámite. Mi aporte fue acotado y puntual: el diseño de un par de interfaces de su extranet.',
     people: { companeros: [], supervisores: [p('Cristian Ventura')], gerentes },
   },
@@ -45,11 +45,11 @@ export const corall: CorallProject[] = [
     name: 'MaqinPro',
     desde: '2026-08',
     commits: 1493,
-    resumen: 'La plataforma de un taller de maquinaria y el portal de sus clientes. A mitad de camino quedó a mi cargo.',
+    resumen: 'Plataforma de un taller de maquinaria y portal de sus clientes; a mi cargo desde la mitad del proyecto.',
     stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL', 'Drizzle', 'Playwright'],
     sprite: 'capataz',
     area: 'PLATAFORMA · A MI CARGO',
-    did: 'Plataforma de gestión para Maqinpro, empresa de maquinaria industrial y profesional: un panel interno para su taller y un portal desde el que sus clientes siguen sus equipos, aprueban cotizaciones y consultan sus documentos. Fue el proyecto con más personas involucradas y, a mitad de camino, quedó bajo mi responsabilidad. Desde entonces lo llevo adelante, con el apoyo de Luis Hume en el portal del cliente.',
+    did: 'Plataforma de gestión para Maqinpro, empresa de maquinaria industrial y profesional: un panel interno para su taller y un portal donde sus clientes siguen sus equipos, aprueban cotizaciones y consultan documentos. Es el proyecto con más personas involucradas; desde la mitad del proyecto es mi responsabilidad, con el apoyo de Luis Hume en el portal del cliente.',
     challenge: 'entender a fondo cómo trabaja el taller y encontrar el equilibrio entre lo que les resulta cómodo y lo que es más eficiente. En el portal, por ejemplo, el cliente entra desde el celular escaneando el QR de su ticket, muchas veces de pie y con una mano. En vez de mostrarle cada etapa interna del taller, que solo lo confundía, las agrupamos en «En proceso en el taller» y siempre le decimos qué sigue.',
     people: {
       companeros: [p('Luis Hume'), p('Adrian Cisneros', 'https://acisneros-portfolio.vercel.app/es'), p('Alfredo Guzman'), p('Angelmauricio Oncoy')],
@@ -78,8 +78,8 @@ export const corall: CorallProject[] = [
     stack: ['React', 'Ant Design', 'Bun', 'Elysia', 'PostgreSQL', 'Drizzle'],
     sprite: 'archivista',
     area: 'ERP INTERNO',
-    did: 'El sistema con el que CorAll automatiza y optimiza su propio trabajo, de marketing y finanzas a proyectos e inventario, reunido en una sola plataforma. Aquí el trabajo fue más allá del código: conversé con las personas de cada área para entender sus procesos antes de convertirlos en módulos. Empecé bajo la supervisión de Cristian Ventura y continué con Luis Mostacero tras su ascenso; con la llegada del nuevo equipo de practicantes, el desarrollo ganó un ritmo notable.',
-    challenge: 'el área contable, donde había poca experiencia: las detracciones, el marco legal que aplica y qué pagos y gastos corresponden a una PYME. Antes de convertirlo en módulos hubo que aprender esas reglas y comprender a fondo lo que cada área necesitaba, para plasmarlo correctamente en el sistema. Lo resolvimos investigando en equipo y consultando con nuestro supervisor, Cristian Ventura, y con quien entonces llevaba la contabilidad de CorAll.',
+    did: 'El sistema con el que CorAll gestiona su propio trabajo, de marketing y finanzas a proyectos e inventario. Antes de programar, conversé con las personas de cada área para levantar sus procesos y convertirlos en módulos. Empecé bajo la supervisión de Cristian Ventura y continué con Luis Mostacero.',
+    challenge: 'el área contable, con poca experiencia previa en el equipo: las detracciones, el marco legal aplicable y qué pagos y gastos corresponden a una PYME. Hubo que aprender esas reglas antes de modelarlas. Lo resolvimos investigando en equipo y consultando con nuestro supervisor, Cristian Ventura, y con quien entonces llevaba la contabilidad de CorAll.',
     people: {
       companeros: [p('Hugo Marquez'), p('Luis Hume'), p('Adrian Cisneros', 'https://acisneros-portfolio.vercel.app/es'), p('Alfredo Guzman'), p('Angelmauricio Oncoy')],
       supervisores: [p('Cristian Ventura'), p('Luis Mostacero')],
@@ -106,7 +106,10 @@ export const oficios: Oficio[] = [
   { sprite: 'archivista', area: 'Documentación y conocimiento', tags: ['Obsidian', 'Notion', 'Markdown'] },
 ];
 
-export const comoTrabajo = 'Claude es hoy una herramienta fundamental para cualquier desarrollador, y en mi trabajo la uso como tal. Pero mi función no cambia: soy ingeniero de software, y las herramientas están para hacer software. La IA escribe código rápido; lo que no hace por mí es entender qué necesita el taller de Maqinpro o cómo funcionan las detracciones de una PYME. Esa parte (preguntar, entender, decidir y revisar lo que se construye) sigue siendo el trabajo, y es donde más aprendo.';
+export const comoTrabajo = 'Uso Claude a diario como herramienta de trabajo. La IA escribe código rápido; lo que no hace por mí es entender qué necesita el taller de Maqinpro o cómo funcionan las detracciones de una PYME. Esa parte (preguntar, entender, decidir y revisar) es mi trabajo.';
+
+/** Este sitio cuenta como un uso más en el stack: solo lo que este repo usa de verdad. */
+export const esteSitio = { name: 'Este sitio', desde: '2026-11', stack: ['Astro', 'Cloudflare', 'GitHub Actions', 'Vitest', 'Lighthouse'] };
 
 const steam = (title: string, id: number): Credit => ({
   title,

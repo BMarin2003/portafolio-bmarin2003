@@ -3,7 +3,7 @@ import { Window } from 'happy-dom';
 import { beforeAll, describe, expect, it } from 'vitest';
 import Index from '../src/pages/index.astro';
 import Casa from '../src/pages/casa.astro';
-import { comoTrabajo, corall, oficios } from '../src/data/site';
+import { comoTrabajo, corall, esteSitio, oficios } from '../src/data/site';
 import { cronologico, periodo } from '../src/lib/periodo';
 import { proyectosDe } from '../src/lib/uso';
 
@@ -28,15 +28,16 @@ beforeAll(async () => {
 });
 
 describe('/ · proyectos', () => {
-  const orden = cronologico(corall);
+  const orden = cronologico(corall).reverse();
   const articles = () => [...index.querySelectorAll('#proyectos article')];
   it('lleva la entradilla de la sección', () => {
-    expect(text(index.querySelector('#proyectos > p.seccion-lede'))).toBe('Desde que llegué a CorAll, en orden: lo que hice en cada obra y con quién.');
+    expect(text(index.querySelector('#proyectos > p.seccion-lede'))).toBe('Cinco proyectos desde febrero de 2026: rol, stack, equipo y reto de cada uno.');
   });
-  it('un article por proyecto, en orden cronológico', () => {
+  it('un article por proyecto, el más reciente primero', () => {
     const names = [...index.querySelectorAll('#proyectos .recorrido article.hito h3')].map(text);
     expect(names).toEqual(orden.map((p) => p.name));
-    expect(names[0]).toBe('Totem Multimedia');
+    expect(names[0]).toBe('Comphill');
+    expect(names.at(-1)).toBe('Totem Multimedia');
   });
   it('cada proyecto lleva el sprite de su oficio', () => {
     orden.forEach((p, i) => {
@@ -49,7 +50,7 @@ describe('/ · proyectos', () => {
       const a = articles()[i];
       const t = text(a) ?? '';
       expect(text(a.querySelector('.periodo')), p.name).toBe(periodo(p.desde, p.hasta, 'es'));
-      expect(text(a.querySelector('.commits')), p.name).toBe(`${p.commits} commits`);
+      expect(text(a.querySelector('.commits')), p.name).toBe(`${p.commits} commits míos`);
       expect(text(a.querySelector('.resumen')), p.name).toBe(p.resumen);
       expect(t).toContain(p.area);
       expect([...a.querySelectorAll('.stack li')].map(text)).toEqual(p.stack);
@@ -61,7 +62,8 @@ describe('/ · proyectos', () => {
       expect(text(d?.querySelector(':scope > summary')), p.name).toBe('qué hice y con quién');
       const t = text(d) ?? '';
       expect(t).toContain(p.did);
-      expect(t).toMatch(/Con mis? estimados? /);
+      expect(t).toMatch(/Equipo: /);
+      expect(t).not.toMatch(/estimad/);
       if (p.challenge) expect(d?.querySelector('[data-challenge]')).not.toBeNull();
     });
   });
@@ -108,7 +110,7 @@ describe('/ · áreas', () => {
       const lis = [...paneles()[i].querySelectorAll('li')];
       expect(lis.map((li) => text(li.querySelector('.herr')))).toEqual(o.tags);
       o.tags.forEach((tag, j) => {
-        const usados = proyectosDe(tag, corall);
+        const usados = proyectosDe(tag, [...corall, esteSitio]);
         const n = lis[j].querySelector('.n');
         if (usados.length === 0) return expect(n, tag).toBeNull();
         expect(text(n), tag).toBe(String(usados.length));
@@ -118,10 +120,12 @@ describe('/ · áreas', () => {
     });
     expect(text(paneles()[1].querySelector('li .n'))).toBe('4');
   });
-  it('En la obra', () => {
-    expect(text(paneles()[1])).toContain('En la obra: Totem Multimedia, Corall-ERP, MaqinPro, Comphill. El número es en cuántos proyectos la usé.');
-    expect(text(paneles()[5])).toContain('Herramientas de trabajo diario; todavía sin un proyecto de CorAll asociado en el recorrido.');
-    expect(text(paneles()[5])).not.toContain('En la obra');
+  it('En proyectos', () => {
+    expect(text(paneles()[1])).toContain('En proyectos: Totem Multimedia, Corall-ERP, MaqinPro, Comphill. El número: en cuántos proyectos (de CorAll y este sitio) la usé.');
+    expect(text(paneles()[3])).toContain('En proyectos: Este sitio.');
+    expect(text(paneles()[4])).toContain('En proyectos: MaqinPro, Este sitio.');
+    expect(text(paneles()[5])).toContain('Herramientas de uso diario; no forman parte del stack de los proyectos listados.');
+    expect(text(paneles()[5])).not.toContain('En proyectos');
   });
   it('las etiquetas son herramientas, no prácticas', () => {
     const calidad = oficios.find((o) => o.sprite === 'doble')!;
@@ -138,14 +142,14 @@ describe('/ · áreas', () => {
 describe('/ · cómo trabajo', () => {
   it('tiene el título y el texto de comoTrabajo', () => {
     const ia = index.querySelector('#ia');
-    expect(text(ia?.querySelector('h2'))).toBe('Con IA, sin dejar de aprender');
+    expect(text(ia?.querySelector('h2'))).toBe('Proceso de trabajo con IA');
     expect(text(ia)).toContain(comoTrabajo.replace(/\s+/g, ' ').trim());
   });
 });
 
 describe('/ · página', () => {
-  it('el título del hero habla de punta a punta, junto a Claude', () => {
-    expect(text(index.querySelector('#top h1'))).toBe('Construyo sistemas de punta a punta, junto a Claude.');
+  it('el título del hero dice qué construye, de punta a punta', () => {
+    expect(text(index.querySelector('#top h1'))).toBe('Desarrollo sistemas web de punta a punta.');
   });
   it('los monigotes de la obra son botones con su área', () => {
     const nombres = [...index.querySelectorAll('#top [data-obra] button.quien')].map((b) => b.getAttribute('aria-label'));
@@ -208,10 +212,10 @@ describe('/casa', () => {
 
 describe('/ · ciclo de cómo trabajo', () => {
   const pasos: [string, string, string, string][] = [
-    ['Entender', 'Antes de escribir código: qué se necesita, para quién y con qué datos reales.', 'En el hero: la referencia fue runkiri.com', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
-    ['Decidir', 'Bocetos para comparar y un diseño escrito que apruebo antes de construir.', 'En el hero: 2 bocetos, elegí la mezcla y aprobé el diseño', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
-    ['Construir junto a Claude', 'Un plan por tareas chicas, cada una con sus tests escritos antes del código.', 'En el hero: plan de 4 tareas', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md'],
-    ['Revisar', 'Revisión de cada tarea y de todo el cambio, medición y verificación en vivo.', 'En el hero: 184 tests en cada deploy', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
+    ['Entender', 'Antes de escribir código: qué se necesita, para quién y con qué datos reales.', 'Portada del sitio: la referencia fue runkiri.com', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
+    ['Decidir', 'Bocetos para comparar y un diseño escrito que apruebo antes de construir.', 'Portada del sitio: 2 bocetos, elegí la mezcla y aprobé el diseño', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/specs/2026-11-23-hero-obra-viva-design.md'],
+    ['Construir junto a Claude', 'Un plan por tareas chicas, cada una con sus tests escritos antes del código.', 'Portada del sitio: plan de 4 tareas', 'https://github.com/BMarin2003/portafolio-bmarin2003/blob/main/docs/superpowers/plans/2026-11-23-hero-obra-viva.md'],
+    ['Revisar', 'Code review por tarea y del cambio completo; mido y verifico en vivo.', 'Este sitio: los tests corren en cada deploy', 'https://github.com/BMarin2003/portafolio-bmarin2003/actions'],
   ];
   it('tiene 4 pasos con su frase y su prueba enlazada', () => {
     const arts = [...index.querySelectorAll('#ia article')];

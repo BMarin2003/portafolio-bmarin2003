@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { opening, peopleGroups, separator } from '../src/lib/text';
+import { groupSeparator, opening, peopleGroups, separator } from '../src/lib/text';
 
 describe('separator', () => {
   it('une una lista con comas y "y" final', () => {
@@ -37,8 +37,11 @@ describe('concordancia', () => {
     expect(labels).toEqual(['compañero', 'supervisores', 'gerente']);
   });
 
-  it('abre en singular o plural según el primer grupo', () => {
-    expect(opening(peopleGroups({ companeros: [], supervisores: [a], gerentes: [a, b] }))).toBe('Con mi estimado');
-    expect(opening(peopleGroups({ companeros: [a, b], supervisores: [a], gerentes: [] }))).toBe('Con mis estimados');
+  it('abre con «Equipo:» / «Team:» y separa los grupos con punto y coma', () => {
+    expect(opening()).toBe('Equipo:');
+    expect(opening('en')).toBe('Team:');
+    expect(groupSeparator(0, 3)).toBe('; ');
+    expect(groupSeparator(1, 3)).toBe('; ');
+    expect(groupSeparator(2, 3)).toBe('');
   });
 });

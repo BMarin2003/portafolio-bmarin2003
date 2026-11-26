@@ -21,7 +21,7 @@ describe('People', () => {
       props: { people: { companeros: [{ name: 'Ana', url: 'https://a.dev' }, { name: 'Luis' }], supervisores: [], gerentes: [{ name: 'Rosa' }] } },
     });
     const doc = parse(html);
-    expect(doc.body.textContent?.replace(/\s+/g, ' ').trim()).toBe('Con mis estimados compañeros Ana y Luis y gerente Rosa.');
+    expect(doc.body.textContent?.replace(/\s+/g, ' ').trim()).toBe('Equipo: compañeros Ana y Luis; gerente Rosa.');
     expect(doc.querySelectorAll('a').length).toBe(1);
     expect(doc.querySelector('a')?.getAttribute('href')).toBe('https://a.dev');
   });

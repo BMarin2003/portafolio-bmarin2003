@@ -30,12 +30,12 @@ La sección de áreas ocupa unos 2.800 px para unas 90 palabras y no conecta con
 
 ## Diseño
 
-- **Uso por herramienta:** una herramienta cuenta para un proyecto si alguna de sus partes (`'Bun / Elysia'` → Bun, Elysia) está en el `stack` del proyecto. Los proyectos van en orden cronológico.
+- **Uso por herramienta:** una herramienta cuenta para un proyecto si alguna de sus partes (`'Bun / Elysia'` → Bun, Elysia) está en el `stack` del proyecto. Los proyectos van en orden cronológico y «Este sitio» (pseudo-fuente con Astro, Cloudflare, GitHub Actions, Vitest y Lighthouse) cuenta como un uso más, al final.
 - **Panel sin proyectos asociados:** dice que son herramientas de trabajo diario y que todavía no tienen un proyecto de CorAll asociado en el recorrido.
 - **Pestaña abierta al cargar:** la primera, Planificación y método.
 - **Celular (≤ 760 px):** las pestañas en dos filas de tres.
 - **Movimiento:** el monigote elegido usa su animación de trabajo y los demás reposan; con `prefers-reduced-motion`, quietos.
-- **Textos nuevos** (es / en): «En la obra:» / «Used on:»; «El número es en cuántos proyectos la usé.» / «The number is how many projects I used it on.»; «Herramientas de trabajo diario; todavía sin un proyecto de CorAll asociado en el recorrido.» / «Everyday tools; not yet tied to a CorAll project on the timeline.»
+- **Textos** (es / en): «En proyectos:» / «Used on:»; «El número: en cuántos proyectos (de CorAll y este sitio) la usé.» / «The number: how many projects (CorAll and this site) I used it on.»; «Herramientas de uso diario; no forman parte del stack de los proyectos listados.» / «Everyday tools; not part of the stack of the projects listed.»
 
 ## Queda a criterio de quien construye
 

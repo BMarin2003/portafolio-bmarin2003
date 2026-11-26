@@ -22,8 +22,8 @@ export function peopleGroups(p: People, lang: Lang = 'es'): Group[] {
     .map((g) => ({ label: g.people.length === 1 ? g.one : g.many, people: g.people }));
 }
 
-/** Apertura de la frase: en español concuerda en número con el primer grupo ("Con mi estimado supervisor…"); en inglés no cambia. */
-export function opening(groups: Group[], lang: Lang = 'es'): string {
-  if (lang === 'en') return 'With my esteemed';
-  return groups[0]?.people.length === 1 ? 'Con mi estimado' : 'Con mis estimados';
-}
+/** Apertura de la frase: «Equipo:» / «Team:». */
+export const opening = (lang: Lang = 'es'): string => (lang === 'en' ? 'Team:' : 'Equipo:');
+
+/** Separador entre grupos de la frase: punto y coma, y nada tras el último. */
+export const groupSeparator = (i: number, len: number): string => (i < len - 1 ? '; ' : '');

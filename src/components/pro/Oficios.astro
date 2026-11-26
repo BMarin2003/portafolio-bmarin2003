@@ -7,11 +7,12 @@ import '../../styles/areas.css';
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
-const { oficios, corall } = contenido(lang);
+const { oficios, corall, esteSitio } = contenido(lang);
+const fuentes = [...corall, esteSitio];
 const areas = oficios.map((o) => ({
   ...o,
-  herramientas: o.tags.map((tag) => ({ tag, usados: proyectosDe(tag, corall) })),
-  obra: proyectosDelArea(o.tags, corall),
+  herramientas: o.tags.map((tag) => ({ tag, usados: proyectosDe(tag, fuentes) })),
+  obra: proyectosDelArea(o.tags, fuentes),
 }));
 ---
 <section id="oficios" class="seccion" aria-labelledby="oficios-h">

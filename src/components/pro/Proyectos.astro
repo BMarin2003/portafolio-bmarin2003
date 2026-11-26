@@ -9,7 +9,7 @@ import '../../styles/proyectos.css';
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
-const proyectos = cronologico(contenido(lang).corall);
+const proyectos = cronologico(contenido(lang).corall).reverse(); // el más reciente primero
 ---
 <section id="proyectos" class="seccion" aria-labelledby="proyectos-h">
   <p class="mono kicker">{x.proyectosKicker}</p>

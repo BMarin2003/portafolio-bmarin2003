@@ -17,7 +17,7 @@ describe('oficios', () => {
     expect(texto).not.toMatch(/hallmark|ponytail|superpowers|safety|obsidian/i);
   });
   it('cada proyecto trae su area', () => {
-    expect(corall.map((p) => p.area)).toEqual(['PRIMER PROYECTO', 'APORTE PUNTUAL', 'PLATAFORMA · A MI CARGO', 'CIERRE DE PROYECTO', 'ERP INTERNO']);
+    expect(corall.map((p) => p.area)).toEqual(['DESARROLLADOR', 'DISEÑO DE UI', 'PLATAFORMA · A MI CARGO', 'CIERRE DE PROYECTO', 'ERP INTERNO']);
   });
   it('comoTrabajo es un texto no vacío', () => {
     expect(typeof comoTrabajo).toBe('string');
@@ -31,7 +31,7 @@ describe('proyectos: período, commits, resumen y stack', () => {
     'Totem Multimedia': ['2026-02', '2026-04', 259, base, 'Mi primer proyecto en CorAll: construí funcionalidades y presenté cada avance al cliente.'],
     CCAE: ['2026-03', '2026-03', 9, ['React', 'Ant Design'], 'Diseñé un par de interfaces de la extranet de un sistema de arbitrajes.'],
     'Corall-ERP': ['2026-04', undefined, 581, [...base, 'Drizzle'], 'El ERP con el que CorAll organiza su trabajo; levanté los procesos de cada área antes de convertirlos en módulos.'],
-    MaqinPro: ['2026-08', undefined, 1493, [...base, 'Drizzle', 'Playwright'], 'La plataforma de un taller de maquinaria y el portal de sus clientes. A mitad de camino quedó a mi cargo.'],
+    MaqinPro: ['2026-08', undefined, 1493, [...base, 'Drizzle', 'Playwright'], 'Plataforma de un taller de maquinaria y portal de sus clientes; a mi cargo desde la mitad del proyecto.'],
     Comphill: ['2026-09', '2026-10', 136, base, 'Con Luis Mostacero cerramos el sistema de operaciones de un mercado mayorista que había construido otra persona.'],
   };
   it('cada proyecto trae los valores de la spec', () => {

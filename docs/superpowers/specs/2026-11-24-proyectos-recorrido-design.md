@@ -8,7 +8,7 @@ Que quien pase por Proyectos en 10 segundos se quede con la información general
 
 ## Objetivos
 
-- Una línea de tiempo vertical, en orden cronológico, con las tarjetas a un lado y otro de la línea (en el celular, todas de un lado).
+- Una línea de tiempo vertical, del proyecto más reciente al más antiguo, con las tarjetas a un lado y otro de la línea (en el celular, todas de un lado).
 - A la vista, por proyecto: período, cantidad de commits de Bryan, rol (`area`), nombre, una frase de resumen, etiquetas de tecnología y el monigote de su oficio.
 - «Qué hice y con quién» (el texto de siempre, las personas y «El reto») se abre al tocar.
 - La sección se mueve: Bryan camina por la línea y cada proyecto entra al llegar a la pantalla.

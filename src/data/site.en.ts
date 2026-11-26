@@ -1,23 +1,23 @@
-import { corall, oficios, screens } from './site';
+import { corall, esteSitio, oficios, screens } from './site';
 import type { CorallProject, Credit, Oficio } from './site';
 
 /** El inglés reemplaza solo los textos; personas, oficios y enlaces salen de site.ts, así no se desfasan. */
 const proyectos: Record<string, Pick<CorallProject, 'area' | 'did' | 'challenge' | 'resumen'>> = {
   'Totem Multimedia': {
-    area: 'FIRST PROJECT',
+    area: 'DEVELOPER',
     resumen: "My first project at CorAll: I built features and presented each step forward to the client.",
-    did: 'My first project at CorAll, when I was new to the team. My role was developer: building the features assigned to me and presenting each step forward to the client, explaining clearly what changed and why. It was the stage where I learned the craft inside a real product, with constant review and deliveries that other people were going to use.',
-    challenge: 'adapting, as a newcomer, to a way of working very different from university: new frameworks and technologies, tools like Tailscale and Infisical, and learning to use AI well as a work tool. Moving from a more manual, classic workflow to this one was my first big lesson at CorAll.',
+    did: 'My role was developer: building the features assigned to me and presenting each step forward to the client, explaining what changed and why. It was my first real product, with constant review and deliveries for end users.',
+    challenge: 'adapting to a way of working very different from university: new frameworks and technologies, tools like Tailscale and Infisical, and using AI well as a work tool.',
   },
   CCAE: {
-    area: 'ONE-OFF CONTRIBUTION',
+    area: 'UI DESIGN',
     resumen: "I designed a couple of interfaces for the extranet of an arbitration management system.",
     did: 'An arbitration management system for a chamber of commerce: requests, parties involved, payments, documents and the follow-up of each case. My contribution was small and specific: the design of a couple of interfaces in its extranet.',
   },
   MaqinPro: {
-    area: 'PLATFORM · IN MY CHARGE',
-    resumen: "The platform for a machinery workshop and its customer portal. Halfway through, it became my responsibility.",
-    did: 'A management platform for Maqinpro, an industrial and professional machinery company: an internal panel for its workshop and a portal where its customers track their equipment, approve quotes and check their documents. It was the project with the most people involved and, halfway through, it became my responsibility. Since then I have been carrying it forward, with support from Luis Hume on the customer portal.',
+    area: 'PLATFORM · MY RESPONSIBILITY',
+    resumen: "Platform for a machinery workshop and its customer portal; my responsibility since mid-project.",
+    did: 'A management platform for Maqinpro, an industrial and professional machinery company: an internal panel for its workshop and a portal where its customers track equipment, approve quotes and check documents. It is the project with the most people involved; it has been my responsibility since mid-project, with support from Luis Hume on the customer portal.',
     challenge: 'understanding in depth how the workshop works and finding the balance between what is comfortable for them and what is most efficient. In the portal, for example, customers come in from their phones by scanning the QR code on their ticket, often standing up and with one hand. Instead of showing them every internal workshop stage, which only confused them, we grouped those stages into “In process at the workshop” and always tell them what comes next.',
   },
   Comphill: {
@@ -29,8 +29,8 @@ const proyectos: Record<string, Pick<CorallProject, 'area' | 'did' | 'challenge'
   'Corall-ERP': {
     area: 'INTERNAL ERP',
     resumen: "The ERP CorAll uses to organize its work; I gathered each area's processes before turning them into modules.",
-    did: 'The system CorAll uses to automate and streamline its own work, from marketing and finance to projects and inventory, in a single platform. Here the work went beyond code: I talked with the people in each area to understand their processes before turning them into modules. I started under the supervision of Cristian Ventura and continued with Luis Mostacero after Luis’s promotion; with the arrival of the new intern team, development picked up a remarkable pace.',
-    challenge: 'the accounting area, where there was little experience: detracciones (a Peruvian tax withholding system), the legal framework that applies, and which payments and expenses apply to a small business. Before turning it into modules we had to learn those rules and fully understand what each area needed, to capture it correctly in the system. We solved it by researching as a team and consulting our supervisor, Cristian Ventura, and the person who handled CorAll’s accounting at the time.',
+    did: 'The system CorAll uses to run its own work, from marketing and finance to projects and inventory. Before coding, I talked with the people in each area to map their processes and turn them into modules. I started under Cristian Ventura’s supervision and continued with Luis Mostacero.',
+    challenge: 'the accounting area, where the team had little prior experience: detracciones (a Peruvian tax withholding system), the applicable legal framework and which payments and expenses apply to a small business. We had to learn those rules before modeling them. We solved it by researching as a team and consulting our supervisor, Cristian Ventura, and the person who handled CorAll’s accounting at the time.',
   },
 };
 
@@ -54,4 +54,6 @@ export const oficiosEn: Oficio[] = oficios.map((o) => ({ ...o, ...oficiosTexto[o
 export const screensEn: Credit[] = screens.map((s) => ({ ...s, title: titulosEn[s.title] ?? s.title }));
 
 export const comoTrabajoEn =
-  'Claude is a fundamental tool for any developer today, and in my work I use it as one. But my role does not change: I am a software engineer, and tools are there to build software. AI writes code fast; what it does not do for me is understand what the Maqinpro workshop needs or how detracciones (a Peruvian tax withholding system) work for a small business. That part (asking, understanding, deciding and reviewing what gets built) is still the job, and it is where I learn the most.';
+  'I use Claude daily as a work tool. AI writes code fast; what it does not do for me is understand what the Maqinpro workshop needs or how detracciones (a Peruvian tax withholding system) work for a small business. That part (asking, understanding, deciding and reviewing) is my job.';
+
+export const esteSitioEn = { ...esteSitio, name: 'This site' };
