@@ -86,7 +86,7 @@ Fecha: 2026-11-26 · Rama: `feat/casa-recorrido` · Boceto: lienzo «Portafolio 
 - **Peso:**
   - Los originales se guardan a 600 px de ancho como máximo.
   - Astro genera solo los tamaños que se usan: tira del monitor y de la TV, unos 200 px; grilla, unos 240 px de ancho.
-- **Fotos de las bandas:** se obtienen una sola vez con la API de Spotify y las credenciales que el sitio ya tiene (endpoint de artista), y se guardan como las demás.
+- **Fotos de las bandas:** se toman una sola vez de la imagen pública (`og:image`) de la página de artista de cada banda en Spotify, sin usar credenciales, y se guardan como las demás.
 - **Sprites:** no hace falta dibujar ninguno nuevo. Alcanzan las animaciones que ya existen:
   - `sit` para Bryan sentado;
   - `walk` para el pasillo;
