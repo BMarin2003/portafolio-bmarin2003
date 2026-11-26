@@ -19,7 +19,7 @@ parent: portfolio
 
 - **Astro, no Next.js ni una SPA de Vite.** La página casi no cambia, así que no necesita React entero; Next.js además haría el sitio igual por dentro al de Adrian. Una SPA llega vacía a los buscadores y a las vistas previas de LinkedIn, que es justo por donde entran los reclutadores. Astro ya está en el stack de Bryan.
 - **Cloudflare Pages, no Vercel.** Bryan ya usa Cloudflare, el plan gratuito alcanza y Pages Functions resuelve Spotify sin otro servicio.
-- **Spotify directo, con rotación de respaldo.** Si la API falla o no suena nada, el parlante rota las bandas fijas; nunca queda vacío. Last.fm queda como plan B si la API de Spotify complica el acceso (sin confirmar).
+- **Spotify directo, con las bandas a la vista.** Si la API falla o no suena nada, el parlante muestra las 5 bandas fijas con su foto; nunca queda vacío. Last.fm queda como plan B si la API de Spotify complica el acceso (sin confirmar).
 - **CSS para animar los sprites, sin librerías.** En `/` son pocos movimientos (reposo, trabajar) y `steps()` los cubre sin peso extra.
 - **Español primero; el inglés solo reemplaza textos.** Las páginas son vistas con un `lang`, y el inglés toma de los datos en español todo lo que no es texto (personas, oficios, enlaces), así los dos idiomas no se desfasan. Los textos que usa el cliente de `/casa` (rótulos del reloj y del parlante) van aparte y chicos, porque viajan en el bundle; el cliente elige idioma por `<html lang>`.
 - **Portadas y pósters como archivos propios del sitio, optimizados al compilar.** Cargar las imágenes desde la CDN de Steam u otros sitios deja la página a merced de terceros. Decisión mía: Bryan puede cambiarla.
