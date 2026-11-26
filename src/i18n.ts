@@ -69,7 +69,7 @@ export const t = {
     casa: {
       title: 'La casa de Bryan',
       description: 'La casa de Bryan después de las 6: rol, juegos, series y lo que suena ahora en Spotify.',
-      ogAlt: 'La casa de Bryan de noche: la PC, la mesa de rol y la cuadrilla jugando',
+      ogAlt: 'La casa de Bryan de noche: su cuarto con la PC y los juegos que juega',
       volver: '← volver a la obra',
       h1: 'La casa, después de las 6',
       sub: 'Lo que juego, lo que veo y las partidas de rol.',
@@ -131,7 +131,7 @@ export const t = {
     casa: {
       title: 'Bryan’s house',
       description: 'Bryan’s house after 6: role-playing, games, shows and what is playing on Spotify right now.',
-      ogAlt: 'Bryan’s house at night: the PC, the role-playing table and the crew playing',
+      ogAlt: 'Bryan’s house at night: his room with the PC and the games he plays',
       volver: '← back to the site',
       h1: 'The house, after 6',
       sub: 'What I play, what I watch and the role-playing sessions.',
