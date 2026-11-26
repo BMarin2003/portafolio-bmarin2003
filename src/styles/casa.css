@@ -12,13 +12,22 @@
 .hab-info .kind { margin: 0 0 6px; color: var(--accent); }
 .hab-nota { margin: 0 0 14px; color: var(--text-2); font-size: 14px; }
 
-.fichas { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 14px; }
-.ficha { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
-.ficha img { display: block; height: auto; max-width: 100%; border-radius: 4px; }
-/* las portadas de Steam son anchas: dos por fila al lado de la escena */
-.fichas-juegos { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-.fichas-juegos img { width: 100%; }
-.ficha-titulo { padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 6px; font-size: 15px; }
+/* grillas compactas; cada lista usa una sola caja para todas sus fichas: con imagen, logo o solo título miden igual */
+.fichas { --cols: 3; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 14px 10px; }
+.fichas-juegos { --cols: 2; --caja: 460 / 215; }
+.fichas-posters { --caja: 2 / 3; }
+.fichas-bandas { --caja: 1; }
+.fichas-manuales { grid-template-columns: repeat(2, minmax(0, 130px)); --caja: 3 / 4; }
+@media (min-width: 600px) {
+  .fichas-juegos { --cols: 3; }
+  .fichas-posters, .fichas-bandas { --cols: 5; }
+}
+.ficha { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.ficha img, .ficha-titulo { display: block; width: 100%; height: auto; aspect-ratio: var(--caja); border-radius: 4px; background: #0b0e13; }
+.fichas-juegos img, .fichas-bandas img { object-fit: cover; }
+/* los logos de series van enteros dentro de la caja del póster */
+.fichas-posters img { object-fit: contain; }
+.ficha-titulo { display: flex; align-items: center; justify-content: center; padding: 8px; border: 1px solid var(--line-2); text-align: center; font-size: 14px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
 
 .parlante { margin-top: 28px; }
 .parlante h3 { margin: 0 0 10px; font-size: 20px; }
@@ -28,15 +37,15 @@
 
 /* en ancho, la escena a la izquierda y quieta mientras se lee su contenido; la mesa va a todo el ancho */
 @media (min-width: 1000px) {
-  .hab:not([data-hab="mesa"]) { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: start; }
+  .hab:not([data-hab="mesa"]) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
   .hab:not([data-hab="mesa"]) .hab-escena { position: sticky; top: 24px; margin-bottom: 0; }
 }
 
 /* cada escena se dibuja en una caja fija (--dw × --dh) y se escala al ancho con transform: los sprites
-   quedan nítidos (pixelated) y nada empuja el ancho de la página. La mesa no baja de la mitad: se recorta al centro */
+   quedan nítidos (pixelated) y nada empuja el ancho de la página. La mesa no baja de 0.62: se recorta al centro, donde está todo lo que cuenta */
 .hab[data-hab="cuarto"] { --dw: 660px; --dh: 300px; }
 .hab[data-hab="sala"] { --dw: 440px; --dh: 300px; }
-.hab[data-hab="mesa"] { --dw: 960px; --dh: 280px; --kmin: 0.5; }
+.hab[data-hab="mesa"] { --dw: 960px; --dh: 280px; --kmin: 0.62; }
 .e-marco { --k: 0.45; position: relative; height: calc(var(--dh) * var(--k) + 8px); overflow: hidden; background: #262c36; border: 4px solid var(--line-2); }
 @supports (width: calc(1px * tan(atan2(1px, 1px)))) {
   .e-marco { --k: max(var(--kmin, 0), tan(atan2(100cqw - 8px, var(--dw)))); }
@@ -91,34 +100,37 @@
 .e-planta::after { content: ""; position: absolute; bottom: 20px; left: -8px; width: 40px; height: 60px; background: #3f5b45; border-radius: 50% 50% 40% 40%; }
 
 /* mesa de rol */
-.e-mapa-pared { left: 30px; top: 60px; width: 130px; height: 90px; border: 4px solid #6b5844; background: linear-gradient(135deg, transparent 45%, #8a6f44 45% 48%, transparent 48%), radial-gradient(circle at 70% 40%, #7a9b6a 0 14px, transparent 15px), #c9b48a; }
-.e-pantalla { left: 190px; top: 34px; width: 400px; height: 170px; display: grid; grid-template-columns: 240px 1fr; background: #11151b; border: 6px solid #1b212b; box-shadow: 0 0 50px #7fb2ff1a; }
+.e-mapa-pared { left: 73px; top: 60px; width: 130px; height: 90px; border: 4px solid #6b5844; background: linear-gradient(135deg, transparent 45%, #8a6f44 45% 48%, transparent 48%), radial-gradient(circle at 70% 40%, #7a9b6a 0 14px, transparent 15px), #c9b48a; }
+.e-pantalla { left: 243px; top: 34px; width: 370px; height: 170px; display: grid; grid-template-columns: 222px 1fr; background: #11151b; border: 6px solid #1b212b; box-shadow: 0 0 50px #7fb2ff1a; }
 .e-mapa { position: relative; display: block; background: #2b3a2e; background-image: linear-gradient(#0003 1px, transparent 1px), linear-gradient(90deg, #0003 1px, transparent 1px); background-size: 20px 20px; }
 .e-token { position: absolute; width: 14px; height: 14px; border-radius: 50%; border: 2px solid #11151b; }
 .llamada { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: #0e1218; }
 .e-cuadro { position: relative; display: block; overflow: hidden; background: #1e2530; border-radius: 3px; }
-.e-cuadro:first-child { box-shadow: inset 0 0 0 2px #7fd9a5; }
+/* quien habla: un aro encima del cuadro que se prende y apaga (solo opacity); quieta, habla el primero */
+.e-cuadro::after { content: ""; position: absolute; inset: 0; border-radius: 3px; box-shadow: inset 0 0 0 2px #7fd9a5; opacity: 0; }
+.e-cuadro:first-child::after { opacity: 1; }
 .e-cuadro .spr { position: absolute; left: 50%; bottom: -4px; margin-left: -16px; }
 .e-mesa { left: 170px; top: 222px; width: 620px; height: 10px; background: #6b5844; }
 /* la pantalla de DM y la hoja de personaje se turnan; quieta, se ve la pantalla */
-.e-biombo { left: 520px; top: 192px; width: 78px; height: 32px; background: #7a2e2e; clip-path: polygon(0 100%, 8% 0, 34% 12%, 66% 0, 92% 12%, 100% 100%); }
-.e-hoja-pj { left: 540px; top: 194px; width: 40px; height: 30px; opacity: 0; background: #e6e3dd; box-shadow: inset 0 6px 0 #d9a55b, inset 0 -18px 0 -14px #8f97a3; }
-.e-d20 { left: 610px; top: 202px; width: 18px; height: 18px; background: var(--accent); clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%); }
-.e-estante { left: 670px; top: 60px; width: 96px; height: 110px; background: #1f242d; border: 4px solid #4a3b2e; border-top: 0; }
+.e-biombo { left: 513px; top: 192px; width: 78px; height: 32px; background: #7a2e2e; clip-path: polygon(0 100%, 8% 0, 34% 12%, 66% 0, 92% 12%, 100% 100%); }
+.e-hoja-pj { left: 533px; top: 194px; width: 40px; height: 30px; opacity: 0; background: #e6e3dd; box-shadow: inset 0 6px 0 #d9a55b, inset 0 -18px 0 -14px #8f97a3; }
+.e-d20 { left: 603px; top: 202px; width: 18px; height: 18px; background: var(--accent); clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 70%, 0 30%); }
+.e-estante { left: 627px; top: 60px; width: 90px; height: 110px; background: #1f242d; border: 4px solid #4a3b2e; border-top: 0; }
 .e-estante i { position: absolute; bottom: 4px; width: 12px; }
 .e-estante .e-manual { width: 18px; box-shadow: inset 0 8px 0 #0004, inset 0 -10px 0 #0004; }
 
 /* pasillo: Bryan baja de una habitación a la siguiente; quieto, ya llegó al otro lado */
 .pasillo { position: relative; max-width: 1100px; height: 72px; margin: 16px auto; border-left: 4px dashed var(--line-2); }
 .pasillo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--line-2); }
-.e-caminante { position: absolute; bottom: 4px; left: calc(100% - 32px); line-height: 0; }
+.pasillo { container-type: inline-size; }
+.e-caminante { position: absolute; bottom: 4px; left: 0; line-height: 0; transform: translateX(calc(100cqw - 32px)); }
 
 @keyframes casa-tira { to { transform: translateX(calc(var(--items) * -100%)); } }
-@keyframes casa-rgb { 0%, 100% { background: #7fb2ff; } 33% { background: #d97fb2; } 66% { background: #7fd9a5; } }
+@keyframes casa-rgb { to { filter: hue-rotate(1turn); } }
 @keyframes casa-gira { to { transform: rotate(1turn); } }
 @keyframes casa-nota { 0% { opacity: 0; transform: translate(0, 0); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(14px, -46px); } }
 @keyframes casa-mueve { to { transform: translate(60px, -20px); } }
-@keyframes casa-habla { 0%, 24.9% { box-shadow: inset 0 0 0 2px #7fd9a5; } 25%, 100% { box-shadow: none; } }
+@keyframes casa-habla { 0%, 24.9% { opacity: 1; } 25%, 100% { opacity: 0; } }
 @keyframes casa-turno { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
 @keyframes casa-rueda { 0% { transform: translateX(0) rotate(0); } 80%, 100% { transform: translateX(40px) rotate(1turn); } }
 @media (prefers-reduced-motion: no-preference) {
@@ -127,10 +139,10 @@
   .e-disco { animation: casa-gira 1.8s linear infinite; }
   .e-nota { animation: casa-nota 2.4s linear infinite; }
   .e-mueve { animation: casa-mueve 6s steps(3) infinite alternate; }
-  .e-cuadro { animation: casa-habla 8s steps(1) infinite; }
-  .e-cuadro:nth-child(2) { animation-delay: -6s; }
-  .e-cuadro:nth-child(3) { animation-delay: -4s; }
-  .e-cuadro:nth-child(4) { animation-delay: -2s; }
+  .e-cuadro::after { animation: casa-habla 8s steps(1) infinite; }
+  .e-cuadro:nth-child(2)::after { animation-delay: -6s; }
+  .e-cuadro:nth-child(3)::after { animation-delay: -4s; }
+  .e-cuadro:nth-child(4)::after { animation-delay: -2s; }
   .e-biombo, .e-hoja-pj { animation: casa-turno 10s steps(1) infinite; }
   .e-hoja-pj { animation-delay: -5s; }
   .e-d20 { animation: casa-rueda 2s steps(4) infinite; }
@@ -141,7 +153,7 @@
 /* ligado al scroll; sin soporte o con movimiento reducido, todo encendido y Bryan quieto al final del pasillo.
    Solo longhands: el minificador mete animation-timeline en el shorthand `animation` y Chrome lo descarta entero */
 @keyframes casa-enciende { from { filter: brightness(0.55); } }
-@keyframes casa-cruza { from { left: 0; } }
+@keyframes casa-cruza { from { transform: translateX(0); } }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .hab-escena { animation-name: casa-enciende; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
