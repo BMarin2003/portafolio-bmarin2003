@@ -34,7 +34,7 @@ const otra = otraRuta(Astro.url.pathname);
       <p class="mono casa-parlante" data-speaker>
         <span aria-hidden="true">♪ </span>
         <span data-rotate>
-          {bands.map((b, i) => <span hidden={i > 0}>{b}</span>)}
+          {bands.map((b, i) => <span hidden={i > 0}>{b.title}</span>)}
         </span>
         <span data-live hidden></span>
       </p>

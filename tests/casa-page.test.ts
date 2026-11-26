@@ -49,7 +49,7 @@ describe('/casa accesible', () => {
     const t = text(casa.body)!;
     expect(t).toContain('D&D');
     expect(t).toContain('Cyberpunk RED');
-    bands.forEach((b) => expect(t).toContain(b));
+    bands.forEach((b) => expect(t).toContain(b.title));
     expect(t).toContain('Leo sobre historia');
   });
   it('vuelve a la obra, tiene reloj y botón de adelantar', () => {

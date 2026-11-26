@@ -33,7 +33,7 @@ const lista: { id: 'pc' | 'tv'; kicker: string; titulo: string; items: Credit[] 
     <h2 tabindex="-1">{x.parlante[1]}</h2>
     <p class="casa-nota">{x.parlanteNota}</p>
     <ul class="casa-lista">
-      {bands.map((b) => <li><span class="casa-item">{b}</span></li>)}
+      {bands.map((b) => <li><span class="casa-item">{b.title}</span></li>)}
     </ul>
   </section>
   <section class="casa-seccion" data-panel="mesa">

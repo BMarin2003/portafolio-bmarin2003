@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { comoTrabajo, corall, oficios } from '../src/data/site';
+import { bands, comoTrabajo, corall, games, manuales, oficios, screens } from '../src/data/site';
 import { cronologico } from '../src/lib/periodo';
 import { spriteMeta } from '../src/lib/sprite-meta';
 
@@ -42,5 +42,26 @@ describe('proyectos: período, commits, resumen y stack', () => {
   });
   it('el orden cronológico', () => {
     expect(cronologico(corall).map((p) => p.name)).toEqual(['Totem Multimedia', 'CCAE', 'Corall-ERP', 'MaqinPro', 'Comphill']);
+  });
+});
+
+describe('casa: portadas', () => {
+  // Sin imagen, con el OK de Bryan: tarjeta con solo el título.
+  const sinPortada = ['The Walking Dead', 'Game of Thrones'];
+  it('cada juego, título y banda trae su portada', () => {
+    for (const c of [...games, ...screens, ...bands]) {
+      if (sinPortada.includes(c.title)) continue;
+      expect(c.cover?.src, c.title).toBeTruthy();
+    }
+  });
+  it('las dos sin portada siguen en la lista', () => {
+    const titulos = screens.map((s) => s.title);
+    for (const t of sinPortada) expect(titulos).toContain(t);
+  });
+  it('bandas y manuales', () => {
+    expect(bands.map((b) => b.title)).toEqual(['Enjambre', 'Los Bunkers', 'Rio', 'Enanitos Verdes', 'Jamiroquai']);
+    bands.forEach((b) => expect(b.sourceUrl).toMatch(/^https:\/\/open\.spotify\.com\/artist\//));
+    expect(manuales).toHaveLength(2);
+    manuales.forEach((m) => expect(m.sourceUrl).toMatch(/^https:\/\//));
   });
 });

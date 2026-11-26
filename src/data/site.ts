@@ -1,4 +1,25 @@
 import type { ImageMetadata } from 'astro';
+import rimworld from '../assets/casa/rimworld.jpg';
+import warband from '../assets/casa/mount-blade-warband.jpg';
+import ck2 from '../assets/casa/crusader-kings-ii.jpg';
+import ck3 from '../assets/casa/crusader-kings-iii.jpg';
+import zomboid from '../assets/casa/project-zomboid.jpg';
+import fallout4 from '../assets/casa/fallout-4.jpg';
+import falloutNv from '../assets/casa/fallout-new-vegas.jpg';
+import django from '../assets/casa/django-sin-cadenas.jpg';
+import batman from '../assets/casa/the-batman.jpg';
+import superman from '../assets/casa/superman-2025.jpg';
+import anillos from '../assets/casa/el-senor-de-los-anillos.jpg';
+import narnia from '../assets/casa/las-cronicas-de-narnia.jpg';
+import andor from '../assets/casa/andor.png';
+import vinland from '../assets/casa/vinland-saga.png';
+import spd from '../assets/casa/power-rangers-spd.png';
+import brooklyn from '../assets/casa/brooklyn-nine-nine.png';
+import enjambre from '../assets/casa/enjambre.jpg';
+import bunkers from '../assets/casa/los-bunkers.jpg';
+import rio from '../assets/casa/rio.jpg';
+import enanitos from '../assets/casa/enanitos-verdes.jpg';
+import jamiroquai from '../assets/casa/jamiroquai.jpg';
 
 export type Person = { name: string; url?: string };
 export type People = { companeros: Person[]; supervisores: Person[]; gerentes: Person[] };
@@ -111,43 +132,63 @@ export const comoTrabajo = 'Uso Claude a diario como herramienta de trabajo. La 
 /** Este sitio cuenta como un uso más en el stack: solo lo que este repo usa de verdad. */
 export const esteSitio = { name: 'Este sitio', desde: '2026-11', stack: ['Astro', 'Cloudflare', 'GitHub Actions', 'Vitest', 'Lighthouse'] };
 
-const steam = (title: string, id: number): Credit => ({
+const steam = (title: string, id: number, cover: ImageMetadata): Credit => ({
   title,
+  cover,
   source: 'Steam',
   sourceUrl: `https://store.steampowered.com/app/${id}/`,
 });
 
 export const games: Credit[] = [
-  steam('RimWorld', 294100),
-  steam('Mount & Blade: Warband', 48700),
-  steam('Crusader Kings II', 203770),
-  steam('Crusader Kings III', 1158310),
-  steam('Project Zomboid', 108600),
-  steam('Fallout 4', 377160),
-  steam('Fallout: New Vegas', 22380),
+  steam('RimWorld', 294100, rimworld),
+  steam('Mount & Blade: Warband', 48700, warband),
+  steam('Crusader Kings II', 203770, ck2),
+  steam('Crusader Kings III', 1158310, ck3),
+  steam('Project Zomboid', 108600, zomboid),
+  steam('Fallout 4', 377160, fallout4),
+  steam('Fallout: New Vegas', 22380, falloutNv),
 ];
 
-const imdb = (title: string, url: string): Credit => ({ title, source: 'IMDb', sourceUrl: url });
-const imdbTitle = (title: string, id: string) => imdb(title, `https://www.imdb.com/title/${id}/`);
+const imdb = (title: string, url: string, cover?: ImageMetadata): Credit => ({ title, ...(cover && { cover }), source: 'IMDb', sourceUrl: url });
+const imdbTitle = (title: string, id: string, cover?: ImageMetadata) => imdb(title, `https://www.imdb.com/title/${id}/`, cover);
 // Las trilogías no tienen una página de título propia: enlazan a la búsqueda.
-const imdbSearch = (title: string, query = title) =>
-  imdb(title, `https://www.imdb.com/find/?q=${encodeURIComponent(query)}&s=tt`);
+const imdbSearch = (title: string, query: string, cover: ImageMetadata) =>
+  imdb(title, `https://www.imdb.com/find/?q=${encodeURIComponent(query)}&s=tt`, cover);
 
 export const screens: Credit[] = [
-  imdbTitle('Django sin cadenas', 'tt1853728'),
-  imdbTitle('The Batman', 'tt1877830'),
-  imdbTitle('Superman (2025)', 'tt5950044'),
-  imdbSearch('El Señor de los Anillos (trilogía)', 'The Lord of the Rings'),
-  imdbSearch('Las Crónicas de Narnia (trilogía)', 'The Chronicles of Narnia'),
-  imdbTitle('Andor', 'tt9253284'),
-  imdbTitle('Vinland Saga', 'tt10233448'),
-  imdbTitle('Power Rangers SPD', 'tt0414762'),
+  imdbTitle('Django sin cadenas', 'tt1853728', django),
+  imdbTitle('The Batman', 'tt1877830', batman),
+  imdbTitle('Superman (2025)', 'tt5950044', superman),
+  imdbSearch('El Señor de los Anillos (trilogía)', 'The Lord of the Rings', anillos),
+  imdbSearch('Las Crónicas de Narnia (trilogía)', 'The Chronicles of Narnia', narnia),
+  imdbTitle('Andor', 'tt9253284', andor),
+  imdbTitle('Vinland Saga', 'tt10233448', vinland),
+  imdbTitle('Power Rangers SPD', 'tt0414762', spd),
   imdbTitle('The Walking Dead', 'tt1520211'),
   imdbTitle('Game of Thrones', 'tt0944947'),
-  imdbTitle('Brooklyn Nine-Nine', 'tt2467372'),
+  imdbTitle('Brooklyn Nine-Nine', 'tt2467372', brooklyn),
 ];
 
-export const bands: string[] = ['Enjambre', 'Los Bunkers', 'Rio', 'Enanitos Verdes', 'Jamiroquai'];
+const spotify = (title: string, id: string, cover: ImageMetadata): Credit => ({
+  title,
+  cover,
+  source: 'Spotify',
+  sourceUrl: `https://open.spotify.com/artist/${id}`,
+});
+
+export const bands: Credit[] = [
+  spotify('Enjambre', '1ZdhAl62G6ZlEKqIwUAfZR', enjambre),
+  spotify('Los Bunkers', '3RTAXX6KGdljBsOIupyZgT', bunkers),
+  spotify('Rio', '1Y08JdtP0X185Yk0tjjc2E', rio),
+  spotify('Enanitos Verdes', '4TK1gDgb7QKoPFlzRrBRgR', enanitos),
+  spotify('Jamiroquai', '6J7biCazzYhU3gM9j1wfid', jamiroquai),
+];
+
+// Sin portada: tarjeta con solo el título.
+export const manuales: Credit[] = [
+  { title: 'Dungeons & Dragons', source: 'Wizards of the Coast', sourceUrl: 'https://dnd.wizards.com/' },
+  { title: 'Cyberpunk RED', source: 'R. Talsorian Games', sourceUrl: 'https://rtalsorian.com/cyberpunk-red/' },
+];
 
 export const rol: string[] = ['D&D', 'Cyberpunk RED'];
 
