@@ -121,6 +121,28 @@ describe('/en/', () => {
   });
 });
 
+describe('/en/ · the door', () => {
+  const band = () => en.querySelector('section.puerta-band');
+  it('the band has its h2 and one link to the house, named', () => {
+    const h2 = band()?.querySelector('h2');
+    expect(text(h2)).toBe('Outside work');
+    expect(band()?.getAttribute('aria-labelledby')).toBe(h2?.id);
+    expect(text(band()?.querySelector('.puerta-kicker'))).toBe('AFTER 6');
+    const links = [...(band()?.querySelectorAll('a') ?? [])];
+    expect(links.length).toBe(1);
+    expect(links[0].getAttribute('href')).toBe('/en/casa');
+    const c = links[0].cloneNode(true) as Element;
+    c.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.remove());
+    expect(links[0].getAttribute('aria-label') ?? text(c)).toBe('enter the house');
+    expect(text(links[0])).toContain('enter the house →');
+  });
+  it('sky, stars, crew and house are decorative', () => {
+    for (const sel of ['.puerta-noche', '.puerta-estrellas', '.puerta-suelo', '.puerta-casa', '.puerta-llega', '.puerta-sale']) {
+      expect(band()?.querySelector(sel)?.getAttribute('aria-hidden'), sel).toBe('true');
+    }
+  });
+});
+
 describe('/en/ · areas', () => {
   const paneles = () => [...en.querySelectorAll('#oficios .panel-area')];
   it('six native tabs labelled with their area, the first one chosen', () => {

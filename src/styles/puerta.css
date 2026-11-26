@@ -1,0 +1,83 @@
+/* La puerta a la casa al final de /. Por qué y cómo: docs/superpowers/specs/2026-11-25-puerta-atardecer-design.md */
+
+/* lo que se ve sin animar es la noche: la cuadrilla ya se fue, Bryan en la puerta, luces prendidas */
+.puerta-band { position: relative; overflow: clip; padding-bottom: 96px; border-top: 1px solid var(--line); background: #2f3d52; color: var(--text); }
+.puerta-noche { position: absolute; inset: 0; background: #0b1022; }
+.puerta-estrellas { position: absolute; inset: 0 0 96px; background-image: radial-gradient(var(--muted) 1px, transparent 1.5px), radial-gradient(var(--muted) 1px, transparent 1.5px); background-size: 120px 90px, 170px 130px; background-position: 10px 20px, 60px 50px;
+  /* sin estrellas detrás del texto (arriba a la izquierda): se leían como tildes */
+  mask-image: linear-gradient(90deg, transparent max(512px, 50% - 88px), #000 0), linear-gradient(transparent 250px, #000 0); }
+.puerta-suelo { position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: #1b212b; border-top: 4px solid var(--line-2); }
+
+.puerta-in { position: relative; z-index: 1; display: grid; min-height: 444px; }
+.puerta-text, .puerta-escena { grid-area: 1 / 1; }
+.puerta-text { align-self: start; max-width: 460px; padding-top: 72px; display: flex; flex-direction: column; gap: 14px; }
+.puerta-text p, .puerta-text h2 { margin: 0; }
+.puerta-kicker { font-size: 12px; color: var(--accent); }
+.puerta-text h2 { font-size: clamp(30px, 6.5vw, 44px); line-height: 1.1; font-weight: 800; letter-spacing: -1px; }
+.puerta-text p:last-child { font-size: 17px; line-height: 1.6; color: var(--text-2); }
+
+/* la escena se apoya en el suelo; todo se mide desde la casa, a la derecha */
+.puerta-escena {
+  --casa-r: 0px; --casa-w: 300px; --casa-h: 230px;
+  --door-x: 114px; --door-w: 72px; --door-h: 128px;
+  --llega-r: calc(var(--casa-r) + var(--casa-w) - var(--door-x) + 6px);
+  --camino: 300px; --sale: 420px;
+  --pasos: 6;
+  align-self: end; position: relative; height: 320px;
+}
+.puerta-sale, .puerta-llega { position: absolute; bottom: 0; line-height: 0; }
+.puerta-sale { right: calc(var(--llega-r) + var(--camino) + 72px + var(--i) * 70px); opacity: 0; transform: translateX(calc(-1 * var(--sale))) scaleX(-1); }
+.puerta-llega { z-index: 1; right: var(--llega-r); }
+
+.puerta-casa { position: absolute; right: var(--casa-r); bottom: 0; width: var(--casa-w); height: var(--casa-h); background: var(--line); border: 4px solid var(--line-2); border-bottom: 0; }
+.puerta-casa::before { content: ""; position: absolute; left: -24px; right: -24px; top: -70px; height: 70px; background: var(--line-2); clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+.puerta-ventana { position: absolute; top: 22px; left: 24px; width: 56px; height: 40px; background: #1b212b; border: 3px solid var(--line-2); }
+.puerta-ventana + .puerta-ventana { left: auto; right: 24px; }
+.puerta-ventana::after { content: ""; position: absolute; inset: 0; background: #f2d49b; opacity: 0.85; }
+
+/* la puerta es el enlace: se abre con el cursor o el foco y deja ver la casa de noche */
+.puerta-door { position: absolute; z-index: 2; bottom: 0; right: calc(var(--casa-r) + var(--casa-w) - var(--door-x) - var(--door-w)); width: var(--door-w); height: var(--door-h); perspective: 400px; color: var(--accent); text-decoration: none; }
+.puerta-door:focus-visible { outline-offset: 6px; }
+.puerta-adentro { position: absolute; inset: 0; background: #0b1022 url(/casa-estatica.png) 38% 70% / auto 340% no-repeat; image-rendering: pixelated; border: 3px solid #5a4a3a; }
+.puerta-hoja { position: absolute; inset: 0; background: #6b5844; box-shadow: inset 0 -6px 0 #4a3b2e, inset -6px 0 0 #5a4a3a; transform-origin: 0 50%; transition: transform 0.45s steps(6); }
+.puerta-hoja::after { content: ""; position: absolute; right: 10px; top: 62px; width: 8px; height: 8px; background: var(--accent); }
+.puerta-door:is(:hover, :focus-visible) .puerta-hoja { transform: rotateY(-78deg); }
+.puerta-cta { position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translateX(-50%); padding: 4px 8px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line-2); font-size: 12px; font-weight: 500; line-height: 1.4; white-space: nowrap; }
+
+@media (max-width: 860px) {
+  .puerta-in { min-height: 0; grid-template-rows: auto auto; }
+  .puerta-text { padding-top: 56px; }
+  .puerta-escena { grid-area: 2 / 1; margin-top: 24px; --casa-r: 12px; --casa-w: 220px; --door-x: 78px; --door-w: 64px; --door-h: 116px; --camino: 220px; --sale: 200px; --pasos: 4; }
+  .puerta-sale { right: auto; left: calc(16px + var(--i) * 64px); }
+  .puerta-estrellas { mask-image: linear-gradient(90deg, transparent 520px, #000 0), linear-gradient(transparent 250px, #000 0); }
+  .puerta-ventana { left: 16px; width: 44px; }
+  .puerta-ventana + .puerta-ventana { right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .puerta-hoja { transition: none; }
+}
+
+/* el atardecer va con el scroll de la franja; sin soporte o con movimiento reducido queda la noche quieta.
+   Solo longhands: el minificador mete animation-timeline en el shorthand `animation` y Chrome lo descarta entero */
+@keyframes puerta-anochece { 0%, 25% { opacity: 0; } }
+@keyframes puerta-aparece { from { opacity: 0; } }
+@keyframes puerta-sale { from { opacity: 1; transform: translateX(0) scaleX(-1); } 60% { opacity: 1; } }
+@keyframes puerta-llega { from { transform: translateX(calc(-1 * var(--camino))); } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* el cielo cambia mientras la franja entra; la cuadrilla y Bryan, en los últimos px, cuando el suelo ya se ve */
+    .puerta-band { view-timeline-name: --puerta; view-timeline-axis: block; }
+    .puerta-noche, .puerta-estrellas, .puerta-ventana::after, .puerta-sale, .puerta-llega, .puerta-sale .spr, .puerta-llega .spr { animation-fill-mode: both; animation-timeline: --puerta; }
+    .puerta-noche, .puerta-estrellas, .puerta-ventana::after, .puerta-sale, .puerta-llega { animation-timing-function: linear; }
+    .puerta-noche { animation-name: puerta-anochece; animation-range: entry 0% contain 0%; }
+    .puerta-estrellas { animation-name: puerta-aparece; animation-range: entry 50% contain 0%; }
+    .puerta-ventana::after { animation-name: puerta-aparece; animation-range: entry calc(100% - 70px) entry calc(100% - 50px); }
+    .puerta-sale { animation-name: puerta-sale; animation-range: entry calc(100% - 170px) contain 0%; }
+    .puerta-llega { animation-name: puerta-llega; animation-range: entry calc(100% - 150px) entry calc(100% - 20px); }
+    /* las piernas solo se mueven mientras el monigote camina, y al ritmo del scroll */
+    .puerta-sale .spr, .puerta-llega .spr { animation-name: spr-play; animation-timing-function: steps(var(--n)); animation-fill-mode: none; }
+    .puerta-sale .spr { animation-iteration-count: calc(var(--pasos) * 2); animation-range: entry calc(100% - 170px) contain 0%; }
+    .puerta-llega .spr { animation-iteration-count: var(--pasos); animation-range: entry calc(100% - 150px) entry calc(100% - 20px); }
+  }
+}

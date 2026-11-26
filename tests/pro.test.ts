@@ -193,6 +193,47 @@ describe('/ · página', () => {
   });
 });
 
+// nombre accesible: aria-label o el texto que no está oculto al lector
+const nombre = (el: Element | null | undefined) => {
+  if (!el) return undefined;
+  const label = el.getAttribute('aria-label');
+  if (label) return label.trim();
+  const c = el.cloneNode(true) as Element;
+  c.querySelectorAll('[aria-hidden="true"]').forEach((n) => n.remove());
+  return text(c);
+};
+
+describe('/ · la puerta', () => {
+  const band = () => index.querySelector('section.puerta-band');
+  it('la franja tiene su h2 y la nombra', () => {
+    const h2 = band()?.querySelector('h2');
+    expect(text(h2)).toBe('Fuera del trabajo');
+    expect(band()?.getAttribute('aria-labelledby')).toBe(h2?.id);
+    expect(text(band()?.querySelector('.puerta-kicker'))).toBe('DESPUÉS DE LAS 6');
+    expect(text(band())).toContain('Rol, juegos, series y lo que suena ahora en Spotify.');
+  });
+  it('un solo enlace, a la casa, con su nombre', () => {
+    const links = [...(band()?.querySelectorAll('a') ?? [])];
+    expect(links.length).toBe(1);
+    expect(links[0].getAttribute('href')).toBe('/casa');
+    expect(nombre(links[0])).toBe('entrar a la casa');
+    expect(text(links[0])).toContain('entrar a la casa →');
+    expect(links[0].contains(band()!.querySelector('h2'))).toBe(false);
+  });
+  it('cielo, estrellas, suelo, monigotes y casa son decorativos', () => {
+    for (const sel of ['.puerta-noche', '.puerta-estrellas', '.puerta-suelo', '.puerta-casa', '.puerta-llega']) {
+      expect(band()?.querySelector(sel)?.getAttribute('aria-hidden'), sel).toBe('true');
+    }
+    const salen = [...(band()?.querySelectorAll('.puerta-sale') ?? [])];
+    expect(salen.length).toBe(2);
+    for (const s of salen) expect(s.getAttribute('aria-hidden')).toBe('true');
+    const urls = [...(band()?.querySelectorAll('.spr') ?? [])].map((s) => s.getAttribute('style') ?? '');
+    for (const n of ['bryan', 'capataz', 'maestro']) expect(urls.some((u) => u.includes(`url(/sprites/${n}.png)`)), n).toBe(true);
+    // lo oculto al lector no puede tener el enlace dentro
+    for (const h of band()?.querySelectorAll('[aria-hidden="true"]') ?? []) expect(h.querySelector('a')).toBeNull();
+  });
+});
+
 describe('/casa', () => {
   it('tiene el h1 de noche y el parlante', () => {
     expect(text(casa.querySelector('h1'))).toBe('La casa, después de las 6');

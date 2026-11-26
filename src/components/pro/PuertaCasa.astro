@@ -1,22 +1,37 @@
 ---
 import Sprite from '../Sprite.astro';
 import { href, t, type Lang } from '../../i18n';
+import '../../styles/puerta.css';
 
 interface Props { lang?: Lang }
 const { lang = 'es' } = Astro.props;
 const x = t[lang].pro;
+// la flecha se ve pero no se lee: el enlace se llama «entrar a la casa»
+const nombre = x.puertaCta.replace(/\s*→$/, '');
 ---
 <section class="puerta-band" aria-labelledby="casa-h">
-  <a href={href(lang, '/casa')} class="wrap puerta">
+  <div class="puerta-noche" aria-hidden="true"></div>
+  <div class="puerta-estrellas" aria-hidden="true"></div>
+  <div class="puerta-suelo" aria-hidden="true"></div>
+  <div class="wrap puerta-in">
     <div class="puerta-text">
       <p class="mono puerta-kicker">{x.puertaKicker}</p>
       <h2 id="casa-h">{x.puertaH2}</h2>
       <p>{x.puertaP}</p>
     </div>
     <div class="puerta-escena">
-      <span class="paseo" aria-hidden="true"><Sprite name="bryan" anim="walk" scale={4} /></span>
-      <span class="puerta-door" aria-hidden="true"><span class="puerta-pomo"></span></span>
-      <span class="mono puerta-cta">{x.puertaCta}</span>
+      <span class="puerta-sale" aria-hidden="true" style="--i:0"><Sprite name="capataz" anim="walk" scale={4} paused /></span>
+      <span class="puerta-sale" aria-hidden="true" style="--i:1"><Sprite name="maestro" anim="walk" scale={4} paused /></span>
+      <div class="puerta-casa" aria-hidden="true">
+        <span class="puerta-ventana"></span>
+        <span class="puerta-ventana"></span>
+      </div>
+      <span class="puerta-llega" aria-hidden="true"><Sprite name="bryan" anim="walk" scale={4} paused /></span>
+      <a href={href(lang, '/casa')} class="puerta-door">
+        <span class="puerta-adentro" aria-hidden="true"></span>
+        <span class="puerta-hoja" aria-hidden="true"></span>
+        <span class="mono puerta-cta">{nombre} <span aria-hidden="true">→</span></span>
+      </a>
     </div>
-  </a>
+  </div>
 </section>
